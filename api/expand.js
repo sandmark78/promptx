@@ -1,4 +1,4 @@
-// Vercel Serverless Function - API 代理 (xAI Grok)
+// Vercel Serverless Function - API 代理 (Mistral AI)
 // 绕过 CORS 限制
 
 export default async function handler(req, res) {
@@ -13,11 +13,11 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Prompt is required' });
     }
 
-    // xAI API 配置 (从环境变量读取)
-    const XAI_API_KEY = process.env.GROQ_API_KEY; // 使用 GROQ_API_KEY 环境变量
-    const XAI_MODEL = 'grok-4-1-fast-reasoning';
+    // Mistral AI API 配置 (从环境变量读取)
+    const MISTRAL_API_KEY = process.env.GROQ_API_KEY; // 使用现有环境变量
+    const MISTRAL_MODEL = 'mistral-large-latest';
 
-    if (!XAI_API_KEY) {
+    if (!MISTRAL_API_KEY) {
         console.error('❌ API Key 未配置');
         return res.status(500).json({ 
             error: 'API Key 未配置',
@@ -26,22 +26,23 @@ export default async function handler(req, res) {
     }
 
     console.log('🔍 API 调用开始:', {
-        model: XAI_MODEL,
-        hasApiKey: !!XAI_API_KEY,
-        apiKeyLength: XAI_API_KEY?.length || 0
+        model: MISTRAL_MODEL,
+        hasApiKey: !!MISTRAL_API_KEY,
+        apiKeyLength: MISTRAL_API_KEY?.length || 0,
+        promptLength: prompt.length
     });
 
     try {
-        console.log('📡 调用 xAI API:', XAI_MODEL);
+        console.log('📡 调用 Mistral AI API:', MISTRAL_MODEL);
         
-        const response = await fetch('https://api.x.ai/v1/chat/completions', {
+        const response = await fetch('https://api.mistral.ai/v1/chat/completions', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${XAI_API_KEY}`
+                'Authorization': `Bearer ${MISTRAL_API_KEY}`
             },
             body: JSON.stringify({
-                model: XAI_MODEL,
+                model: MISTRAL_MODEL,
                 messages: [
                     { 
                         role: 'system', 
