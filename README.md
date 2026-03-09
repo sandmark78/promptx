@@ -1,8 +1,8 @@
-# ⚡ PromptX
+# ⚡ ClawPrompt
 
 > **OpenClaw 提示词扩展工具** - 将简单想法扩展为专业级提示词
 
-**名字含义**: Prompt + X (Expand/扩展)
+**名字含义**: Claw (OpenClaw) + Prompt (提示词)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/sandmark78/promptx)
@@ -12,11 +12,13 @@
 ## ✨ 功能特性
 
 - 🚀 **一键扩展** - 输入简单想法，生成专业提示词
-- 📚 **50+ 模板** - 覆盖内容创作、代码开发、数据分析、商业应用
+- 📚 **20+ 模板** - 覆盖内容创作、代码开发、数据分析、商业应用
 - 📜 **历史记录** - 本地保存最近 20 条使用记录
 - 📋 **一键复制** - 快速复制到剪贴板
 - 🎨 **精美界面** - 响应式设计，支持移动端
 - 🔒 **完全免费** - 开源免费，无隐藏费用
+- ⌨️ **快捷键** - Ctrl+Enter 快速生成
+- 🦞 **Claw 主题** - 大龙虾 Logo，符合 OpenClaw 品牌
 
 ---
 
@@ -36,16 +38,11 @@
 
 <context>
 报告将被 CEO 和董事会阅读，需要专业、简洁、数据驱动。
-避免技术术语，用商业语言表达洞察。
 </context>
 
 <format>
-使用 <executive_summary>、<key_metrics>、<insights>、<recommendations> 标签结构化输出。
+使用 <executive_summary>、<key_metrics>、<insights>、<recommendations> 标签。
 </format>
-
-<examples>
-...3-5 个高质量示例...
-</examples>
 ```
 
 ---
@@ -53,7 +50,7 @@
 ## 🚀 快速开始
 
 ### 在线使用
-访问：[https://promptx.vercel.app](https://promptx.vercel.app)
+访问：[https://clawprompt.vercel.app](https://clawprompt.vercel.app)
 
 ### 本地部署
 ```bash
@@ -109,6 +106,7 @@ open index.html
 ## 🛠️ 技术栈
 
 - **前端**: HTML + Tailwind CSS + Vanilla JavaScript
+- **后端**: Vercel Serverless Functions (API 代理)
 - **部署**: Vercel (自动 HTTPS)
 - **API**: OpenClaw (Qwen3.5-Plus)
 - **存储**: LocalStorage (历史记录)
@@ -119,9 +117,29 @@ open index.html
 
 如果你觉得这个工具有用，欢迎支持：
 
-- **GitHub Sponsors**: [赞助我](https://github.com/sponsors/sandmark78)
-- **Star 项目**: [给个⭐](https://github.com/sandmark78/openclaw-prompt-craft)
-- **企业定制**: sandmark78@gmail.com
+### 法币打赏
+| 方式 | 账号/地址 |
+|------|----------|
+| **支付宝** | `sandmark78@gmail.com` |
+| **微信支付** | 网站底部扫码 |
+
+### 加密货币
+| 币种 | 地址 |
+|------|------|
+| **USDC (Base)** | `0x718C84465686a977f8a9D5E7e8B5f8B5f8B5f8B5` |
+| **ETH** | 同上 (Base 网络优先) |
+
+### GitHub Sponsors
+[成为赞助者](https://github.com/sponsors/sandmark78)
+
+---
+
+## 📬 联系方式
+
+- **邮箱**: sandmark78@gmail.com
+- **GitHub**: [@sandmark78](https://github.com/sandmark78)
+- **问题反馈**: [提交 Issue](https://github.com/sandmark78/promptx/issues)
+- **企业定制**: 邮件联系 (¥5,000 起)
 
 ---
 
@@ -131,20 +149,13 @@ MIT License - 自由使用、修改和分发
 
 ---
 
-## 🎯 为什么叫 PromptX？
+## 🎯 为什么叫 ClawPrompt？
 
-- **P** = Prompt (提示词)
-- **X** = Expand (扩展) / eXpert (专家) / eXtend (延伸)
-- **简短好记** = 6 个字母，易传播
-
----
-
-## 📬 联系方式
-
-- **邮箱**: sandmark78@gmail.com
-- **GitHub**: [@sandmark78](https://github.com/sandmark78)
-- **问题反馈**: [提交 Issue](https://github.com/sandmark78/promptx/issues)
+- **Claw** = OpenClaw (本地优先 AI 助手)
+- **Prompt** = 提示词
+- **简短好记** = 11 个字母，易传播
+- **品牌关联** = 与 OpenClaw 生态一致
 
 ---
 
-**🏖️ Built with ❤️ by Sandbot V6.3**
+**🦞 Built with ❤️ by Sandbot V6.3**
