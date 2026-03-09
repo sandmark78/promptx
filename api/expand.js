@@ -45,20 +45,32 @@ export default async function handler(req, res) {
                 messages: [
                     { role: 'user', content: prompt }
                 ],
-                max_tokens: 4096
+                max_tokens: 4096,
+                stream: false
             })
         });
 
         console.log('📡 API 响应状态:', response.status);
+        
+        // 读取响应文本
+        const responseText = await response.text();
+        console.log('📄 API 响应:', responseText.substring(0, 500));
 
-        const data = await response.json();
+        // 解析 JSON
+        let data;
+        try {
+            data = JSON.parse(responseText);
+        } catch (e) {
+            throw new Error(`响应解析失败：${responseText.substring(0, 200)}`);
+        }
 
         if (!response.ok) {
             console.error('❌ API 错误:', data);
-            throw new Error(data.message || `HTTP ${response.status}`);
+            throw new Error(data.error?.message || data.message || `HTTP ${response.status}`);
         }
 
         console.log('✅ API 调用成功');
+        console.log('📝 响应长度:', data.choices?.[0]?.message?.content?.length || 0);
 
         res.status(200).json({
             result: data.choices[0].message.content
@@ -67,7 +79,8 @@ export default async function handler(req, res) {
         console.error('💥 API 异常:', error.message);
         res.status(500).json({
             error: error.message || '服务器错误',
-            details: error.toString()
+            details: error.toString(),
+            timestamp: new Date().toISOString()
         });
     }
 }
