@@ -15,7 +15,7 @@ export default async function handler(req, res) {
 
     // xAI API 配置 (从环境变量读取)
     const XAI_API_KEY = process.env.GROQ_API_KEY; // 使用 GROQ_API_KEY 环境变量
-    const XAI_MODEL = 'grok-2-latest';
+    const XAI_MODEL = 'grok-4-1-fast-reasoning';
 
     if (!XAI_API_KEY) {
         console.error('❌ API Key 未配置');
