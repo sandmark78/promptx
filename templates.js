@@ -15,7 +15,7 @@ async function loadTemplates() {
         'templates/07-training-templates.json'
     ];
 
-    allTemplates = []; // 清空数组
+    allTemplates = [];
     
     for (const file of templateFiles) {
         try {
@@ -71,13 +71,7 @@ function renderTemplates() {
     
     const filtered = currentCategory === 'all' 
         ? allTemplates 
-        : allTemplates.filter(t => {
-            const match = t.category === currentCategory;
-            if (currentCategory === 'tech' && t.id?.startsWith('tech-')) {
-                return true;
-            }
-            return match;
-        });
+        : allTemplates.filter(t => t.category === currentCategory);
 
     console.log('筛选后模板数:', filtered.length);
 
