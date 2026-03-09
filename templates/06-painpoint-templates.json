@@ -1,0 +1,186 @@
+{
+  "category": "painpoint",
+  "category_name": "痛点急救",
+  "description": "针对新手最常见痛点，提供即插即用模板",
+  "templates": [
+    {
+      "id": "pain-001",
+      "name": "🚑 第一次对话不知道说什么",
+      "scenario": "新手第一次使用 OpenClaw，不知道如何开始",
+      "difficulty": 1,
+      "pain_point": "面对空输入框，大脑一片空白，不知道该怎么问",
+      "bad_prompt": "帮我做个任务",
+      "good_prompt": "<instructions>\n你是 OpenClaw 的 TechBot，专门帮助新手用户第一次使用 OpenClaw。\n请用简单易懂的语言介绍 OpenClaw 能做什么。\n</instructions>\n<context>\n用户是第一次使用 OpenClaw，完全零基础。\n用户想知道 OpenClaw 能帮 ta 做什么。\n</context>\n<format>\n输出包含：\n1. OpenClaw 简介 (1 句话)\n2. 核心功能 (3-5 个，带 emoji)\n3. 新手推荐任务 (3 个，从简单到复杂)\n4. 快速开始指南 (3 步)\n5. 常见问题 (3 个)\n\n语气：友好、鼓励、不吓人\n字数：300-500 字\n</format>",
+      "why_effective": "新手需要的是引导而非信息过载，结构化输出 (5 部分) + 友好语气降低学习门槛。",
+      "replace_hints": {
+        "🔴": "用户背景 (学生/开发者/创作者)",
+        "🔵": "感兴趣的方向 (编程/写作/变现)"
+      }
+    },
+    {
+      "id": "pain-002",
+      "name": "🚑 提示词太简单输出质量差",
+      "scenario": "用户写的提示词太简短，模型输出敷衍",
+      "difficulty": 2,
+      "pain_point": "写'帮我写个文案'，模型输出泛泛而谈",
+      "bad_prompt": "帮我写个文案",
+      "good_prompt": "<instructions>\n你是一位专业文案策划专家。\n请为以下产品创作小红书种草文案。\n</instructions>\n<context>\n产品：[产品名]\n目标受众：25-35 岁女性\n核心卖点：[3 个卖点]\n使用场景：[何时/何地使用]\n</context>\n<format>\n结构：\n1. 标题 (5 个备选，含 emoji，15 字以内)\n2. 开头 (痛点引入，50 字)\n3. 正文 (使用体验，300 字，分 3-4 段)\n4. 优缺点 (真诚对比)\n5. 购买建议 (明确)\n6. 标签 (5-8 个 hashtag)\n\n语气：闺蜜分享，真诚不做作\n</format>",
+      "why_effective": "简单提示词缺少角色/场景/格式三要素，补充后模型理解更准确。",
+      "replace_hints": {
+        "🔴": "产品名和 3 个卖点",
+        "🔵": "目标受众画像",
+        "🟢": "使用场景描述"
+      }
+    },
+    {
+      "id": "pain-003",
+      "name": "🚑 不知道怎么配置 Cron 任务",
+      "scenario": "用户想设置定时任务，但不知道 Cron 表达式怎么写",
+      "difficulty": 3,
+      "pain_point": "知道要配置 Cron，但表达式语法太难",
+      "bad_prompt": "帮我配置个 Cron",
+      "good_prompt": "<instructions>\n你是 OpenClaw 的 DevOpsBot，擅长配置 Cron 定时任务。\n请帮我配置以下自动化任务。\n</instructions>\n<context>\n任务类型：[知识获取/深度学习/市场扫描/内容发布]\n执行频率：[每 30 分钟/每小时/每天/每周]\n执行时间：[如每天 04:00 UTC]\n任务目标：[具体要完成什么]\n</context>\n<format>\n输出包含：\n1. Cron 表达式 (标准格式)\n2. Cron 表达式解释 (每个字段含义)\n3. 任务配置 JSON (可直接复制)\n4. 执行脚本示例\n5. 日志记录配置\n6. 错误处理方案\n7. 测试方法 (如何验证是否正常工作)\n\n语气：专业但易懂\n</format>",
+      "why_effective": "Cron 表达式对新手是黑盒，解释每个字段含义 + 提供可复制配置降低使用门槛。",
+      "replace_hints": {
+        "🔴": "任务类型和目标",
+        "🔵": "执行频率和时间",
+        "🟢": "时区 (UTC/本地时间)"
+      }
+    },
+    {
+      "id": "pain-004",
+      "name": "🚑 知识太多不知道怎么管理",
+      "scenario": "知识库文件太多，找不到需要的内容",
+      "difficulty": 2,
+      "pain_point": "411k 知识点，不知道从哪里开始找",
+      "bad_prompt": "帮我找 RAG 相关内容",
+      "good_prompt": "<instructions>\n你是 OpenClaw 的知识检索专家。\n请帮我找到以下主题相关的知识点。\n</instructions>\n<search_query>\n主题：[如 RAG/Agent/Cron]\n领域：[如 01-ai-agent/02-openclaw]\n深度：[入门/进阶/专家]\n</search_query>\n<format>\n输出包含：\n1. 相关文件列表 (文件路径 + 知识点编号)\n2. 核心知识点摘要 (每个 50 字)\n3. 推荐阅读顺序 (从入门到进阶)\n4. 相关概念解释 (术语表)\n5. 实战应用示例 (1-2 个)\n\n用表格格式呈现\n</format>",
+      "why_effective": "大海捞针式搜索效率低，结构化输出 (文件列表 + 摘要 + 顺序) 提高查找效率。",
+      "replace_hints": {
+        "🔴": "搜索主题",
+        "🔵": "知识深度",
+        "🟢": "应用场景"
+      }
+    },
+    {
+      "id": "pain-005",
+      "name": "🚑 想变现但不知道从哪开始",
+      "scenario": "用户有知识库，但不知道怎么变现",
+      "difficulty": 3,
+      "pain_point": "有知识，有技能，但不知道咋赚钱",
+      "bad_prompt": "帮我变现",
+      "good_prompt": "<instructions>\n你是 OpenClaw 的 FinanceBot，专门帮助知识变现。\n请为以下情况设计变现方案。\n</instructions>\n<context>\n用户技能：[如编程/写作/设计]\n可用时间：[每天几小时]\n变现目标：[如月入$500/$2000]\n已有资源：[如知识库/粉丝/产品]\n</context>\n<format>\n输出包含：\n1. 变现路径分析 (3-5 条，按可行性排序)\n2. 每条路径详细说明：\n   - 平台选择 (如 Gumroad/闲鱼/面包多)\n   - 产品设计 (卖什么)\n   - 定价策略 (多少钱)\n   - 推广渠道 (怎么获客)\n3. 30 天行动计划 (第 1 周/第 2 周/第 3 周/第 4 周)\n4. 预期收入 (保守/中等/乐观)\n5. 风险提示 (可能遇到的问题)\n6. 成功案例参考 (1-2 个)\n\n语气：务实、不画饼\n</format>",
+      "why_effective": "变现不是空话，需要具体路径 + 行动计划 + 收入预期，务实方案更易执行。",
+      "replace_hints": {
+        "🔴": "用户技能和已有资源",
+        "🔵": "变现目标金额",
+        "🟢": "可用时间"
+      }
+    },
+    {
+      "id": "pain-006",
+      "name": "🚑 API 配置一直失败",
+      "scenario": "用户配置 API key，但一直报错",
+      "difficulty": 3,
+      "pain_point": "按照文档配置 API，但总是 401/403 错误",
+      "bad_prompt": "API 配置失败了，帮我看看",
+      "good_prompt": "<instructions>\n你是 OpenClaw 的技术支持专家，擅长诊断 API 配置问题。\n请帮我诊断以下 API 配置问题。\n</instructions>\n<problem>\nAPI 提供商：[如 Mistral/xAI/Groq]\n错误信息：[完整错误消息]\n已尝试操作：[做过哪些尝试]\n配置位置：[Vercel 环境变量/本地配置文件]\n</problem>\n<format>\n输出包含：\n1. 问题诊断 (可能原因，按概率排序)\n2. 逐一排查步骤 (每一步可执行)\n3. 正确配置示例 (截图/代码)\n4. 常见错误对照表\n5. 如果还不行，下一步怎么做\n\n用编号列表，每步可独立执行\n</format>",
+      "why_effective": "API 错误原因多，按概率排序 + 逐一排查，避免用户盲目尝试。",
+      "replace_hints": {
+        "🔴": "完整错误信息",
+        "🔵": "已尝试操作",
+        "🟢": "API Key 来源"
+      }
+    },
+    {
+      "id": "pain-007",
+      "name": "🚑 子 Agent 不知道怎么分配任务",
+      "scenario": "有 7 个子 Agent，但不知道每个能做什么",
+      "difficulty": 2,
+      "pain_point": "知道有 7 子 Agent，但不知道具体分工",
+      "bad_prompt": "帮我分配任务",
+      "good_prompt": "<instructions>\n你是 OpenClaw 的主 Agent，擅长任务分配和协调。\n请帮我将以下任务分配给合适的子 Agent。\n</instructions>\n<task>\n任务描述：[如创建一个知识填充技能]\n任务类型：[技术/创意/分析/自动化/变现]\n优先级：[P0 紧急/P1 重要/P2 普通]\n截止时间：[如有]\n</task>\n<format>\n输出包含：\n1. 推荐子 Agent (1 个主责 +1 个协助)\n2. 子 Agent 职责说明\n3. 任务拆解 (分 3-5 步)\n4. 每步预计耗时\n5. 交付物说明\n6. 验收标准\n7. 如需多 Agent 协作，说明协作流程\n\n用表格格式呈现任务拆解\n</format>",
+      "why_effective": "7 子 Agent 分工不明确导致任务分配困难，明确主责 + 协助 + 拆解提高执行效率。",
+      "replace_hints": {
+        "🔴": "任务描述",
+        "🔵": "优先级和截止时间",
+        "🟢": "特殊要求"
+      }
+    },
+    {
+      "id": "pain-008",
+      "name": "🚑 发布到平台总是被限流",
+      "scenario": "用户发布内容到 Reddit/Twitter/Moltbook，但没流量",
+      "difficulty": 3,
+      "pain_point": "认真写的内容没人看，不知道哪里有问题",
+      "bad_prompt": "帮我发个帖子",
+      "good_prompt": "<instructions>\n你是 OpenClaw 的内容运营专家，擅长各平台内容分发。\n请帮我优化以下内容，适配目标平台。\n</instructions>\n<content>\n原始内容：[粘贴你的内容]\n目标平台：[Reddit/Twitter/Moltbook/小红书]\n目标受众：[如开发者/创作者/普通用户]\n发布目的：[引流/品牌/变现]\n</content>\n<format>\n输出包含：\n1. 平台规则检查 (是否违规)\n2. 标题优化 (5 个备选)\n3. 内容优化 (符合平台风格)\n4. 最佳发布时间 (根据平台用户活跃时间)\n5. Hashtag 策略 (5-10 个)\n6. 互动策略 (如何回复评论)\n7. 避坑指南 (该平台常见错误)\n\n语气：符合平台调性\n</format>",
+      "why_effective": "不同平台有不同调性和规则，针对性优化 + 避坑指南提高曝光和互动。",
+      "replace_hints": {
+        "🔴": "原始内容",
+        "🔵": "目标平台和受众",
+        "🟢": "发布目的"
+      }
+    },
+    {
+      "id": "pain-009",
+      "name": "🚑 学了就忘无法形成体系",
+      "scenario": "学了很多知识点，但无法系统化",
+      "difficulty": 2,
+      "pain_point": "知识点零散，无法形成知识体系",
+      "bad_prompt": "帮我整理一下知识",
+      "good_prompt": "<instructions>\n你是 OpenClaw 的知识架构师，擅长构建知识体系。\n请帮我将以下零散知识点整理成系统化框架。\n</instructions>\n<knowledge>\n已学知识点：[列出你学过的知识点]\n学习目标：[如掌握 OpenClaw 使用/成为提示词专家]\n当前水平：[入门/进阶]\n</knowledge>\n<format>\n输出包含：\n1. 知识地图 (可视化结构，用 Markdown 树形图)\n2. 知识点分类 (基础/进阶/专家)\n3. 学习路径推荐 (从 A 到 Z 的顺序)\n4. 每个知识点的核心要点 (1 句话)\n5. 知识点之间关联 (前置/后续)\n6. 实战练习 (每个阶段 1-2 个)\n7. 检验标准 (如何知道学会了)\n\n用 Markdown 树形图呈现知识地图\n</format>",
+      "why_effective": "零散知识难记忆，知识地图 + 学习路径 + 关联关系帮助形成系统认知。",
+      "replace_hints": {
+        "🔴": "已学知识点列表",
+        "🔵": "学习目标",
+        "🟢": "当前水平"
+      }
+    },
+    {
+      "id": "pain-010",
+      "name": "🚑 遇到问题不知道去哪找答案",
+      "scenario": "遇到问题，不知道查文档/问人/搜索哪个更有效",
+      "difficulty": 2,
+      "pain_point": "问题卡住，不知道如何解决",
+      "bad_prompt": "这个怎么弄",
+      "good_prompt": "<instructions>\n你是 OpenClaw 的问题解决专家，擅长快速定位和解决问题。\n请帮我解决以下问题。\n</instructions>\n<problem>\n问题描述：[详细描述你遇到的问题]\n已尝试方案：[做过哪些尝试]\n错误信息：[完整错误消息]\n环境信息：[操作系统/浏览器/版本等]\n</problem>\n<format>\n输出包含：\n1. 问题分类 (配置/使用/Bug/其他)\n2. 快速自检清单 (5 个常见问题)\n3. 解决方案 (按成功率排序，3-5 个)\n4. 每步详细操作步骤\n5. 如果不行，下一步怎么做\n6. 相关文档链接\n7. 如需寻求帮助，去哪里问 (社区/Discord/Issue)\n\n用编号列表，每步可独立执行\n</format>",
+      "why_effective": "问题卡住时最需要的是清晰排查步骤，自检清单 + 排序方案提高解决效率。",
+      "replace_hints": {
+        "🔴": "问题详细描述",
+        "🔵": "已尝试方案",
+        "🟢": "错误信息"
+      }
+    },
+    {
+      "id": "pain-011",
+      "name": "🚑 没时间学习想要速成",
+      "scenario": "用户很忙，想快速上手 OpenClaw",
+      "difficulty": 1,
+      "pain_point": "想学但没时间，想要最短路径",
+      "bad_prompt": "快速教我",
+      "good_prompt": "<instructions>\n你是 OpenClaw 的速成教练，擅长用最短时间教会核心技能。\n请在 30 分钟内教会我 OpenClaw 核心使用。\n</instructions>\n<context>\n可用时间：[如 30 分钟/1 小时]\n学习目标：[如能独立配置任务/能生成提示词]\n已有基础：[完全零基础/有 AI 使用经验]\n</context>\n<format>\n输出包含：\n1. 30 分钟学习计划 (每分钟做什么)\n2. 必须掌握的核心概念 (3-5 个，其他先不管)\n3. 实战练习 (1 个，学完就能用)\n4. 速查表 (常用命令/配置)\n5. 学完后能做什么 (明确预期)\n6. 后续学习建议 (有时间再学什么)\n\n语气：高效、不废话\n</format>",
+      "why_effective": "时间紧张用户需要的是最小可行知识，30 分钟计划 + 核心概念 + 实战快速上手。",
+      "replace_hints": {
+        "🔴": "可用时间",
+        "🔵": "学习目标",
+        "🟢": "已有基础"
+      }
+    },
+    {
+      "id": "pain-012",
+      "name": "🚑 怕踩坑想要避坑指南",
+      "scenario": "用户想开始但怕犯错，想要避坑指南",
+      "difficulty": 1,
+      "pain_point": "怕配置错/怕删东西/怕搞坏系统",
+      "bad_prompt": "有什么要注意的",
+      "good_prompt": "<instructions>\n你是 OpenClaw 的资深用户，踩过所有坑。\n请告诉我新手最容易犯的错误和如何避免。\n</instructions>\n<context>\n使用阶段：[刚安装/配置中/使用中]\n担心事项：[如配错 API/删错文件/任务失败]\n</context>\n<format>\n输出包含：\n1. Top 10 新手常见错误 (按严重程度排序)\n2. 每个错误的后果 (严重/中等/轻微)\n3. 如何避免 (具体操作)\n4. 如果已经犯了，如何补救\n5. 安全检查清单 (使用前检查)\n6. 备份建议 (哪些文件要备份)\n7. 紧急联系人 (出问题时找谁)\n\n语气：警示但不吓人\n</format>",
+      "why_effective": "新手怕犯错，提前告知常见错误 + 补救方案降低焦虑，安全检查清单预防问题。",
+      "replace_hints": {
+        "🔴": "使用阶段",
+        "🔵": "担心事项",
+        "🟢": "已有配置"
+      }
+    }
+  ]
+}
