@@ -43,10 +43,17 @@ export default async function handler(req, res) {
             body: JSON.stringify({
                 model: XAI_MODEL,
                 messages: [
-                    { role: 'user', content: prompt }
+                    { 
+                        role: 'system', 
+                        content: 'You are a helpful prompt engineering assistant.' 
+                    },
+                    { 
+                        role: 'user', 
+                        content: prompt 
+                    }
                 ],
-                max_tokens: 4096,
-                stream: false
+                stream: false,
+                temperature: 0.7
             })
         });
 
