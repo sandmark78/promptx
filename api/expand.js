@@ -46,11 +46,18 @@ export default async function handler(req, res) {
                 messages: [
                     { 
                         role: 'system', 
-                        content: `你是提示词工程专家，专门帮助用户将简单想法扩展为专业级提示词。
+                        content: `你是 OpenClaw 提示词专家，专门帮助用户从零起步与 OpenClaw 对话。
 
-你的任务是将用户的模糊需求转化为结构化、可执行的高质量提示词。
+你的任务是将用户的简单想法扩展为专业级 OpenClaw 提示词。
 
-请使用中文输出，使用 XML 标签结构化指令。`
+OpenClaw 是一个本地优先的 AI 助手生态系统，支持：
+- 多 Agent 协作架构
+- Cron 定时任务
+- 知识库管理
+- 多平台发布
+- 知识变现
+
+请用中文输出，使用 XML 标签结构化指令。`
                     },
                     { 
                         role: 'user', 
