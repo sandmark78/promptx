@@ -9,11 +9,11 @@
       "difficulty": 2,
       "category": "tech",
       "bad_prompt": "这段代码什么意思？",
-      "good_prompt": "<instructions>\n你是一位 Python 专家，擅长用通俗语言解释代码。\n请逐步解释以下代码的功能。\n</instructions>\n<code>\n[粘贴你的代码]\n</code>\n<format>\n1. 代码整体功能 (1 句话)\n2. 逐行解释\n3. 关键概念说明\n4. 可能的改进建议\n</format>",
-      "why_effective": "添加角色定义 + 结构化输出 + 代码标签隔离。",
+      "good_prompt": "你是一位 Python 专家。请解释以下代码：[代码]。输出：1.功能总结 2.逐行解释 3.改进建议",
+      "why_effective": "角色定义 + 结构化输出。",
       "replace_hints": {
-        "red": "粘贴你的代码",
-        "blue": "选择解释深度"
+        "red": "代码",
+        "blue": "深度"
       }
     },
     {
@@ -22,13 +22,12 @@
       "scenario": "诊断并修复代码错误",
       "difficulty": 3,
       "category": "tech",
-      "bad_prompt": "代码报错了，帮我看看",
-      "good_prompt": "<instructions>\n你是一位资深调试专家，擅长快速定位和修复 Bug。\n请分析以下错误并提供修复方案。\n</instructions>\n<error>\n[粘贴错误信息]\n</error>\n<code>\n[粘贴相关代码]\n</code>\n<format>\n1. 错误原因分析\n2. 修复方案 (带代码)\n3. 预防措施\n4. 相关知识点\n</format>",
-      "why_effective": "错误信息 + 代码分离 + 4 步诊断流程。",
+      "bad_prompt": "代码报错了",
+      "good_prompt": "你是一位调试专家。请分析错误并修复：[错误信息]+[代码]。输出：1.原因分析 2.修复方案 3.预防措施",
+      "why_effective": "错误信息 + 代码分离。",
       "replace_hints": {
-        "red": "完整错误信息",
-        "blue": "相关代码段",
-        "green": "运行环境"
+        "red": "错误信息",
+        "blue": "代码"
       }
     },
     {
@@ -37,5 +36,38 @@
       "scenario": "为代码生成测试用例",
       "difficulty": 3,
       "category": "tech",
-      "bad_prompt": "给这个函数写测试",
-      "good_prompt": "<instructions>\n你是一位测试驱动开发 (TDD) 专家。\n请为以下函数生成全面的单元测试。\n</instructions>\n<function>\n[粘贴你的函数]\n
+      "bad_prompt": "写测试",
+      "good_prompt": "你是 TDD 专家。请为以下函数生成单元测试：[函数代码]。输出：1.测试用例 2.测试代码 3.覆盖率说明",
+      "why_effective": "TDD 方法论。",
+      "replace_hints": {
+        "red": "函数代码"
+      }
+    },
+    {
+      "id": "tech-004",
+      "name": "代码重构建议",
+      "scenario": "提供代码重构建议",
+      "difficulty": 3,
+      "category": "tech",
+      "bad_prompt": "重构代码",
+      "good_prompt": "你是代码质量专家。请分析并重构：[代码]。输出：1.问题列表 2.重构建议 3.重构后代码",
+      "why_effective": "问题诊断 + 重构方案。",
+      "replace_hints": {
+        "red": "代码"
+      }
+    },
+    {
+      "id": "tech-005",
+      "name": "API 文档生成",
+      "scenario": "生成 API 文档",
+      "difficulty": 2,
+      "category": "tech",
+      "bad_prompt": "写文档",
+      "good_prompt": "你是技术文档专家。请为以下 API 生成文档：[API 代码]。输出：1.功能说明 2.参数说明 3.使用示例",
+      "why_effective": "标准文档结构。",
+      "replace_hints": {
+        "red": "API 代码"
+      }
+    }
+  ]
+}
