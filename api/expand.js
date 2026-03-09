@@ -14,11 +14,11 @@ export default async function handler(req, res) {
     }
 
     // xAI API 配置 (从环境变量读取)
-    const XAI_API_KEY = process.env.XAI_API_KEY;
+    const XAI_API_KEY = process.env.GROQ_API_KEY; // 使用 GROQ_API_KEY 环境变量
     const XAI_MODEL = 'grok-beta';
 
     if (!XAI_API_KEY) {
-        return res.status(500).json({ error: 'API Key 未配置' });
+        return res.status(500).json({ error: 'API Key 未配置 - 请在 Vercel 配置 GROQ_API_KEY' });
     }
 
     try {
