@@ -9,6 +9,17 @@ const OPENCLAW_CONFIG = {
 let templates = [];
 let currentCategory = 'all';
 
+// 快捷键支持
+document.addEventListener('keydown', (e) => {
+    // Ctrl/Cmd + Enter 快速提交
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        const input = document.getElementById('input');
+        if (document.activeElement === input) {
+            expandPrompt();
+        }
+    }
+});
+
 // 页面加载时初始化
 document.addEventListener('DOMContentLoaded', async () => {
     await loadTemplates();
@@ -31,7 +42,8 @@ async function loadTemplates() {
 async function expandPrompt() {
     const input = document.getElementById('input').value.trim();
     if (!input) {
-        showToast('⚠️ 请输入内容', 'warning');
+        showToast('⚠️ 请输入内容');
+        document.getElementById('input').focus();
         return;
     }
 
@@ -39,6 +51,7 @@ async function expandPrompt() {
     document.getElementById('loading').classList.remove('hidden');
     document.getElementById('expandBtn').disabled = true;
     document.getElementById('expandBtn').classList.add('opacity-50');
+    document.getElementById('expandBtn').innerHTML = '<span class="animate-spin">⏳</span> 生成中...';
 
     try {
         const prompt = buildExpansionPrompt(input);
@@ -51,15 +64,19 @@ async function expandPrompt() {
         // 保存到历史
         saveToHistory(input, result);
         
+        // 滚动到结果
+        document.getElementById('output').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
         showToast('✅ 扩展成功！');
     } catch (error) {
         console.error('扩展失败:', error);
         showToast('❌ 扩展失败：' + error.message, 'error');
     } finally {
-        // 隐藏加载状态
+        // 恢复按钮状态
         document.getElementById('loading').classList.add('hidden');
         document.getElementById('expandBtn').disabled = false;
         document.getElementById('expandBtn').classList.remove('opacity-50');
+        document.getElementById('expandBtn').innerHTML = '<span>✨</span> 扩展提示词';
     }
 }
 
@@ -118,6 +135,20 @@ ${input}
 `;
 }
 
+// 显示提示
+function showToast(message, type = 'success') {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.className = `fixed bottom-4 right-4 text-white px-6 py-3 rounded-lg shadow-lg transform transition duration-300 ${
+        type === 'error' ? 'bg-red-500' : type === 'warning' ? 'bg-yellow-500' : 'bg-green-500'
+    }`;
+    toast.classList.remove('translate-y-20', 'opacity-0');
+    
+    setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+    }, 3000);
+}
+
 // 复制输出
 function copyOutput() {
     const output = document.getElementById('outputText');
@@ -131,6 +162,7 @@ function clearAll() {
     document.getElementById('input').value = '';
     document.getElementById('outputText').value = '';
     document.getElementById('output').classList.add('hidden');
+    document.getElementById('input').focus();
 }
 
 // 筛选模板
