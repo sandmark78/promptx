@@ -1,9 +1,11 @@
-# 🎨 PromptCraft
+# ⚡ PromptX
 
 > **OpenClaw 提示词扩展工具** - 将简单想法扩展为专业级提示词
 
+**名字含义**: Prompt + X (Expand/扩展)
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/sandmark78/openclaw-prompt-craft)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/sandmark78/promptx)
 
 ---
 
@@ -51,15 +53,15 @@
 ## 🚀 快速开始
 
 ### 在线使用
-访问：[https://openclaw-prompt-craft.vercel.app](https://openclaw-prompt-craft.vercel.app)
+访问：[https://promptx.vercel.app](https://promptx.vercel.app)
 
 ### 本地部署
 ```bash
 # 克隆仓库
-git clone https://github.com/sandmark78/openclaw-prompt-craft.git
+git clone https://github.com/sandmark78/promptx.git
 
 # 进入目录
-cd openclaw-prompt-craft
+cd promptx
 
 # 用浏览器打开 index.html 即可
 open index.html
@@ -129,11 +131,19 @@ MIT License - 自由使用、修改和分发
 
 ---
 
+## 🎯 为什么叫 PromptX？
+
+- **P** = Prompt (提示词)
+- **X** = Expand (扩展) / eXpert (专家) / eXtend (延伸)
+- **简短好记** = 6 个字母，易传播
+
+---
+
 ## 📬 联系方式
 
 - **邮箱**: sandmark78@gmail.com
 - **GitHub**: [@sandmark78](https://github.com/sandmark78)
-- **问题反馈**: [提交 Issue](https://github.com/sandmark78/openclaw-prompt-craft/issues)
+- **问题反馈**: [提交 Issue](https://github.com/sandmark78/promptx/issues)
 
 ---
 
