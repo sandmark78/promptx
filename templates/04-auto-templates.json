@@ -36,8 +36,7 @@
       "scenario": "配置 GitHub 自动提交",
       "difficulty": 3,
       "bad_prompt": "自动提交到 GitHub",
-      "good_prompt": "<instructions>\n你是一位 OpenClaw DevOpsBot 专家，擅长配置 GitHub 自动发布流程。\n请帮我配置自动提交和推送。\n</instructions>\n<context>\
-仓库：[仓库 URL]\n提交内容：[知识文件/模板/报告]\n提交频率：[每次生成后/每天/每周]\n提交信息格式：[自定义格式]\n</context>\n<format>\n输出包含：\n1. Git 配置脚本\n2. 自动提交 Cron\n3. Commit message 模板\n4. 推送配置\n5. 冲突处理方案\n6. 发布通知设置\n</format>",
+      "good_prompt": "<instructions>\n你是一位 OpenClaw DevOpsBot 专家，擅长配置 GitHub 自动发布流程。\n请帮我配置自动提交和推送。\n</instructions>\n<context>\n仓库：[仓库 URL]\n提交内容：[知识文件/模板/报告]\n提交频率：[每次生成后/每天/每周]\n提交信息格式：[自定义格式]\n</context>\n<format>\n输出包含：\n1. Git 配置脚本\n2. 自动提交 Cron\n3. Commit message 模板\n4. 推送配置\n5. 冲突处理方案\n6. 发布通知设置\n</format>",
       "why_effective": "GitHub 自动发布需要处理 Git 配置 + 提交信息 + 冲突处理，完整流程确保稳定运行。",
       "replace_hints": {
         "🔴": "仓库 URL 和提交内容",
