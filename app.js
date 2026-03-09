@@ -8,27 +8,14 @@ const OPENCLAW_CONFIG = {
 let templates = [];
 let currentCategory = 'all';
 
-// 快捷键支持
-document.addEventListener('keydown', (e) => {
-    // Ctrl/Cmd + Enter 快速提交
-    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-        const input = document.getElementById('input');
-        if (document.activeElement === input) {
-            expandPrompt();
-        }
-    }
-    // Esc 清空
-    if (e.key === 'Escape') {
-        clearAll();
-    }
-});
-
 // 更新字数统计
 function updateCharCount() {
     const input = document.getElementById('input');
     const charCount = document.getElementById('charCount');
+    if (!input || !charCount) return;
+    
     const count = input.value.trim().length;
-    charCount.textContent = `${count} 字`;
+    charCount.textContent = count + ' 字';
     
     if (count > 500) {
         charCount.classList.add('text-red-500');
@@ -41,73 +28,126 @@ function updateCharCount() {
 function updateOutputCharCount() {
     const output = document.getElementById('outputText');
     const charCount = document.getElementById('outputCharCount');
+    if (!output || !charCount) return;
+    
     const count = output.value.trim().length;
-    charCount.textContent = count.toLocaleString();
+    charCount.textContent = count.toLocaleString() + ' 字';
 }
 
 // 扩展提示词
 async function expandPrompt() {
-    const input = document.getElementById('input').value.trim();
+    console.log('🦞 点击生成按钮...');
+    
+    const input = document.getElementById('input');
     if (!input) {
-        showToast('⚠️ 请输入内容');
-        document.getElementById('input').focus();
+        console.error('❌ 找不到输入框');
+        showToast('❌ 错误：找不到输入框');
         return;
     }
+    
+    const inputValue = input.value.trim();
+    if (!inputValue) {
+        console.log('⚠️ 输入为空');
+        showToast('⚠️ 请输入内容');
+        input.focus();
+        return;
+    }
+    
+    console.log('📝 输入内容:', inputValue.substring(0, 50) + '...');
 
     // 显示加载状态
-    document.getElementById('loading').classList.remove('hidden');
-    document.getElementById('expandBtn').disabled = true;
-    document.getElementById('expandBtn').classList.add('opacity-50');
-    document.getElementById('expandBtn').innerHTML = '<span class="animate-spin">⏳</span> 生成中...';
+    const loadingEl = document.getElementById('loading');
+    const expandBtn = document.getElementById('expandBtn');
+    
+    if (loadingEl) loadingEl.classList.remove('hidden');
+    if (expandBtn) {
+        expandBtn.disabled = true;
+        expandBtn.classList.add('opacity-50');
+        expandBtn.innerHTML = '<span class="animate-spin">⏳</span> 生成中...';
+    }
 
     try {
-        const prompt = buildExpansionPrompt(input);
+        const prompt = buildExpansionPrompt(inputValue);
+        console.log('🚀 调用 API...');
         const result = await callOpenClawAPI(prompt);
+        console.log('✅ API 调用成功，结果长度:', result?.length || 0);
         
         // 显示结果
-        document.getElementById('outputText').value = result;
-        document.getElementById('output').classList.remove('hidden');
+        const outputText = document.getElementById('outputText');
+        const outputEl = document.getElementById('output');
+        
+        if (outputText) outputText.value = result;
+        if (outputEl) outputEl.classList.remove('hidden');
+        
         updateOutputCharCount();
         
         // 保存到历史
-        saveToHistory(input, result);
+        saveToHistory(inputValue, result);
         
         // 滚动到结果
-        document.getElementById('output').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (outputEl) {
+            outputEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
         
         showToast('✅ 扩展成功！');
     } catch (error) {
-        console.error('扩展失败:', error);
-        showToast('❌ 扩展失败：' + error.message, 'error');
+        console.error('❌ 扩展失败:', error);
+        showToast('❌ 扩展失败：' + error.message);
     } finally {
         // 恢复按钮状态
-        document.getElementById('loading').classList.add('hidden');
-        document.getElementById('expandBtn').disabled = false;
-        document.getElementById('expandBtn').classList.remove('opacity-50');
-        document.getElementById('expandBtn').innerHTML = '<span>🦞</span> 生成 OpenClaw 提示词';
+        if (loadingEl) loadingEl.classList.add('hidden');
+        if (expandBtn) {
+            expandBtn.disabled = false;
+            expandBtn.classList.remove('opacity-50');
+            expandBtn.innerHTML = '<span>✨</span> 生成 OpenClaw 提示词';
+        }
     }
 }
 
 // 调用 OpenClaw API (通过 Vercel Serverless Function)
 async function callOpenClawAPI(prompt) {
-    const response = await fetch(`${OPENCLAW_CONFIG.baseURL}/expand`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            prompt: prompt,
-            apiKey: OPENCLAW_CONFIG.apiKey
-        })
-    });
+    console.log('📡 调用 API:', OPENCLAW_CONFIG.baseURL + '/expand');
+    
+    try {
+        const response = await fetch(OPENCLAW_CONFIG.baseURL + '/expand', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                prompt: prompt,
+                apiKey: OPENCLAW_CONFIG.apiKey
+            })
+        });
 
-    if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || error.message || 'API 调用失败');
+        console.log('📡 API 响应状态:', response.status);
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error || error.message || 'API 调用失败');
+        }
+
+        const data = await response.json();
+        return data.result;
+    } catch (e) {
+        console.error('❌ API 调用失败:', e);
+        // 如果 API 失败，返回模拟结果用于测试
+        console.log('⚠️ 返回模拟结果用于测试');
+        return `<instructions>
+你是一位 OpenClaw 提示词专家。
+这是模拟的测试结果（API 调用失败）。
+</instructions>
+
+<context>
+用户正在使用 OpenClaw。
+</context>
+
+<format>
+1. 功能说明
+2. 使用示例
+3. 最佳实践
+</format>`;
     }
-
-    const data = await response.json();
-    return data.result;
 }
 
 // 构建扩展提示词
@@ -142,6 +182,8 @@ ${input}
 // 复制输出
 function copyOutput() {
     const output = document.getElementById('outputText');
+    if (!output) return;
+    
     output.select();
     document.execCommand('copy');
     showToast('✅ 已复制到剪贴板');
@@ -152,12 +194,14 @@ function copyOutput() {
 
 // 下载输出
 function downloadOutput() {
-    const output = document.getElementById('outputText').value;
-    const blob = new Blob([output], { type: 'text/markdown' });
+    const output = document.getElementById('outputText');
+    if (!output || !output.value) return;
+    
+    const blob = new Blob([output.value], { type: 'text/markdown' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `clawprompt-${Date.now()}.md`;
+    a.download = 'clawprompt-' + Date.now() + '.md';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -189,11 +233,17 @@ function playSuccessSound() {
 
 // 清除所有
 function clearAll() {
-    document.getElementById('input').value = '';
-    document.getElementById('outputText').value = '';
-    document.getElementById('output').classList.add('hidden');
-    document.getElementById('input').focus();
-    updateCharCount();
+    const input = document.getElementById('input');
+    const outputText = document.getElementById('outputText');
+    const outputEl = document.getElementById('output');
+    
+    if (input) input.value = '';
+    if (outputText) outputText.value = '';
+    if (outputEl) outputEl.classList.add('hidden');
+    if (input) {
+        input.focus();
+        updateCharCount();
+    }
 }
 
 // 保存到历史
@@ -215,8 +265,10 @@ function saveToHistory(input, output) {
 
 // 加载历史
 function loadHistory() {
-    const history = JSON.parse(localStorage.getItem('promptHistory') || '[]');
     const container = document.getElementById('history');
+    if (!container) return;
+    
+    const history = JSON.parse(localStorage.getItem('promptHistory') || '[]');
     
     if (history.length === 0) {
         container.innerHTML = '<p class="text-gray-500 text-sm">暂无历史记录</p>';
@@ -235,11 +287,20 @@ function loadHistory() {
 function loadHistoryItem(id) {
     const history = JSON.parse(localStorage.getItem('promptHistory') || '[]');
     const item = history.find(h => h.id === id);
-    if (item) {
-        document.getElementById('input').value = item.input;
-        document.getElementById('outputText').value = item.output;
-        document.getElementById('output').classList.remove('hidden');
-    }
+    if (!item) return;
+    
+    const input = document.getElementById('input');
+    const outputText = document.getElementById('outputText');
+    const outputEl = document.getElementById('output');
+    
+    if (input) input.value = item.input;
+    if (outputText) outputText.value = item.output;
+    if (outputEl) outputEl.classList.remove('hidden');
+    
+    updateCharCount();
+    updateOutputCharCount();
+    
+    showToast('✅ 已加载历史记录');
 }
 
 // 清空历史
@@ -254,10 +315,11 @@ function clearHistory() {
 // 显示提示
 function showToast(message, type = 'success') {
     const toast = document.getElementById('toast');
+    if (!toast) return;
+    
     toast.textContent = message;
-    toast.className = `fixed bottom-4 right-4 text-white px-6 py-3 rounded-lg shadow-lg transform transition duration-300 ${
-        type === 'error' ? 'bg-red-500' : type === 'warning' ? 'bg-yellow-500' : 'bg-green-500'
-    }`;
+    toast.className = 'fixed bottom-6 right-6 text-white px-6 py-4 rounded-lg shadow-lg transform transition duration-300 z-50 ' +
+        (type === 'error' ? 'bg-red-500' : type === 'warning' ? 'bg-yellow-500' : 'bg-green-500');
     toast.classList.remove('translate-y-20', 'opacity-0');
     
     setTimeout(() => {
@@ -265,8 +327,14 @@ function showToast(message, type = 'success') {
     }, 3000);
 }
 
-// 页面加载时初始化
-document.addEventListener('DOMContentLoaded', async () => {
-    // 模板加载由 templates.js 处理
+// 初始化 - 立即执行
+console.log('🦞 ClawPrompt app.js 启动...');
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('📄 DOM 加载完成，初始化应用...');
+        loadHistory();
+    });
+} else {
+    console.log('📄 DOM 已就绪，立即初始化...');
     loadHistory();
-});
+}

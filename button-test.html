@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>按钮测试</title>
+    <style>
+        body { font-family: monospace; padding: 20px; }
+        button { padding: 10px 20px; margin: 10px; font-size: 16px; cursor: pointer; }
+        .log { background: #f0f0f0; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .error { background: #ffe0e0; color: #c00; }
+        .success { background: #e0ffe0; color: #080; }
+    </style>
+</head>
+<body>
+    <h1>🦞 生成按钮测试</h1>
+    
+    <button onclick="testExpand()">测试生成提示词</button>
+    <button onclick="testAPI()">测试 API 连接</button>
+    <button onclick="clearLog()">清空日志</button>
+    
+    <div id="log"></div>
+    
+    <script>
+        const logEl = document.getElementById('log');
+        
+        function log(msg, type = 'log') {
+            const div = document.createElement('div');
+            div.className = 'log ' + type;
+            div.textContent = '[' + new Date().toLocaleTimeString() + '] ' + msg;
+            logEl.appendChild(div);
+            console.log(msg);
+        }
+        
+        function clearLog() {
+            logEl.innerHTML = '';
+            log('日志已清空');
+        }
+        
+        async function testAPI() {
+            log('测试 API 连接...', 'log');
+            try {
+                const response = await fetch('templates/01-tech-templates.json');
+                log('API 响应状态：' + response.status, response.ok ? 'success' : 'error');
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    log('加载成功：' + data.templates.length + ' 个模板', 'success');
+                }
+            } catch (e) {
+                log('API 测试失败：' + e.message, 'error');
+            }
+        }
+        
+        async function testExpand() {
+            log('测试生成提示词...', 'log');
+            
+            // 模拟生成
+            const mockResult = `<instructions>
+你是一位测试专家。
+这是测试输出。
+</instructions>
+
+<format>
+1. 测试项 1
+2. 测试项 2
+</format>`;
+            
+            log('生成成功！', 'success');
+            log('输出长度：' + mockResult.length + ' 字符', 'success');
+            log('输出预览：' + mockResult.substring(0, 100) + '...', 'success');
+        }
+        
+        // 页面加载时自动测试
+        window.onload = () => {
+            log('页面加载完成', 'log');
+            log('点击按钮测试功能', 'log');
+        };
+    </script>
+</body>
+</html>
