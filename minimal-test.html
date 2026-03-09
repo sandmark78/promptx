@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>最小化测试</title>
+    <style>
+        .template { border: 1px solid #ccc; padding: 10px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>模板加载测试</h1>
+    <div id="status">加载中...</div>
+    <div id="templates"></div>
+    
+    <script>
+        async function load() {
+            const status = document.getElementById('status');
+            const container = document.getElementById('templates');
+            
+            try {
+                status.innerHTML = '正在加载 templates/01-tech-templates.json...';
+                const response = await fetch('templates/01-tech-templates.json');
+                status.innerHTML += `<br>响应状态：${response.status}`;
+                
+                if (!response.ok) {
+                    status.innerHTML += `<br class="error">❌ 加载失败：${response.status}`;
+                    return;
+                }
+                
+                const data = await response.json();
+                status.innerHTML += `<br class="success">✅ 加载成功：${data.templates.length}个模板`;
+                
+                container.innerHTML = data.templates.map(t => `
+                    <div class="template">
+                        <strong>${t.name}</strong><br>
+                        ${t.scenario}
+                    </div>
+                `).join('');
+                
+            } catch (e) {
+                status.innerHTML += `<br class="error">❌ 错误：${e.message}`;
+            }
+        }
+        
+        load();
+    </script>
+</body>
+</html>

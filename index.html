@@ -19,7 +19,11 @@
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦞</text></svg>">
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 自定义样式 -->
     <style>
         .gradient-bg {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -153,8 +157,14 @@
                 <button onclick="filterTemplates('research')" class="category-btn px-5 py-2.5 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-200 transition">📊 分析</button>
             </div>
 
+            <!-- Loading Indicator -->
+            <div id="templatesLoading" class="text-center py-12">
+                <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-purple-200 border-b-purple-600 mb-4"></div>
+                <p class="text-gray-600 text-lg">正在加载模板...</p>
+            </div>
+
             <!-- Template Grid -->
-            <div id="templates" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+            <div id="templates" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 hidden"></div>
         </div>
 
         <!-- History Section -->
@@ -221,7 +231,8 @@
         ✅ 已复制到剪贴板
     </div>
 
-    <script src="app.js"></script>
+    <!-- JavaScript 文件 - 确保顺序正确 -->
     <script src="templates.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
