@@ -69,12 +69,7 @@
                 </label>
                 <span id="charCount" class="text-sm text-gray-500">0 字</span>
             </div>
-            <textarea 
-                id="input"
-                placeholder="例如：帮我创建一个知识填充技能、如何配置 OpenClaw 的 Cron 任务、怎样让 OpenClaw 自动发布到 Moltbook..."
-                class="w-full h-40 p-5 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none transition text-base"
-                oninput="updateCharCount()"
-            ></textarea>
+            <textarea id="input" oninput="updateCharCount()" placeholder="例如：帮我创建一个知识填充技能、如何配置 OpenClaw 的 Cron 任务、怎样让 OpenClaw 自动发布到 Moltbook..." class="w-full h-40 p-5 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none transition text-base"></textarea>
             
             <div class="flex gap-3 mt-5">
                 <button 
