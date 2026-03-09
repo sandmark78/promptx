@@ -13,9 +13,13 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Prompt is required' });
     }
 
-    // xAI API 配置
-    const XAI_API_KEY = 'xai-boiojTPZ1zhwQowKebWkFlnfRPFshBFAplfwXmfiGMSBf3fq9qxbbKLjIVONvcZuyDelJfCdwqCPxiOg';
+    // xAI API 配置 (从环境变量读取)
+    const XAI_API_KEY = process.env.XAI_API_KEY;
     const XAI_MODEL = 'grok-beta';
+
+    if (!XAI_API_KEY) {
+        return res.status(500).json({ error: 'API Key 未配置' });
+    }
 
     try {
         const response = await fetch('https://api.x.ai/v1/chat/completions', {
