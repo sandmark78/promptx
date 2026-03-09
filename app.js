@@ -1,8 +1,8 @@
-// OpenClaw API 配置
+// OpenClaw API 配置 (xAI Grok)
 const OPENCLAW_CONFIG = {
-    apiKey: 'sk-sp-54997e1f8fa84942b1c077b1fa8f5269',
+    apiKey: 'xai-boiojTPZ1zhwQowKebWkFlnfRPFshBFAplfwXmfiGMSBf3fq9qxbbKLjIVONvcZuyDelJfCdwqCPxiOg',
     baseURL: '/api', // 使用 Vercel Serverless Function
-    model: 'qwen3.5-plus'
+    model: 'grok-beta'
 };
 
 // 提示词模板库

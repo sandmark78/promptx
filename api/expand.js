@@ -1,4 +1,4 @@
-// Vercel Serverless Function - API 代理
+// Vercel Serverless Function - API 代理 (xAI Grok)
 // 绕过 CORS 限制
 
 export default async function handler(req, res) {
@@ -7,21 +7,25 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    const { prompt, apiKey } = req.body;
+    const { prompt } = req.body;
 
     if (!prompt) {
         return res.status(400).json({ error: 'Prompt is required' });
     }
 
+    // xAI API 配置
+    const XAI_API_KEY = 'xai-boiojTPZ1zhwQowKebWkFlnfRPFshBFAplfwXmfiGMSBf3fq9qxbbKLjIVONvcZuyDelJfCdwqCPxiOg';
+    const XAI_MODEL = 'grok-beta';
+
     try {
-        const response = await fetch('https://coding.dashscope.aliyuncs.com/v1/chat/completions', {
+        const response = await fetch('https://api.x.ai/v1/chat/completions', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${apiKey}`
+                'Authorization': `Bearer ${XAI_API_KEY}`
             },
             body: JSON.stringify({
-                model: 'qwen3.5-plus',
+                model: XAI_MODEL,
                 messages: [
                     { role: 'user', content: prompt }
                 ],
