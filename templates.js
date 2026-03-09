@@ -10,46 +10,68 @@ async function loadTemplates() {
         'templates/02-finance-templates.json',
         'templates/03-creative-templates.json',
         'templates/04-auto-templates.json',
-        'templates/05-research-templates.json'
+        'templates/05-research-templates.json',
+        'templates/06-painpoint-templates.json',
+        'templates/07-training-templates.json'
     ];
 
+    allTemplates = []; // 清空数组
+    
     for (const file of templateFiles) {
         try {
+            console.log('加载文件:', file);
             const response = await fetch(file);
+            if (!response.ok) {
+                console.warn(`文件 ${file} 返回 ${response.status}，跳过`);
+                continue;
+            }
             const data = await response.json();
-            allTemplates = [...allTemplates, ...data.templates];
+            if (data.templates && Array.isArray(data.templates)) {
+                allTemplates = [...allTemplates, ...data.templates];
+                console.log(`加载 ${data.templates.length} 个模板`);
+            }
         } catch (error) {
             console.error(`加载 ${file} 失败:`, error);
         }
     }
 
+    console.log('总模板数:', allTemplates.length);
     renderTemplates();
 }
 
 // 渲染模板卡片
 function renderTemplates() {
     const container = document.getElementById('templates');
+    if (!container) {
+        console.error('找不到 templates 容器');
+        return;
+    }
+    
     const filtered = currentCategory === 'all' 
         ? allTemplates 
         : allTemplates.filter(t => t.category === currentCategory);
 
+    console.log('筛选后模板数:', filtered.length, '分类:', currentCategory);
+
     if (filtered.length === 0) {
-        container.innerHTML = '<p class="text-gray-500 text-center col-span-3">暂无模板</p>';
+        container.innerHTML = '<p class="text-gray-500 text-center col-span-3 py-8">暂无模板，敬请期待...</p>';
         return;
     }
 
     container.innerHTML = filtered.map(template => `
-        <div class="template-card bg-gray-50 rounded-xl p-4 cursor-pointer hover:shadow-lg transition" onclick="useTemplate('${template.id}')">
-            <div class="flex justify-between items-start mb-2">
-                <h3 class="font-semibold text-gray-900">${template.name}</h3>
-                <span class="text-xs ${getDifficultyColor(template.difficulty)} px-2 py-1 rounded-full">
+        <div class="template-card bg-gradient-to-br from-gray-50 to-white rounded-xl p-5 cursor-pointer hover:shadow-xl transition border border-gray-100" onclick="useTemplate('${template.id}')">
+            <div class="flex justify-between items-start mb-3">
+                <h3 class="font-bold text-gray-900 text-base">${template.name}</h3>
+                <span class="text-xs ${getDifficultyColor(template.difficulty)} px-2 py-1 rounded-full font-medium">
                     ${getDifficultyStars(template.difficulty)}
                 </span>
             </div>
-            <p class="text-sm text-gray-600 mb-2 line-clamp-2">${template.scenario}</p>
+            <p class="text-sm text-gray-600 mb-3 line-clamp-2 leading-relaxed">${template.scenario}</p>
             <div class="flex justify-between items-center">
-                <span class="text-xs text-gray-500">${getCategoryName(template.category)}</span>
-                <button class="text-xs text-purple-600 hover:text-purple-800 font-medium">使用 →</button>
+                <span class="text-xs ${getCategoryBadgeColor(template.category)} px-2 py-1 rounded-md font-medium">${getCategoryName(template.category)}</span>
+                <button class="text-xs text-purple-600 hover:text-purple-800 font-medium flex items-center gap-1">
+                    使用 <span>→</span>
+                </button>
             </div>
         </div>
     `).join('');
@@ -74,29 +96,49 @@ function getCategoryName(category) {
         'creative': '✍️ 文案',
         'finance': '💰 变现',
         'auto': '🤖 自动化',
-        'research': '📊 分析'
+        'research': '📊 分析',
+        'painpoint': '🚑 痛点',
+        'training': '📖 训练'
     };
     return names[category] || category;
+}
+
+// 获取分类徽章颜色
+function getCategoryBadgeColor(category) {
+    const colors = {
+        'tech': 'bg-blue-100 text-blue-700',
+        'creative': 'bg-pink-100 text-pink-700',
+        'finance': 'bg-yellow-100 text-yellow-700',
+        'auto': 'bg-purple-100 text-purple-700',
+        'research': 'bg-indigo-100 text-indigo-700',
+        'painpoint': 'bg-red-100 text-red-700',
+        'training': 'bg-green-100 text-green-700'
+    };
+    return colors[category] || 'bg-gray-100 text-gray-700';
 }
 
 // 筛选模板
 function filterTemplates(category) {
     currentCategory = category;
+    console.log('筛选分类:', category);
     
     // 更新按钮样式
-    const buttons = document.querySelectorAll('#categoryFilter button');
+    const buttons = document.querySelectorAll('#categoryFilter .category-btn');
     buttons.forEach(btn => {
         const onClick = btn.getAttribute('onclick');
         if (onClick && onClick.includes(`'${category}'`)) {
+            btn.classList.add('active');
             btn.classList.remove('bg-gray-100', 'text-gray-700');
-            btn.classList.add('bg-purple-100', 'text-purple-700');
         } else {
+            btn.classList.remove('active');
             btn.classList.add('bg-gray-100', 'text-gray-700');
-            btn.classList.remove('bg-purple-100', 'text-purple-700');
         }
     });
     
     renderTemplates();
+    
+    // 滚动到模板区域
+    document.getElementById('templates').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // 使用模板
@@ -113,8 +155,14 @@ function useTemplate(templateId) {
         
         // 显示提示
         showToast(`✅ 已加载模板：${template.name}`);
+    } else {
+        console.error('找不到模板:', templateId);
+        showToast('❌ 模板加载失败');
     }
 }
 
 // 初始化
-document.addEventListener('DOMContentLoaded', loadTemplates);
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('页面加载完成，开始加载模板...');
+    loadTemplates();
+});

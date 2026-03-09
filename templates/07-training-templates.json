@@ -1,0 +1,128 @@
+{
+  "category": "training",
+  "category_name": "训练/学习",
+  "templates": [
+    {
+      "id": "training-001",
+      "name": "提示词改写训练",
+      "scenario": "学习如何将模糊提示词改写成专业提示词",
+      "difficulty": 2,
+      "bad_prompt": "帮我写个文案",
+      "good_prompt": "<instructions>\n你是一位提示词工程教练，专门训练用户改写提示词。\n请将以下模糊提示词改写成专业版本。\n</instructions>\n<original_prompt>\n[粘贴你的原始提示词]\n</original_prompt>\n<format>\n输出包含：\n1. 问题分析 (指出原提示词缺少什么)\n2. 改写版本 (完整结构化提示词)\n3. 改写说明 (每处改动的原因)\n4. 改写技巧总结 (3-5 条)\n5. 练习题 (给用户自己尝试)\n</format>",
+      "why_effective": "通过对比原提示词和改写版本，用户能快速掌握提示词工程技巧。",
+      "replace_hints": {
+        "🔴": "原始提示词",
+        "🔵": "期望的输出类型"
+      }
+    },
+    {
+      "id": "training-002",
+      "name": "XML 标签结构训练",
+      "scenario": "学习如何使用 XML 标签结构化提示词",
+      "difficulty": 2,
+      "bad_prompt": "XML 标签怎么用",
+      "good_prompt": "<instructions>\n你是一位提示词结构教练，专门教授 XML 标签使用方法。\n请教我如何正确使用 XML 标签结构化提示词。\n</instructions>\n<format>\n输出包含：\n1. 常用 XML 标签说明 (<instructions>, <context>, <format>, <examples>等)\n2. 每个标签的作用和使用场景\n3. 完整示例 (从简单到复杂)\n4. 常见错误 (需要避免的)\n5. 练习题 (3 个，从易到难)\n6. 参考答案\n\n用表格呈现标签说明\n</format>",
+      "why_effective": "XML 标签是结构化提示词的核心，系统学习 + 练习快速掌握。",
+      "replace_hints": {
+        "🔵": "学习深度 (入门/进阶)"
+      }
+    },
+    {
+      "id": "training-003",
+      "name": "角色定义训练",
+      "scenario": "学习如何定义 AI 角色",
+      "difficulty": 1,
+      "bad_prompt": "怎么定义角色",
+      "good_prompt": "<instructions>\n你是一位角色设计教练，专门教授如何定义 AI 角色。\n请教我如何设计有效的 AI 角色定义。\n</instructions>\n<format>\n输出包含：\n1. 角色定义的重要性 (为什么需要)\n2. 好角色 vs 坏角色 (对比示例)\n3. 角色定义公式 (可直接套用)\n4. 10 个常用角色模板 (可直接复制)\n5. 练习题 (5 个场景，让用户设计角色)\n6. 评分标准 (如何判断角色定义好坏)\n</format>",
+      "why_effective": "角色定义是提示词第一步，掌握后能显著提高输出质量。",
+      "replace_hints": {
+        "🔵": "应用场景 (编程/写作/分析等)"
+      }
+    },
+    {
+      "id": "training-004",
+      "name": "输出格式设计训练",
+      "scenario": "学习如何设计输出格式要求",
+      "difficulty": 2,
+      "bad_prompt": "怎么指定格式",
+      "good_prompt": "<instructions>\n你是一位格式设计教练，专门教授如何设计输出格式。\n请教我如何设计有效的输出格式要求。\n</instructions>\n<format>\n输出包含：\n1. 常见输出格式类型 (表格/列表/段落/代码等)\n2. 每种格式的适用场景\n3. 格式设计模板 (可直接套用)\n4. 10 个格式示例 (从简单到复杂)\n5. 常见错误 (格式太模糊/太复杂等)\n6. 练习题 (3 个场景，让用户设计格式)\n</format>",
+      "why_effective": "输出格式决定 AI 输出的可用性，系统学习避免输出混乱。",
+      "replace_hints": {
+        "🔵": "常用格式类型"
+      }
+    },
+    {
+      "id": "training-005",
+      "name": "Few-shot 示例训练",
+      "scenario": "学习如何使用示例 (Few-shot) 提高输出质量",
+      "difficulty": 3,
+      "bad_prompt": "示例怎么用",
+      "good_prompt": "<instructions>\n你是一位 Few-shot 学习教练，专门教授如何使用示例提高输出质量。\n请教我如何设计和添加示例。\n</instructions>\n<format>\n输出包含：\n1. Few-shot 原理 (为什么有效)\n2. 示例数量建议 (几个最合适)\n3. 示例设计原则 (多样性/代表性等)\n4. 好示例 vs 坏示例 (对比)\n5. 10 个示例模板 (可直接复制)\n6. 练习题 (3 个任务，让用户设计示例)\n</format>",
+      "why_effective": "Few-shot 是提高输出质量最有效技巧之一，系统学习快速提升。",
+      "replace_hints": {
+        "🔵": "应用场景"
+      }
+    },
+    {
+      "id": "training-006",
+      "name": "提示词调试训练",
+      "scenario": "学习如何调试和优化提示词",
+      "difficulty": 3,
+      "bad_prompt": "输出不好怎么改",
+      "good_prompt": "<instructions>\n你是一位提示词调试教练，专门教授如何调试和优化提示词。\n当输出不理想时，请帮我诊断和优化。\n</instructions>\n<prompt>\n[粘贴你的提示词]\n</prompt>\n<output>\n[粘贴 AI 的输出]\n</output>\n<format>\n输出包含：\n1. 问题诊断 (输出为什么不好)\n2. 优化建议 (3-5 处具体改动)\n3. 优化后版本 (完整提示词)\n4. 调试 checklist (下次自己用)\n5. 调试技巧总结 (5 条)\n</format>",
+      "why_effective": "提示词很少一次完美，掌握调试技巧能持续改进。",
+      "replace_hints": {
+        "🔴": "提示词和输出",
+        "🔵": "期望改进方向"
+      }
+    },
+    {
+      "id": "training-007",
+      "name": "提示词长度控制训练",
+      "scenario": "学习如何控制提示词长度",
+      "difficulty": 1,
+      "bad_prompt": "提示词太长/太短怎么办",
+      "good_prompt": "<instructions>\n你是一位提示词精简教练，专门教授如何控制提示词长度。\n请帮我优化提示词长度。\n</instructions>\n<prompt>\n[粘贴你的提示词]\n</prompt>\n<format>\n输出包含：\n1. 长度分析 (当前字数，是否合适)\n2. 精简建议 (删除冗余/合并重复等)\n3. 精简后版本 (保持原意，更简洁)\n4. 长度控制原则 (什么时候长/什么时候短)\n5. 10 个精简示例 (前后对比)\n</format>",
+      "why_effective": "提示词不是越长越好，掌握精简技巧提高效率和效果。",
+      "replace_hints": {
+        "🔴": "原始提示词"
+      }
+    },
+    {
+      "id": "training-008",
+      "name": "提示词风格训练",
+      "scenario": "学习如何控制 AI 输出风格",
+      "difficulty": 2,
+      "bad_prompt": "怎么让 AI 用某种风格写",
+      "good_prompt": "<instructions>\n你是一位风格设计教练，专门教授如何控制 AI 输出风格。\n请教我如何设计风格要求。\n</instructions>\n<format>\n输出包含：\n1. 常见风格类型 (专业/幽默/简洁/详细等)\n2. 风格描述词库 (50 个可直接用的词)\n3. 风格示例 (同一内容不同风格)\n4. 风格设计模板 (可直接套用)\n5. 练习题 (5 个场景，让用户设计风格)\n</format>",
+      "why_effective": "风格决定输出的语气和调性，掌握后能让 AI 输出更符合需求。",
+      "replace_hints": {
+        "🔵": "目标风格"
+      }
+    },
+    {
+      "id": "training-009",
+      "name": "提示词评估训练",
+      "scenario": "学习如何评估提示词质量",
+      "difficulty": 2,
+      "bad_prompt": "怎么判断提示词好不好",
+      "good_prompt": "<instructions>\n你是一位提示词评估教练，专门教授如何评估提示词质量。\n请帮我评估以下提示词。\n</instructions>\n<prompt>\n[粘贴你的提示词]\n</prompt>\n<format>\n输出包含：\n1. 综合评分 (0-100 分)\n2. 6 维度评分 (角色/任务/上下文/格式/示例/边界)\n3. 优点分析 (做得好的地方)\n4. 改进建议 (3-5 处具体改动)\n5. 优化后版本\n6. 评估 checklist (下次自己用)\n</format>",
+      "why_effective": "掌握评估技巧后，用户能自己判断和改进提示词。",
+      "replace_hints": {
+        "🔴": "待评估提示词"
+      }
+    },
+    {
+      "id": "training-010",
+      "name": "提示词进阶技巧训练",
+      "scenario": "学习提示词高级技巧",
+      "difficulty": 4,
+      "bad_prompt": "有什么高级技巧",
+      "good_prompt": "<instructions>\n你是一位提示词专家，专门教授高级技巧。\n请教我提示词进阶技巧。\n</instructions>\n<format>\n输出包含：\n1. Chain of Thought (CoT) 技巧\n2. Tree of Thoughts (ToT) 技巧\n3. ReAct 技巧 (推理 + 行动)\n4. Self-Correction 技巧 (自我修正)\n5. Ensemble 技巧 (多版本比较)\n6. 每个技巧的原理/示例/练习\n7. 综合练习题 (1 个，使用多个技巧)\n</format>",
+      "why_effective": "进阶技巧能显著提高复杂任务输出质量，系统学习掌握核心方法。",
+      "replace_hints": {
+        "🔵": "想学习的技巧"
+      }
+    }
+  ]
+}
