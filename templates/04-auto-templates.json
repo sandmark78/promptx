@@ -1,145 +1,145 @@
 {
   "category": "auto",
-  "category_name": "自动化/OpenClaw",
+  "category_name": "自动化",
   "templates": [
     {
       "id": "auto-001",
       "name": "Cron 任务配置",
-      "scenario": "配置 OpenClaw 定时任务",
+      "scenario": "配置定时任务",
       "difficulty": 3,
-      "bad_prompt": "帮我配置个 Cron",
-      "good_prompt": "<instructions>\n你是一位 OpenClaw 运维专家，擅长配置 Cron 定时任务。\n请帮我配置以下自动化任务。\n</instructions>\n<context>\n任务类型：[知识获取/深度学习/市场扫描/内容发布]\n执行频率：[每 30 分钟/每小时/每天/每周]\n执行时间：[具体时间，如每天 04:00 UTC]\n任务目标：[具体目标]\n</context>\n<format>\n输出包含：\n1. Cron 表达式\n2. 任务配置 JSON\n3. 执行脚本示例\n4. 日志记录配置\n5. 错误处理方案\n6. 监控告警设置\n</format>",
-      "why_effective": "OpenClaw Cron 配置需要明确任务类型 + 频率 + 时间，结构化输出确保配置完整可执行。",
+      "category": "auto",
+      "bad_prompt": "配置 Cron",
+      "good_prompt": "<instructions>\n你是运维专家。\n请配置 Cron 任务。\n</instructions>\n<context>\n任务类型：[类型]\n频率：[频率]\n</context>\n<format>\n1. Cron 表达式\n2. 配置 JSON\n3. 脚本示例\n</format>",
+      "why_effective": "结构化配置。",
       "replace_hints": {
-        "🔴": "任务类型和目标",
-        "🔵": "执行频率和时间",
-        "🟢": "监控告警方式"
+        "red": "类型",
+        "blue": "频率"
       }
     },
     {
       "id": "auto-002",
-      "name": "Moltbook 自动发帖",
-      "scenario": "配置 Moltbook 自动发布",
+      "name": "自动发帖",
+      "scenario": "配置自动发布",
       "difficulty": 3,
-      "bad_prompt": "自动发帖到 Moltbook",
-      "good_prompt": "<instructions>\n你是一位 OpenClaw AutoBot 专家，擅长配置 Moltbook 自动发布任务。\n请帮我配置自动发帖流程。\n</instructions>\n<context>\n发帖类型：[技术分享/产品推广/经验总结]\n发布频率：[每天/每周几次]\n内容来源：[知识库/手动输入/RSS]\n验证处理：[自动/手动]\n</context>\n<format>\n输出包含：\n1. 帖子内容模板\n2. 发布 Cron 配置\n3. API 调用脚本\n4. 验证挑战处理\n5. 发布成功确认\n6. 错误重试机制\n</format>",
-      "why_effective": "Moltbook 发帖需要处理验证挑战，配置需包含内容模板 + 发布脚本 + 验证处理全流程。",
+      "category": "auto",
+      "bad_prompt": "自动发帖",
+      "good_prompt": "<instructions>\n你是自动化专家。\n请配置自动发布。\n</instructions>\n<context>\n平台：[平台]\n频率：[频率]\n</context>\n<format>\n1. 内容模板\n2. 发布配置\n3. 验证处理\n</format>",
+      "why_effective": "完整发布流程。",
       "replace_hints": {
-        "🔴": "发帖类型和内容来源",
-        "🔵": "发布频率",
-        "🟢": "验证处理方式"
+        "red": "平台",
+        "blue": "频率"
       }
     },
     {
       "id": "auto-003",
       "name": "GitHub 自动发布",
-      "scenario": "配置 GitHub 自动提交",
+      "scenario": "配置自动提交",
       "difficulty": 3,
-      "bad_prompt": "自动提交到 GitHub",
-      "good_prompt": "<instructions>\n你是一位 OpenClaw DevOpsBot 专家，擅长配置 GitHub 自动发布流程。\n请帮我配置自动提交和推送。\n</instructions>\n<context>\n仓库：[仓库 URL]\n提交内容：[知识文件/模板/报告]\n提交频率：[每次生成后/每天/每周]\n提交信息格式：[自定义格式]\n</context>\n<format>\n输出包含：\n1. Git 配置脚本\n2. 自动提交 Cron\n3. Commit message 模板\n4. 推送配置\n5. 冲突处理方案\n6. 发布通知设置\n</format>",
-      "why_effective": "GitHub 自动发布需要处理 Git 配置 + 提交信息 + 冲突处理，完整流程确保稳定运行。",
+      "category": "auto",
+      "bad_prompt": "自动提交",
+      "good_prompt": "<instructions>\n你是 DevOps 专家。\n请配置自动提交。\n</instructions>\n<context>\n仓库：[URL]\n内容：[内容]\n</context>\n<format>\n1. Git 脚本\n2. Cron 配置\n3. Commit 模板\n</format>",
+      "why_effective": "自动化 Git 流程。",
       "replace_hints": {
-        "🔴": "仓库 URL 和提交内容",
-        "🔵": "提交频率",
-        "🟢": "Commit 格式"
+        "red": "URL",
+        "blue": "内容"
       }
     },
     {
       "id": "auto-004",
       "name": "知识自动填充",
-      "scenario": "配置 OpenClaw 知识自动填充",
+      "scenario": "配置知识填充",
       "difficulty": 3,
-      "bad_prompt": "自动填充知识",
-      "good_prompt": "<instructions>\n你是一位 OpenClaw AutoBot 专家，擅长配置知识自动填充任务。\n请帮我配置知识库自动填充流程。\n</instructions>\n<context>\n目标领域：[领域 ID 和名称]\n填充数量：[每次填充的知识点数量]\n内容来源：[web_fetch/内部整理/外部 API]\n质量检查：[自动/手动]\n</context>\n<format>\n输出包含：\n1. 知识填充脚本\n2. Cron 配置\n3. 文件命名规范\n4. 知识点编号规则\n5. 质量检查流程\n6. 重复检测机制\n</format>",
-      "why_effective": "知识填充需要规范化流程 (命名/编号/质检)，确保知识库质量和一致性。",
+      "category": "auto",
+      "bad_prompt": "填充知识",
+      "good_prompt": "<instructions>\n你是知识管理专家。\n请配置自动填充。\n</instructions>\n<context>\n领域：[领域]\n数量：[数量]\n</context>\n<format>\n1. 填充脚本\n2. 命名规范\n3. 质检流程\n</format>",
+      "why_effective": "规范化流程。",
       "replace_hints": {
-        "🔴": "目标领域和数量",
-        "🔵": "内容来源",
-        "🟢": "质量检查标准"
+        "red": "领域",
+        "blue": "数量"
       }
     },
     {
       "id": "auto-005",
       "name": "数据自动抓取",
-      "scenario": "配置网页数据自动抓取",
+      "scenario": "配置数据抓取",
       "difficulty": 3,
-      "bad_prompt": "自动抓取数据",
-      "good_prompt": "<instructions>\n你是一位 OpenClaw AutoBot 专家，擅长配置网页数据自动抓取任务。\n请帮我配置自动抓取流程。\n</instructions>\n<context>\n目标网站：[网站 URL]\n抓取内容：[标题/内容/评论/价格等]\n抓取频率：[每小时/每天/每周]\n数据存储：[文件/数据库]\n</context>\n<format>\n输出包含：\n1. web_fetch 配置\n2. 数据解析脚本\n3. Cron 配置\n4. 数据存储方案\n5. 反爬应对策略\n6. 错误重试机制\n</format>",
-      "why_effective": "数据抓取需要处理解析 + 存储 + 反爬，完整配置确保稳定抓取。",
+      "category": "auto",
+      "bad_prompt": "抓取数据",
+      "good_prompt": "<instructions>\n你是数据采集专家。\n请配置自动抓取。\n</instructions>\n<context>\n网站：[URL]\n内容：[内容]\n</context>\n<format>\n1. 抓取配置\n2. 解析脚本\n3. 存储方案\n</format>",
+      "why_effective": "稳定抓取流程。",
       "replace_hints": {
-        "🔴": "目标网站和抓取内容",
-        "🔵": "抓取频率",
-        "🟢": "数据存储方式"
+        "red": "URL",
+        "blue": "内容"
       }
     },
     {
       "id": "auto-006",
-      "name": "Reddit 自动发布",
-      "scenario": "配置 Reddit 自动发帖",
+      "name": "自动发布",
+      "scenario": "配置多平台发布",
       "difficulty": 3,
-      "bad_prompt": "自动发帖到 Reddit",
-      "good_prompt": "<instructions>\n你是一位 OpenClaw AutoBot 专家，擅长配置 Reddit 自动发布任务。\n请帮我配置自动发帖流程。\n</instructions>\n<context>\n目标 Subreddit：[r/opensource 等]\n发帖类型：[技术分享/产品推广/讨论]\n发布频率：[每周几次]\n养号策略：[先评论后发帖]\n</context>\n<format>\n输出包含：\n1. 帖子内容模板\n2. 发布 Cron 配置\n3. Subreddit 规则检查\n4. 养号计划\n5. 互动回复策略\n6. 违规风险规避\n</format>",
-      "why_effective": "Reddit 发帖需注意社区规则和养号，配置包含规则检查 + 养号计划降低封号风险。",
+      "category": "auto",
+      "bad_prompt": "多平台发布",
+      "good_prompt": "<instructions>\n你是内容分发专家。\n请配置多平台发布。\n</instructions>\n<context>\n平台：[平台列表]\n内容：[内容]\n</context>\n<format>\n1. 内容模板\n2. 平台适配\n3. 发布计划\n</format>",
+      "why_effective": "多平台适配。",
       "replace_hints": {
-        "🔴": "目标 Subreddit",
-        "🔵": "发帖类型和频率",
-        "🟢": "养号策略"
+        "red": "平台",
+        "blue": "内容"
       }
     },
     {
       "id": "auto-007",
-      "name": "Twitter/X 自动推文",
-      "scenario": "配置 Twitter 自动发布",
+      "name": "自动推文",
+      "scenario": "配置自动推文",
       "difficulty": 2,
-      "bad_prompt": "自动发 Twitter",
-      "good_prompt": "<instructions>\n你是一位 OpenClaw AutoBot 专家，擅长配置 Twitter 自动发布任务。\n请帮我配置自动推文流程。\n</instructions>\n<context>\n账号类型：[个人/品牌/产品]\n推文类型：[技术分享/产品推广/日常]\n发布频率：[每天几条]\n内容来源：[知识库/RSS/手动]\n</context>\n<format>\n输出包含：\n1. 推文内容模板\n2. 发布 Cron 配置\n3. Hashtag 策略\n4. 互动回复策略\n5. 最佳发布时间\n6. 违规风险规避\n</format>",
-      "why_effective": "Twitter 发布需要注意发布时间 + Hashtag 策略 + 互动，提高曝光和互动率。",
+      "category": "auto",
+      "bad_prompt": "发推文",
+      "good_prompt": "<instructions>\n你是社交媒体专家。\n请配置自动推文。\n</instructions>\n<context>\n类型：[类型]\n频率：[频率]\n</context>\n<format>\n1. 推文模板\n2. 发布计划\n3. Hashtag 策略\n</format>",
+      "why_effective": "社交媒体优化。",
       "replace_hints": {
-        "🔴": "账号和推文类型",
-        "🔵": "发布频率",
-        "🟢": "内容来源"
+        "red": "类型",
+        "blue": "频率"
       }
     },
     {
       "id": "auto-008",
       "name": "邮件自动回复",
-      "scenario": "配置客服邮件自动回复",
+      "scenario": "配置邮件回复",
       "difficulty": 2,
-      "bad_prompt": "自动回复邮件",
-      "good_prompt": "<instructions>\n你是一位 OpenClaw AutoBot 专家，擅长配置邮件自动回复任务。\n请帮我配置自动回复流程。\n</instructions>\n<context>\n邮件类型：[咨询/投诉/合作/其他]\n回复策略：[分类回复/统一模板]\n响应时间：[立即/1 小时内/24 小时内]\n升级规则：[何时转人工]\n</context>\n<format>\n输出包含：\n1. 邮件分类规则\n2. 回复模板库\n3. 自动回复配置\n4. 升级转人工规则\n5. 邮件追踪设置\n6. 效果统计方案\n</format>",
-      "why_effective": "邮件自动回复需要分类处理 + 升级规则，平衡自动化效率和用户体验。",
+      "category": "auto",
+      "bad_prompt": "自动回复",
+      "good_prompt": "<instructions>\n你是客服专家。\n请配置自动回复。\n</instructions>\n<context>\n类型：[类型]\n策略：[策略]\n</context>\n<format>\n1. 分类规则\n2. 回复模板\n3. 升级规则\n</format>",
+      "why_effective": "平衡效率和体验。",
       "replace_hints": {
-        "🔴": "邮件类型",
-        "🔵": "回复策略",
-        "🟢": "升级规则"
+        "red": "类型",
+        "blue": "策略"
       }
     },
     {
       "id": "auto-009",
       "name": "文件自动整理",
-      "scenario": "配置文件自动分类整理",
+      "scenario": "配置文件整理",
       "difficulty": 2,
-      "bad_prompt": "自动整理文件",
-      "good_prompt": "<instructions>\n你是一位 OpenClaw AutoBot 专家，擅长配置文件自动整理任务。\n请帮我配置文件自动分类流程。\n</instructions>\n<context>\n源目录：[目录路径]\n分类规则：[按类型/日期/项目]\n目标目录：[整理后目录]\n清理规则：[删除/归档旧文件]\n</context>\n<format>\n输出包含：\n1. 文件分类规则\n2. 整理脚本\n3. Cron 配置\n4. 命名规范化\n5. 重复文件处理\n6. 备份方案\n</format>",
-      "why_effective": "文件整理需要明确分类规则 + 清理策略，保持文件系统整洁有序。",
+      "category": "auto",
+      "bad_prompt": "整理文件",
+      "good_prompt": "<instructions>\n你是文件管理专家。\n请配置自动整理。\n</instructions>\n<context>\n源目录：[目录]\n规则：[规则]\n</context>\n<format>\n1. 分类规则\n2. 整理脚本\n3. 备份方案\n</format>",
+      "why_effective": "保持整洁有序。",
       "replace_hints": {
-        "🔴": "源目录和分类规则",
-        "🔵": "目标目录",
-        "🟢": "清理规则"
+        "red": "目录",
+        "blue": "规则"
       }
     },
     {
       "id": "auto-010",
       "name": "收益自动追踪",
-      "scenario": "配置收益自动统计",
+      "scenario": "配置收益统计",
       "difficulty": 3,
-      "bad_prompt": "自动统计收益",
-      "good_prompt": "<instructions>\n你是一位 OpenClaw FinanceBot 专家，擅长配置收益自动追踪任务。\n请帮我配置收益自动统计流程。\n</instructions>\n<context>\n收入来源：[Gumroad/ClawHub/闲鱼/其他]\n统计频率：[每天/每周/每月]\n统计维度：[总额/分类/趋势]\n报告格式：[Markdown/Excel/图表]\n</context>\n<format>\n输出包含：\n1. 数据收集脚本\n2. 收益计算逻辑\n3. Cron 配置\n4. 报告模板\n5. 可视化图表\n6. 异常告警设置\n</format>",
-      "why_effective": "收益追踪需要多平台数据收集 + 计算逻辑 + 可视化，全面掌握财务状况。",
+      "category": "auto",
+      "bad_prompt": "统计收益",
+      "good_prompt": "<instructions>\n你是财务专家。\n请配置收益追踪。\n</instructions>\n<context>\n来源：[来源]\n频率：[频率]\n</context>\n<format>\n1. 收集脚本\n2. 计算逻辑\n3. 报告模板\n</format>",
+      "why_effective": "全面掌握财务。",
       "replace_hints": {
-        "🔴": "收入来源",
-        "🔵": "统计频率",
-        "🟢": "报告格式"
+        "red": "来源",
+        "blue": "频率"
       }
     }
   ]

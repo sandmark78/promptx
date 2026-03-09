@@ -13,7 +13,8 @@
       "replace_hints": {
         "🔴": "原始提示词",
         "🔵": "期望的输出类型"
-      }
+      },
+      "category": "training"
     },
     {
       "id": "training-002",
@@ -25,7 +26,8 @@
       "why_effective": "XML 标签是结构化提示词的核心，系统学习 + 练习快速掌握。",
       "replace_hints": {
         "🔵": "学习深度 (入门/进阶)"
-      }
+      },
+      "category": "training"
     },
     {
       "id": "training-003",
@@ -37,7 +39,8 @@
       "why_effective": "角色定义是提示词第一步，掌握后能显著提高输出质量。",
       "replace_hints": {
         "🔵": "应用场景 (编程/写作/分析等)"
-      }
+      },
+      "category": "training"
     },
     {
       "id": "training-004",
@@ -49,7 +52,8 @@
       "why_effective": "输出格式决定 AI 输出的可用性，系统学习避免输出混乱。",
       "replace_hints": {
         "🔵": "常用格式类型"
-      }
+      },
+      "category": "training"
     },
     {
       "id": "training-005",
@@ -61,7 +65,8 @@
       "why_effective": "Few-shot 是提高输出质量最有效技巧之一，系统学习快速提升。",
       "replace_hints": {
         "🔵": "应用场景"
-      }
+      },
+      "category": "training"
     },
     {
       "id": "training-006",
@@ -74,7 +79,8 @@
       "replace_hints": {
         "🔴": "提示词和输出",
         "🔵": "期望改进方向"
-      }
+      },
+      "category": "training"
     },
     {
       "id": "training-007",
@@ -86,7 +92,8 @@
       "why_effective": "提示词不是越长越好，掌握精简技巧提高效率和效果。",
       "replace_hints": {
         "🔴": "原始提示词"
-      }
+      },
+      "category": "training"
     },
     {
       "id": "training-008",
@@ -98,7 +105,8 @@
       "why_effective": "风格决定输出的语气和调性，掌握后能让 AI 输出更符合需求。",
       "replace_hints": {
         "🔵": "目标风格"
-      }
+      },
+      "category": "training"
     },
     {
       "id": "training-009",
@@ -110,7 +118,8 @@
       "why_effective": "掌握评估技巧后，用户能自己判断和改进提示词。",
       "replace_hints": {
         "🔴": "待评估提示词"
-      }
+      },
+      "category": "training"
     },
     {
       "id": "training-010",
@@ -122,7 +131,8 @@
       "why_effective": "进阶技巧能显著提高复杂任务输出质量，系统学习掌握核心方法。",
       "replace_hints": {
         "🔵": "想学习的技巧"
-      }
+      },
+      "category": "training"
     }
   ]
 }
