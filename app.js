@@ -17,7 +17,33 @@ document.addEventListener('keydown', (e) => {
             expandPrompt();
         }
     }
+    // Esc 清空
+    if (e.key === 'Escape') {
+        clearAll();
+    }
 });
+
+// 更新字数统计
+function updateCharCount() {
+    const input = document.getElementById('input');
+    const charCount = document.getElementById('charCount');
+    const count = input.value.trim().length;
+    charCount.textContent = `${count} 字`;
+    
+    if (count > 500) {
+        charCount.classList.add('text-red-500');
+    } else {
+        charCount.classList.remove('text-red-500');
+    }
+}
+
+// 更新输出字数统计
+function updateOutputCharCount() {
+    const output = document.getElementById('outputText');
+    const charCount = document.getElementById('outputCharCount');
+    const count = output.value.trim().length;
+    charCount.textContent = count.toLocaleString();
+}
 
 // 页面加载时初始化
 document.addEventListener('DOMContentLoaded', async () => {
@@ -59,6 +85,7 @@ async function expandPrompt() {
         // 显示结果
         document.getElementById('outputText').value = result;
         document.getElementById('output').classList.remove('hidden');
+        updateOutputCharCount();
         
         // 保存到历史
         saveToHistory(input, result);
@@ -150,6 +177,46 @@ function copyOutput() {
     output.select();
     document.execCommand('copy');
     showToast('✅ 已复制到剪贴板');
+    
+    // 播放提示音
+    playSuccessSound();
+}
+
+// 下载输出
+function downloadOutput() {
+    const output = document.getElementById('outputText').value;
+    const blob = new Blob([output], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `clawprompt-${Date.now()}.md`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('✅ 已下载为 Markdown 文件');
+}
+
+// 播放成功提示音
+function playSuccessSound() {
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.frequency.value = 523.25; // C5
+        oscillator.type = 'sine';
+        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+        
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 0.5);
+    } catch (e) {
+        // 忽略音频错误
+    }
 }
 
 // 清除所有
@@ -158,6 +225,7 @@ function clearAll() {
     document.getElementById('outputText').value = '';
     document.getElementById('output').classList.add('hidden');
     document.getElementById('input').focus();
+    updateCharCount();
 }
 
 // 筛选模板
