@@ -34,18 +34,23 @@ function updateOutputCharCount() {
     charCount.textContent = count.toLocaleString() + ' 字';
 }
 
-// 扩展提示词
-async function expandPrompt() {
-    console.log('🦞 点击生成按钮...');
+// 扩展提示词 - 绑定到 window 确保全局可访问
+window.expandPrompt = async function expandPrompt() {
+    console.log('🦞 按钮被点击！');
+    console.log('🔍 检查输入框...');
     
     const input = document.getElementById('input');
+    console.log('📝 输入框:', input);
+    
     if (!input) {
-        console.error('❌ 找不到输入框');
+        console.error('❌ 错误：找不到输入框 (id="input")');
         showToast('❌ 错误：找不到输入框');
         return;
     }
     
     const inputValue = input.value.trim();
+    console.log('📝 输入内容:', inputValue);
+    
     if (!inputValue) {
         console.log('⚠️ 输入为空');
         showToast('⚠️ 请输入内容');
@@ -53,7 +58,7 @@ async function expandPrompt() {
         return;
     }
     
-    console.log('📝 输入内容:', inputValue.substring(0, 50) + '...');
+    console.log('🚀 开始生成提示词...');
 
     // 显示加载状态
     const loadingEl = document.getElementById('loading');

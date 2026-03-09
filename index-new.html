@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClawPrompt - OpenClaw 提示词助手</title>
+    <meta name="description" content="ClawPrompt - 专为 OpenClaw 设计的提示词助手">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .template-card { transition: all 0.3s ease; }
+        .template-card:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
+        .category-btn.active { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <header class="gradient-bg text-white py-16">
+        <div class="container mx-auto px-4 max-w-6xl text-center">
+            <div class="text-7xl mb-4">🦞</div>
+            <h1 class="text-5xl font-bold mb-4">ClawPrompt</h1>
+            <p class="text-2xl text-purple-100">OpenClaw 提示词助手</p>
+            <p class="text-lg text-purple-200">By 龙虾，For 龙虾</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 max-w-6xl -mt-8 pb-12">
+        <!-- 输入区域 -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+            <label class="block text-lg font-semibold text-gray-700 mb-3">💡 你想让 OpenClaw 帮你做什么？</label>
+            <textarea id="input" placeholder="例如：帮我创建一个知识填充技能..." class="w-full h-40 p-5 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 resize-none text-base"></textarea>
+            <div class="flex gap-3 mt-5">
+                <button onclick="expandPrompt()" id="expandBtn" class="flex-1 gradient-bg text-white font-semibold py-4 px-8 rounded-xl hover:opacity-90 transition text-lg">✨ 生成 OpenClaw 提示词</button>
+                <button onclick="clearAll()" class="px-8 py-4 bg-gray-200 hover:bg-gray-300 rounded-xl">🗑️</button>
+            </div>
+            <div id="loading" class="hidden mt-6 text-center">
+                <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-purple-200 border-b-purple-600"></div>
+                <p class="text-gray-600 mt-3">正在生成...</p>
+            </div>
+        </div>
+
+        <!-- 输出区域 -->
+        <div id="output" class="hidden bg-white rounded-2xl shadow-xl p-8 mb-8">
+            <h2 class="text-xl font-bold text-gray-900 mb-5">📝 扩展结果</h2>
+            <textarea id="outputText" readonly class="w-full h-96 p-5 bg-gray-50 border-2 border-gray-200 rounded-xl font-mono text-sm resize-none"></textarea>
+            <div class="flex gap-2 mt-5">
+                <button onclick="copyOutput()" class="px-5 py-2.5 bg-purple-100 hover:bg-purple-200 rounded-lg">📋 复制</button>
+                <button onclick="downloadOutput()" class="px-5 py-2.5 bg-blue-100 hover:bg-blue-200 rounded-lg">💾 下载</button>
+                <button onclick="clearAll()" class="px-5 py-2.5 bg-red-100 hover:bg-red-200 rounded-lg">🗑️ 清除</button>
+            </div>
+        </div>
+
+        <!-- 模板库 -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">📚 提示词模板库</h2>
+            <div id="categoryFilter" class="flex flex-wrap gap-3 mb-6">
+                <button onclick="filterTemplates('all')" class="category-btn active px-5 py-2.5 rounded-full text-sm font-medium">全部</button>
+                <button onclick="filterTemplates('painpoint')" class="category-btn px-5 py-2.5 bg-gray-100 rounded-full text-sm font-medium">🚑 痛点</button>
+                <button onclick="filterTemplates('training')" class="category-btn px-5 py-2.5 bg-gray-100 rounded-full text-sm font-medium">📖 训练</button>
+                <button onclick="filterTemplates('tech')" class="category-btn px-5 py-2.5 bg-gray-100 rounded-full text-sm font-medium">💻 编程</button>
+                <button onclick="filterTemplates('creative')" class="category-btn px-5 py-2.5 bg-gray-100 rounded-full text-sm font-medium">✍️ 文案</button>
+                <button onclick="filterTemplates('finance')" class="category-btn px-5 py-2.5 bg-gray-100 rounded-full text-sm font-medium">💰 变现</button>
+                <button onclick="filterTemplates('auto')" class="category-btn px-5 py-2.5 bg-gray-100 rounded-full text-sm font-medium">🤖 自动化</button>
+                <button onclick="filterTemplates('research')" class="category-btn px-5 py-2.5 bg-gray-100 rounded-full text-sm font-medium">📊 分析</button>
+            </div>
+            <div id="templatesLoading" class="text-center py-12">
+                <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-purple-200 border-b-purple-600 mb-4"></div>
+                <p class="text-gray-600">正在加载模板...</p>
+            </div>
+            <div id="templates" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 hidden"></div>
+        </div>
+    </main>
+
+    <div id="toast" class="fixed bottom-6 right-6 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg transform translate-y-20 opacity-0 transition duration-300 z-50">✅</div>
+
+    <script src="templates.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
