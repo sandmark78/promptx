@@ -29,11 +29,17 @@ async function loadTemplates() {
             }
             
             const data = await response.json();
-            console.log('解析数据:', data);
+            console.log('解析数据，模板数:', data.templates?.length || 0);
             
             if (data.templates && Array.isArray(data.templates)) {
+                // 确保每个模板都有 category 字段
+                data.templates.forEach(t => {
+                    if (!t.category) {
+                        t.category = data.category || 'unknown';
+                    }
+                });
                 allTemplates = [...allTemplates, ...data.templates];
-                console.log(`已加载 ${data.templates.length} 个模板`);
+                console.log(`已加载 ${data.templates.length} 个模板，总计 ${allTemplates.length}`);
             }
         } catch (error) {
             console.error(`加载 ${file} 失败:`, error);
@@ -41,6 +47,14 @@ async function loadTemplates() {
     }
 
     console.log('总模板数:', allTemplates.length);
+    
+    // 显示分类统计
+    const categoryCount = {};
+    allTemplates.forEach(t => {
+        categoryCount[t.category] = (categoryCount[t.category] || 0) + 1;
+    });
+    console.log('分类统计:', categoryCount);
+    
     renderTemplates();
 }
 
@@ -57,7 +71,13 @@ function renderTemplates() {
     
     const filtered = currentCategory === 'all' 
         ? allTemplates 
-        : allTemplates.filter(t => t.category === currentCategory);
+        : allTemplates.filter(t => {
+            const match = t.category === currentCategory;
+            if (currentCategory === 'tech' && t.id?.startsWith('tech-')) {
+                return true;
+            }
+            return match;
+        });
 
     console.log('筛选后模板数:', filtered.length);
 
