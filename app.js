@@ -1,7 +1,7 @@
 // OpenClaw API 配置
 const OPENCLAW_CONFIG = {
     apiKey: 'sk-sp-54997e1f8fa84942b1c077b1fa8f5269',
-    baseURL: 'https://coding.dashscope.aliyuncs.com/v1',
+    baseURL: '/api', // 使用 Vercel Serverless Function
     model: 'qwen3.5-plus'
 };
 
@@ -80,30 +80,26 @@ async function expandPrompt() {
     }
 }
 
-// 调用 OpenClaw API
+// 调用 OpenClaw API (通过 Vercel Serverless Function)
 async function callOpenClawAPI(prompt) {
-    const response = await fetch(`${OPENCLAW_CONFIG.baseURL}/chat/completions`, {
+    const response = await fetch(`${OPENCLAW_CONFIG.baseURL}/expand`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${OPENCLAW_CONFIG.apiKey}`
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            model: OPENCLAW_CONFIG.model,
-            messages: [
-                { role: 'user', content: prompt }
-            ],
-            max_tokens: 4096
+            prompt: prompt,
+            apiKey: OPENCLAW_CONFIG.apiKey
         })
     });
 
     if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.message || 'API 调用失败');
+        throw new Error(error.error || error.message || 'API 调用失败');
     }
 
     const data = await response.json();
-    return data.choices[0].message.content;
+    return data.result;
 }
 
 // 构建扩展提示词
