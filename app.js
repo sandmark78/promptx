@@ -1,7 +1,7 @@
-// OpenClaw API 配置 (xAI Grok)
+// OpenClaw API 配置 (Mistral AI)
 const OPENCLAW_CONFIG = {
     baseURL: '/api', // 使用 Vercel Serverless Function
-    model: 'grok-beta'
+    model: 'mistral-large-latest'
 };
 
 // 提示词模板库
@@ -45,24 +45,6 @@ function updateOutputCharCount() {
     charCount.textContent = count.toLocaleString();
 }
 
-// 页面加载时初始化
-document.addEventListener('DOMContentLoaded', async () => {
-    await loadTemplates();
-    loadHistory();
-    renderTemplates();
-});
-
-// 加载模板
-async function loadTemplates() {
-    try {
-        const response = await fetch('templates.json');
-        templates = await response.json();
-    } catch (error) {
-        console.error('加载模板失败:', error);
-        templates = [];
-    }
-}
-
 // 扩展提示词
 async function expandPrompt() {
     const input = document.getElementById('input').value.trim();
@@ -102,7 +84,7 @@ async function expandPrompt() {
         document.getElementById('loading').classList.add('hidden');
         document.getElementById('expandBtn').disabled = false;
         document.getElementById('expandBtn').classList.remove('opacity-50');
-        document.getElementById('expandBtn').innerHTML = '<span>✨</span> 扩展提示词';
+        document.getElementById('expandBtn').innerHTML = '<span>🦞</span> 生成 OpenClaw 提示词';
     }
 }
 
@@ -155,20 +137,6 @@ ${input}
 
 请生成完整的扩展提示词：
 `;
-}
-
-// 显示提示
-function showToast(message, type = 'success') {
-    const toast = document.getElementById('toast');
-    toast.textContent = message;
-    toast.className = `fixed bottom-4 right-4 text-white px-6 py-3 rounded-lg shadow-lg transform transition duration-300 ${
-        type === 'error' ? 'bg-red-500' : type === 'warning' ? 'bg-yellow-500' : 'bg-green-500'
-    }`;
-    toast.classList.remove('translate-y-20', 'opacity-0');
-    
-    setTimeout(() => {
-        toast.classList.add('translate-y-20', 'opacity-0');
-    }, 3000);
 }
 
 // 复制输出
@@ -226,62 +194,6 @@ function clearAll() {
     document.getElementById('output').classList.add('hidden');
     document.getElementById('input').focus();
     updateCharCount();
-}
-
-// 筛选模板
-function filterTemplates(category) {
-    currentCategory = category;
-    
-    // 更新按钮样式
-    const buttons = document.querySelectorAll('#categoryFilter button');
-    buttons.forEach(btn => {
-        if (btn.textContent.includes(getCategoryName(category))) {
-            btn.classList.remove('bg-gray-100', 'text-gray-700');
-            btn.classList.add('bg-purple-100', 'text-purple-700');
-        } else {
-            btn.classList.add('bg-gray-100', 'text-gray-700');
-            btn.classList.remove('bg-purple-100', 'text-purple-700');
-        }
-    });
-    
-    renderTemplates();
-}
-
-// 获取分类中文名
-function getCategoryName(category) {
-    const names = {
-        'all': '全部',
-        'content': '内容创作',
-        'code': '代码开发',
-        'analysis': '数据分析',
-        'business': '商业应用'
-    };
-    return names[category] || '全部';
-}
-
-// 渲染模板
-function renderTemplates() {
-    const container = document.getElementById('templates');
-    const filtered = currentCategory === 'all' 
-        ? templates 
-        : templates.filter(t => t.category === currentCategory);
-    
-    container.innerHTML = filtered.map(template => `
-        <div class="bg-gray-50 rounded-xl p-4 hover:shadow-md transition cursor-pointer" onclick="useTemplate('${template.id}')">
-            <h3 class="font-semibold text-gray-900 mb-2">${template.title}</h3>
-            <p class="text-sm text-gray-600 mb-3 line-clamp-2">${template.description}</p>
-            <span class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full">${template.category_name}</span>
-        </div>
-    `).join('');
-}
-
-// 使用模板
-function useTemplate(templateId) {
-    const template = templates.find(t => t.id === templateId);
-    if (template) {
-        document.getElementById('input').value = template.example_input;
-        showToast('✅ 模板已加载到输入框');
-    }
 }
 
 // 保存到历史
@@ -352,3 +264,9 @@ function showToast(message, type = 'success') {
         toast.classList.add('translate-y-20', 'opacity-0');
     }, 3000);
 }
+
+// 页面加载时初始化
+document.addEventListener('DOMContentLoaded', async () => {
+    // 模板加载由 templates.js 处理
+    loadHistory();
+});
