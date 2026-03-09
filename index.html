@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PromptCraft - OpenClaw 提示词扩展工具</title>
+    <meta name="description" content="免费开源的 OpenClaw 提示词扩展工具，50+ 专业模板，一键生成高质量提示词">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .loading {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="gradient-bg text-white py-12">
+        <div class="container mx-auto px-4 max-w-4xl text-center">
+            <h1 class="text-5xl font-bold mb-4">🎨 PromptCraft</h1>
+            <p class="text-xl text-purple-100">OpenClaw 提示词扩展工具</p>
+            <p class="text-sm text-purple-200 mt-2">将简单想法扩展为专业级提示词</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 max-w-4xl -mt-8 pb-12">
+        <!-- Input Section -->
+        <div class="bg-white rounded-2xl shadow-xl p-6 mb-6">
+            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                💡 输入你的想法
+            </label>
+            <textarea 
+                id="input"
+                placeholder="例如：帮我写一个数据分析报告、创建一个营销邮件、生成代码文档..."
+                class="w-full h-32 p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none transition"
+            ></textarea>
+            
+            <button 
+                onclick="expandPrompt()"
+                id="expandBtn"
+                class="w-full mt-4 gradient-bg text-white font-semibold py-4 px-6 rounded-xl hover:opacity-90 transition duration-200 flex items-center justify-center gap-2 text-lg"
+            >
+                <span>✨</span>
+                <span>扩展提示词</span>
+            </button>
+
+            <!-- Loading State -->
+            <div id="loading" class="hidden mt-4 text-center">
+                <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+                <p class="text-gray-600 mt-2">正在生成专业提示词...</p>
+            </div>
+        </div>
+
+        <!-- Output Section -->
+        <div id="output" class="hidden bg-white rounded-2xl shadow-xl p-6 mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-semibold text-gray-900">📝 扩展结果</h2>
+                <div class="flex gap-2">
+                    <button onclick="copyOutput()" class="px-4 py-2 text-sm bg-gray-100 hover:bg-gray-200 rounded-lg transition flex items-center gap-1">
+                        <span>📋</span> 复制
+                    </button>
+                    <button onclick="clearAll()" class="px-4 py-2 text-sm bg-red-100 hover:bg-red-200 text-red-700 rounded-lg transition">
+                        🗑️ 清除
+                    </button>
+                </div>
+            </div>
+            <textarea 
+                id="outputText"
+                readonly
+                class="w-full h-96 p-4 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 font-mono text-sm resize-none focus:outline-none"
+            ></textarea>
+        </div>
+
+        <!-- Template Library -->
+        <div class="bg-white rounded-2xl shadow-xl p-6 mb-6">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">📚 提示词模板</h2>
+            
+            <!-- Category Filter -->
+            <div class="flex flex-wrap gap-2 mb-4" id="categoryFilter">
+                <button onclick="filterTemplates('all')" class="px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-medium hover:bg-purple-200 transition">全部</button>
+                <button onclick="filterTemplates('content')" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-200 transition">内容创作</button>
+                <button onclick="filterTemplates('code')" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-200 transition">代码开发</button>
+                <button onclick="filterTemplates('analysis')" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-200 transition">数据分析</button>
+                <button onclick="filterTemplates('business')" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-200 transition">商业应用</button>
+            </div>
+
+            <!-- Template Grid -->
+            <div id="templates" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+        </div>
+
+        <!-- History Section -->
+        <div class="bg-white rounded-2xl shadow-xl p-6 mb-6">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">📜 历史记录</h2>
+            <div id="history" class="space-y-2"></div>
+            <button onclick="clearHistory()" class="mt-4 text-sm text-red-600 hover:text-red-700 transition">清空历史</button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-8">
+        <div class="container mx-auto px-4 max-w-4xl text-center">
+            <p class="mb-2">💖 支持项目：<a href="https://github.com/sponsors/sandmark78" target="_blank" class="text-purple-400 hover:underline">GitHub Sponsors</a></p>
+            <p class="mb-2">📦 开源代码：<a href="https://github.com/sandmark78/openclaw-prompt-craft" target="_blank" class="text-purple-400 hover:underline">GitHub</a></p>
+            <p class="text-sm text-gray-500">Powered by OpenClaw & Qwen3.5-Plus</p>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-20 opacity-0 transition duration-300">
+        ✅ 已复制到剪贴板
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

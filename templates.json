@@ -1,0 +1,162 @@
+[
+  {
+    "id": "content-001",
+    "category": "content",
+    "category_name": "内容创作",
+    "title": "博客文章生成",
+    "description": "生成 SEO 优化的博客文章，包含标题、大纲和完整内容",
+    "example_input": "写一篇关于 AI 趋势的博客文章"
+  },
+  {
+    "id": "content-002",
+    "category": "content",
+    "category_name": "内容创作",
+    "title": "社交媒体帖子",
+    "description": "创建吸引人的社交媒体内容，适配不同平台",
+    "example_input": "为 Twitter 创建一个产品发布推文"
+  },
+  {
+    "id": "content-003",
+    "category": "content",
+    "category_name": "内容创作",
+    "title": "营销邮件",
+    "description": "撰写高转化率的营销邮件，包含主题行和 CTA",
+    "example_input": "写一封新产品上市的营销邮件"
+  },
+  {
+    "id": "content-004",
+    "category": "content",
+    "category_name": "内容创作",
+    "title": "产品描述",
+    "description": "创建吸引人的产品描述，突出卖点和优势",
+    "example_input": "为智能手表写产品描述"
+  },
+  {
+    "id": "content-005",
+    "category": "content",
+    "category_name": "内容创作",
+    "title": "新闻稿",
+    "description": "撰写专业新闻稿，符合媒体发布标准",
+    "example_input": "写一份公司融资成功的新闻稿"
+  },
+  {
+    "id": "code-001",
+    "category": "code",
+    "category_name": "代码开发",
+    "title": "代码生成",
+    "description": "根据需求生成高质量代码，包含注释和测试",
+    "example_input": "用 Python 写一个文件处理脚本"
+  },
+  {
+    "id": "code-002",
+    "category": "code",
+    "category_name": "代码开发",
+    "title": "代码审查",
+    "description": "审查代码质量，提供改进建议和最佳实践",
+    "example_input": "审查这段 JavaScript 代码"
+  },
+  {
+    "id": "code-003",
+    "category": "code",
+    "category_name": "代码开发",
+    "title": "文档生成",
+    "description": "为代码生成完整的 API 文档和使用说明",
+    "example_input": "为这个 Python 模块生成文档"
+  },
+  {
+    "id": "code-004",
+    "category": "code",
+    "category_name": "代码开发",
+    "title": "Bug 修复",
+    "description": "分析错误并提供修复方案",
+    "example_input": "修复这个 React 组件的渲染问题"
+  },
+  {
+    "id": "code-005",
+    "category": "code",
+    "category_name": "代码开发",
+    "title": "单元测试",
+    "description": "为代码生成全面的单元测试用例",
+    "example_input": "为这个函数写单元测试"
+  },
+  {
+    "id": "analysis-001",
+    "category": "analysis",
+    "category_name": "数据分析",
+    "title": "数据报告",
+    "description": "生成专业数据分析报告，包含洞察和建议",
+    "example_input": "分析销售数据并生成报告"
+  },
+  {
+    "id": "analysis-002",
+    "category": "analysis",
+    "category_name": "数据分析",
+    "title": "竞品分析",
+    "description": "分析竞争对手，识别优势和机会",
+    "example_input": "分析主要竞争对手的市场策略"
+  },
+  {
+    "id": "analysis-003",
+    "category": "analysis",
+    "category_name": "数据分析",
+    "title": "用户调研",
+    "description": "分析用户反馈，提取关键洞察",
+    "example_input": "分析用户调研问卷结果"
+  },
+  {
+    "id": "analysis-004",
+    "category": "analysis",
+    "category_name": "数据分析",
+    "title": "趋势预测",
+    "description": "基于历史数据预测未来趋势",
+    "example_input": "预测下季度销售趋势"
+  },
+  {
+    "id": "analysis-005",
+    "category": "analysis",
+    "category_name": "数据分析",
+    "title": "可视化建议",
+    "description": "推荐最适合的数据可视化方案",
+    "example_input": "建议如何可视化这个数据集"
+  },
+  {
+    "id": "business-001",
+    "category": "business",
+    "category_name": "商业应用",
+    "title": "商业计划",
+    "description": "创建完整的商业计划书框架",
+    "example_input": "写一个创业公司商业计划"
+  },
+  {
+    "id": "business-002",
+    "category": "business",
+    "category_name": "商业应用",
+    "title": "会议纪要",
+    "description": "整理会议记录，提取行动项",
+    "example_input": "整理这个会议的纪要"
+  },
+  {
+    "id": "business-003",
+    "category": "business",
+    "category_name": "商业应用",
+    "title": "项目提案",
+    "description": "撰写专业的项目提案文档",
+    "example_input": "写一个系统升级项目提案"
+  },
+  {
+    "id": "business-004",
+    "category": "business",
+    "category_name": "商业应用",
+    "title": "客户沟通",
+    "description": "生成专业的客户沟通邮件和回复",
+    "example_input": "回复客户投诉邮件"
+  },
+  {
+    "id": "business-005",
+    "category": "business",
+    "category_name": "商业应用",
+    "title": "培训材料",
+    "description": "创建员工培训材料和演示文稿",
+    "example_input": "创建新员工入职培训材料"
+  }
+]
