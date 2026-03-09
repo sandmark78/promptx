@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>调试加载</title>
+    <style>
+        body { font-family: monospace; padding: 20px; background: #000; color: #0f0; }
+        .log { margin: 5px 0; }
+        .error { color: #f00; }
+        .success { color: #0f0; }
+        .warn { color: #ff0; }
+    </style>
+</head>
+<body>
+    <h1>🦞 ClawPrompt 调试加载</h1>
+    <div id="logs"></div>
+    
+    <script>
+        const logs = document.getElementById('logs');
+        function log(msg, type = 'log') {
+            const div = document.createElement('div');
+            div.className = 'log ' + type;
+            div.textContent = '[' + new Date().toLocaleTimeString() + '] ' + msg;
+            logs.appendChild(div);
+            console.log(msg);
+        }
+        
+        async function test() {
+            log('🦞 开始加载测试...', 'log');
+            
+            // 测试 1: 检查 templates.js
+            log('📄 检查 templates.js...', 'log');
+            try {
+                const response = await fetch('templates.js');
+                log('✅ templates.js 可访问: ' + response.status, 'success');
+            } catch (e) {
+                log('❌ templates.js 加载失败：' + e.message, 'error');
+            }
+            
+            // 测试 2: 加载模板文件
+            const files = [
+                'templates/01-tech-templates.json',
+                'templates/02-finance-templates.json',
+                'templates/03-creative-templates.json'
+            ];
+            
+            for (const file of files) {
+                log('📥 加载 ' + file + '...', 'log');
+                try {
+                    const response = await fetch(file);
+                    log('📡 响应状态：' + response.status, response.ok ? 'success' : 'error');
+                    
+                    if (!response.ok) continue;
+                    
+                    const data = await response.json();
+                    const count = data.templates?.length || 0;
+                    log('✅ ' + file + ': ' + count + ' 个模板', 'success');
+                } catch (e) {
+                    log('❌ ' + file + ' 错误：' + e.message, 'error');
+                }
+            }
+            
+            log('🎉 测试完成！', 'success');
+        }
+        
+        test();
+    </script>
+</body>
+</html>

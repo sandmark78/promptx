@@ -5,6 +5,8 @@ let currentCategory = 'all';
 
 // 加载所有模板
 async function loadTemplates() {
+    console.log('🦞 开始加载模板...');
+    
     const templateFiles = [
         'templates/01-tech-templates.json',
         'templates/02-finance-templates.json',
@@ -19,17 +21,18 @@ async function loadTemplates() {
     
     for (const file of templateFiles) {
         try {
-            console.log('正在加载:', file);
+            console.log('📥 加载:', file);
             const response = await fetch(file);
-            console.log('响应状态:', response.status);
+            console.log('📡 响应状态:', response.status, file);
             
             if (!response.ok) {
-                console.warn(`文件 ${file} 返回 ${response.status}，跳过`);
+                console.warn('⚠️ 文件 ${file} 返回 ${response.status}，跳过');
                 continue;
             }
             
             const data = await response.json();
-            console.log('解析数据，模板数:', data.templates?.length || 0);
+            const count = data.templates?.length || 0;
+            console.log('✅ 解析成功:', count, '个模板');
             
             if (data.templates && Array.isArray(data.templates)) {
                 // 确保每个模板都有 category 字段
@@ -39,21 +42,28 @@ async function loadTemplates() {
                     }
                 });
                 allTemplates = [...allTemplates, ...data.templates];
-                console.log(`已加载 ${data.templates.length} 个模板，总计 ${allTemplates.length}`);
+                console.log('📊 当前总计:', allTemplates.length, '个模板');
             }
         } catch (error) {
-            console.error(`加载 ${file} 失败:`, error);
+            console.error('❌ 加载失败:', file, error);
         }
     }
 
-    console.log('总模板数:', allTemplates.length);
+    console.log('🎉 总模板数:', allTemplates.length);
     
     // 显示分类统计
     const categoryCount = {};
     allTemplates.forEach(t => {
         categoryCount[t.category] = (categoryCount[t.category] || 0) + 1;
     });
-    console.log('分类统计:', categoryCount);
+    console.log('📊 分类统计:', categoryCount);
+    
+    // 隐藏加载动画，显示模板容器
+    const loadingEl = document.getElementById('templatesLoading');
+    const templatesEl = document.getElementById('templates');
+    
+    if (loadingEl) loadingEl.classList.add('hidden');
+    if (templatesEl) templatesEl.classList.remove('hidden');
     
     renderTemplates();
 }
@@ -62,18 +72,18 @@ async function loadTemplates() {
 function renderTemplates() {
     const container = document.getElementById('templates');
     if (!container) {
-        console.error('找不到 templates 容器');
+        console.error('❌ 找不到 templates 容器');
         return;
     }
     
-    console.log('当前分类:', currentCategory);
-    console.log('总模板数:', allTemplates.length);
+    console.log('🎯 当前分类:', currentCategory);
+    console.log('📊 总模板数:', allTemplates.length);
     
     const filtered = currentCategory === 'all' 
         ? allTemplates 
         : allTemplates.filter(t => t.category === currentCategory);
 
-    console.log('筛选后模板数:', filtered.length);
+    console.log('🔍 筛选后模板数:', filtered.length);
 
     if (filtered.length === 0) {
         container.innerHTML = '<p class="text-gray-500 text-center col-span-3 py-12 text-lg">暂无模板，敬请期待...</p>';
@@ -97,6 +107,8 @@ function renderTemplates() {
             </div>
         </div>
     `).join('');
+    
+    console.log('✅ 模板渲染完成');
 }
 
 // 获取难度颜色
@@ -141,21 +153,19 @@ function getCategoryBadgeColor(category) {
 
 // 筛选模板
 function filterTemplates(category) {
-    console.log('筛选分类:', category);
+    console.log('🔍 筛选分类:', category);
     currentCategory = category;
     
     // 更新按钮样式
     const buttons = document.querySelectorAll('#categoryFilter .category-btn');
-    console.log('找到按钮数:', buttons.length);
+    console.log('🔘 找到按钮数:', buttons.length);
     
     buttons.forEach(btn => {
         const onClick = btn.getAttribute('onclick');
-        console.log('按钮 onclick:', onClick);
         
         if (onClick && onClick.includes(`'${category}'`)) {
             btn.classList.add('active');
             btn.classList.remove('bg-gray-100', 'text-gray-700');
-            console.log('激活按钮:', btn);
         } else {
             btn.classList.remove('active');
             btn.classList.add('bg-gray-100', 'text-gray-700');
@@ -184,15 +194,21 @@ function useTemplate(templateId) {
         input.scrollIntoView({ behavior: 'smooth', block: 'center' });
         
         // 显示提示
-        showToast(`✅ 已加载模板：${template.name}`);
+        showToast('✅ 已加载模板：' + template.name);
     } else {
-        console.error('找不到模板:', templateId);
+        console.error('❌ 找不到模板:', templateId);
         showToast('❌ 模板加载失败');
     }
 }
 
-// 初始化
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('页面加载完成，开始加载模板...');
+// 初始化 - 立即执行
+console.log('🦞 ClawPrompt 启动...');
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('📄 DOM 加载完成，开始加载模板...');
+        loadTemplates();
+    });
+} else {
+    console.log('📄 DOM 已就绪，立即加载模板...');
     loadTemplates();
-});
+}
