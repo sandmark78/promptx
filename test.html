@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>模板加载测试</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .template { border: 1px solid #ccc; padding: 10px; margin: 5px; }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+    <h1>模板加载测试</h1>
+    <div id="status"></div>
+    <div id="templates"></div>
+    
+    <script>
+        const status = document.getElementById('status');
+        let log = '';
+        
+        function addLog(msg, type = 'info') {
+            log += `<p class="${type}">${msg}</p>`;
+            status.innerHTML = log;
+            console.log(msg);
+        }
+        
+        async function test() {
+            addLog('开始加载模板...', 'info');
+            
+            const files = [
+                'templates/01-tech-templates.json',
+                'templates/02-finance-templates.json',
+                'templates/03-creative-templates.json',
+                'templates/04-auto-templates.json',
+                'templates/05-research-templates.json',
+                'templates/06-painpoint-templates.json',
+                'templates/07-training-templates.json'
+            ];
+            
+            let allTemplates = [];
+            
+            for (const file of files) {
+                try {
+                    addLog(`加载 ${file}...`);
+                    const response = await fetch(file);
+                    addLog(`响应状态：${response.status}`, response.ok ? 'success' : 'error');
+                    
+                    if (!response.ok) continue;
+                    
+                    const data = await response.json();
+                    const count = data.templates?.length || 0;
+                    addLog(`✅ ${file}: ${count}个模板 (category: ${data.category})`, 'success');
+                    
+                    if (data.templates) {
+                        data.templates.forEach(t => {
+                            if (!t.category) t.category = data.category;
+                        });
+                        allTemplates = [...allTemplates, ...data.templates];
+                    }
+                } catch (e) {
+                    addLog(`❌ ${file}: ${e.message}`, 'error');
+                }
+            }
+            
+            addLog(`<br><strong>总模板数：${allTemplates.length}</strong>`, 'success');
+            
+            // 显示分类统计
+            const categories = {};
+            allTemplates.forEach(t => {
+                categories[t.category] = (categories[t.category] || 0) + 1;
+            });
+            
+            addLog('<br>分类统计:', 'info');
+            for (const [cat, count] of Object.entries(categories)) {
+                addLog(`- ${cat}: ${count}`, 'info');
+            }
+            
+            // 显示前 10 个模板
+            const container = document.getElementById('templates');
+            container.innerHTML = '<h2>前 10 个模板:</h2>' + allTemplates.slice(0, 10).map(t => `
+                <div class="template">
+                    <strong>${t.name}</strong> (${t.category})<br>
+                    ${t.scenario}
+                </div>
+            `).join('');
+        }
+        
+        test();
+    </script>
+</body>
+</html>
