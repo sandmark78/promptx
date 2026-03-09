@@ -19,16 +19,21 @@ async function loadTemplates() {
     
     for (const file of templateFiles) {
         try {
-            console.log('加载文件:', file);
+            console.log('正在加载:', file);
             const response = await fetch(file);
+            console.log('响应状态:', response.status);
+            
             if (!response.ok) {
                 console.warn(`文件 ${file} 返回 ${response.status}，跳过`);
                 continue;
             }
+            
             const data = await response.json();
+            console.log('解析数据:', data);
+            
             if (data.templates && Array.isArray(data.templates)) {
                 allTemplates = [...allTemplates, ...data.templates];
-                console.log(`加载 ${data.templates.length} 个模板`);
+                console.log(`已加载 ${data.templates.length} 个模板`);
             }
         } catch (error) {
             console.error(`加载 ${file} 失败:`, error);
@@ -47,14 +52,17 @@ function renderTemplates() {
         return;
     }
     
+    console.log('当前分类:', currentCategory);
+    console.log('总模板数:', allTemplates.length);
+    
     const filtered = currentCategory === 'all' 
         ? allTemplates 
         : allTemplates.filter(t => t.category === currentCategory);
 
-    console.log('筛选后模板数:', filtered.length, '分类:', currentCategory);
+    console.log('筛选后模板数:', filtered.length);
 
     if (filtered.length === 0) {
-        container.innerHTML = '<p class="text-gray-500 text-center col-span-3 py-8">暂无模板，敬请期待...</p>';
+        container.innerHTML = '<p class="text-gray-500 text-center col-span-3 py-12 text-lg">暂无模板，敬请期待...</p>';
         return;
     }
 
@@ -119,16 +127,21 @@ function getCategoryBadgeColor(category) {
 
 // 筛选模板
 function filterTemplates(category) {
-    currentCategory = category;
     console.log('筛选分类:', category);
+    currentCategory = category;
     
     // 更新按钮样式
     const buttons = document.querySelectorAll('#categoryFilter .category-btn');
+    console.log('找到按钮数:', buttons.length);
+    
     buttons.forEach(btn => {
         const onClick = btn.getAttribute('onclick');
+        console.log('按钮 onclick:', onClick);
+        
         if (onClick && onClick.includes(`'${category}'`)) {
             btn.classList.add('active');
             btn.classList.remove('bg-gray-100', 'text-gray-700');
+            console.log('激活按钮:', btn);
         } else {
             btn.classList.remove('active');
             btn.classList.add('bg-gray-100', 'text-gray-700');
@@ -138,7 +151,10 @@ function filterTemplates(category) {
     renderTemplates();
     
     // 滚动到模板区域
-    document.getElementById('templates').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const templatesSection = document.getElementById('templates');
+    if (templatesSection) {
+        templatesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 }
 
 // 使用模板

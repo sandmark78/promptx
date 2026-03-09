@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>模板调试页面</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h1>模板加载调试</h1>
+    <div id="debug"></div>
+    <div id="templates"></div>
+    
+    <script>
+        const debug = document.getElementById('debug');
+        let log = '';
+        
+        function addLog(msg) {
+            log += msg + '<br>';
+            debug.innerHTML = log;
+            console.log(msg);
+        }
+        
+        async function testLoad() {
+            addLog('开始加载模板...');
+            
+            const files = [
+                'templates/01-tech-templates.json',
+                'templates/02-finance-templates.json',
+                'templates/03-creative-templates.json',
+                'templates/04-auto-templates.json',
+                'templates/05-research-templates.json',
+                'templates/06-painpoint-templates.json',
+                'templates/07-training-templates.json'
+            ];
+            
+            let allTemplates = [];
+            
+            for (const file of files) {
+                try {
+                    addLog(`加载 ${file}...`);
+                    const response = await fetch(file);
+                    addLog(`响应状态：${response.status}`);
+                    
+                    if (!response.ok) {
+                        addLog(`❌ ${file} 失败：${response.status}`);
+                        continue;
+                    }
+                    
+                    const data = await response.json();
+                    addLog(`✅ ${file} 成功，${data.templates?.length || 0} 个模板`);
+                    
+                    if (data.templates && Array.isArray(data.templates)) {
+                        allTemplates = [...allTemplates, ...data.templates];
+                    }
+                } catch (error) {
+                    addLog(`❌ ${file} 错误：${error.message}`);
+                }
+            }
+            
+            addLog(`<br><strong>总模板数：${allTemplates.length}</strong>`);
+            addLog(`分类统计:`);
+            
+            const categories = {};
+            allTemplates.forEach(t => {
+                categories[t.category] = (categories[t.category] || 0) + 1;
+            });
+            
+            for (const [cat, count] of Object.entries(categories)) {
+                addLog(`- ${cat}: ${count}`);
+            }
+            
+            // 显示模板
+            const container = document.getElementById('templates');
+            container.innerHTML = allTemplates.map(t => `
+                <div style="border:1px solid #ccc; padding:10px; margin:5px;">
+                    <strong>${t.name}</strong> (${t.category})<br>
+                    ${t.scenario}
+                </div>
+            `).join('');
+        }
+        
+        testLoad();
+    </script>
+</body>
+</html>
