@@ -1,0 +1,76 @@
+{
+  "category": "creative",
+  "category_name": "文案/创作",
+  "templates": [
+    {
+      "id": "creative-001",
+      "name": "小红书爆款标题",
+      "scenario": "生成吸引点击的小红书标题",
+      "difficulty": 1,
+      "bad_prompt": "帮我写个小红书标题",
+      "good_prompt": "<instructions>\n你是一位小红书爆款文案专家，擅长创作高点击率标题。\n请为以下产品/内容生成 10 个爆款标题。\n</instructions>\n<context>\n产品/内容：[描述你的产品]\n目标受众：25-35 岁女性\n核心亮点：[列出 3 个卖点]\n</context>\n<format>\n每个标题要求：\n- 包含 1-2 个 emoji\n- 15 字以内\n- 使用数字/疑问/对比等技巧\n- 避免夸大其词\n</format>",
+      "why_effective": "明确受众 (25-35 岁女性) + 数量要求 (10 个) + 具体格式 (emoji/字数) + 技巧提示，提高标题质量。",
+      "replace_hints": {
+        "🔴": "产品/内容描述",
+        "🔵": "3 个核心卖点",
+        "🟢": "目标受众调整"
+      }
+    },
+    {
+      "id": "creative-002",
+      "name": "小红书种草文案",
+      "scenario": "创作小红书产品推广文案",
+      "difficulty": 2,
+      "bad_prompt": "写个小红书文案",
+      "good_prompt": "<instructions>\n你是一位资深小红书种草博主，擅长用真实体验打动用户。\n请为以下产品创作一篇种草文案。\n</instructions>\n<context>\n产品：[产品名]\n使用场景：[何时/何地使用]\n核心体验：[3 个真实感受]\n对比竞品：[可选]\n</context>\n<format>\n结构：\n1. 标题 (吸引点击)\n2. 开头 (痛点引入)\n3. 体验过程 (3-4 段)\n4. 优缺点对比 (真诚)\n5. 购买建议 (明确)\n6. 标签 (5-8 个 hashtag)\n\n语气：闺蜜分享，真诚不做作\n字数：300-500 字\n</format>",
+      "why_effective": "结构清晰 (6 部分) + 语气定位 (闺蜜分享) + 强调真诚 (优缺点对比) + 字数控制，符合小红书风格。",
+      "replace_hints": {
+        "🔴": "产品名和描述",
+        "🔵": "3 个真实使用感受",
+        "🟢": "目标受众/场景"
+      }
+    },
+    {
+      "id": "creative-003",
+      "name": "公众号推文",
+      "scenario": "创作微信公众号长文",
+      "difficulty": 3,
+      "bad_prompt": "写一篇公众号文章",
+      "good_prompt": "<instructions>\n你是一位资深公众号主编，擅长创作 10w+ 爆文。\n请为以下主题创作一篇公众号推文。\n</instructions>\n<context>\n主题：[文章主题]\n目标读者：[读者画像]\n核心观点：[1-2 个核心观点]\n字数要求：2000-3000 字\n</context>\n<format>\n结构：\n1. 标题 (5 个备选)\n2. 开头 (痛点/故事引入，200 字)\n3. 正文 (3-5 个小标题，每部分 500 字)\n4. 金句 (3-5 句，可转发)\n5. 结尾 (行动呼吁)\n6. 互动话题 (引导评论)\n\n风格：[专业/轻松/励志]\n</format>",
+      "why_effective": "完整公众号结构 (标题 + 开头 + 正文 + 金句 + 结尾) + 字数分配 + 互动设计，符合微信生态。",
+      "replace_hints": {
+        "🔴": "文章主题和核心观点",
+        "🔵": "目标读者画像",
+        "🟢": "文章风格选择"
+      }
+    },
+    {
+      "id": "creative-004",
+      "name": "Twitter/X 推文",
+      "scenario": "创作 Twitter 短推文",
+      "difficulty": 1,
+      "bad_prompt": "写个推文",
+      "good_prompt": "<instructions>\n你是一位 Twitter 运营专家，擅长创作高互动推文。\n请为以下内容创作 5 条推文。\n</instructions>\n<context>\n内容主题：[主题]\n目标受众：[受众]\n核心信息：[1 个核心点]\n</context>\n<format>\n每条推文：\n- 280 字符以内\n- 包含 1-2 个 hashtag\n- 包含行动呼吁 (转评赞)\n- 可使用 emoji (2-3 个)\n\n技巧：疑问/数字/对比/热点\n</format>",
+      "why_effective": "平台特性 (280 字符) + 数量要求 (5 条) + 互动设计 (行动呼吁) + 技巧提示，提高推文质量。",
+      "replace_hints": {
+        "🔴": "内容主题",
+        "🔵": "核心信息",
+        "🟢": "目标受众"
+      }
+    },
+    {
+      "id": "creative-005",
+      "name": "Moltbook 技术分享帖",
+      "scenario": "创作 Moltbook 技术社区帖子",
+      "difficulty": 2,
+      "bad_prompt": "发个技术帖",
+      "good_prompt": "<instructions>\n你是一位技术社区运营专家，擅长创作高质量技术分享帖。\n请为以下技术主题创作一篇 Moltbook 帖子。\n</instructions>\n<context>\n技术主题：[主题]\n目标读者：AI Agent 开发者\n核心价值：[1-2 个技术亮点]\n</context>\n<format>\n结构：\n1. 标题 (技术亮点 + 收益)\n2. 问题引入 (痛点场景)\n3. 解决方案 (步骤/代码)\n4. 效果展示 (数据/对比)\n5. 源码链接 (GitHub)\n6. 互动问题 (引导讨论)\n\n语气：专业但友好\n字数：500-800 字\n</format>",
+      "why_effective": "技术社区特性 (代码 + 效果 + 源码) + 专业语气 + 互动设计，符合 Moltbook 生态。",
+      "replace_hints": {
+        "🔴": "技术主题和亮点",
+        "🔵": "解决方案/代码",
+        "🟢": "GitHub 链接"
+      }
+    }
+  ]
+}
