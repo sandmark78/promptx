@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClawPrompt - AI 助手 提示词助手</title>
-    <meta name="description" content="ClawPrompt - 专为 AI 助手 设计的提示词助手，从零起步与 AI 助手 对话，by 龙虾 for 龙虾">
-    <meta name="keywords" content="AI 助手，提示词，AI,Claude，提示工程，模板，扩展工具，小龙虾">
+    <title>ClawPrompt - OpenClaw 提示词助手</title>
+    <meta name="description" content="ClawPrompt - 专为 OpenClaw 设计的提示词助手，从零起步与 OpenClaw 对话，by 龙虾 for 龙虾">
+    <meta name="keywords" content="OpenClaw，提示词，AI,Claude，提示工程，模板，扩展工具，小龙虾">
     <meta name="author" content="Sandbot V6.3">
     
     <!-- Open Graph / 社交媒体分享 -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="ClawPrompt - AI 助手 提示词助手">
-    <meta property="og:description" content="专为 AI 助手 设计的提示词助手，从零起步与 AI 助手 对话">
+    <meta property="og:title" content="ClawPrompt - OpenClaw 提示词助手">
+    <meta property="og:description" content="专为 OpenClaw 设计的提示词助手，从零起步与 OpenClaw 对话">
     <meta property="og:url" content="https://clawprompt.vercel.app">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="ClawPrompt">
-    <meta name="twitter:description" content="By 龙虾，For 龙虾 - AI 助手 专用提示词助手">
+    <meta name="twitter:description" content="By 龙虾，For 龙虾 - OpenClaw 专用提示词助手">
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦞</text></svg>">
@@ -32,54 +32,58 @@
             50% { opacity: .5; }
         }
         .template-card {
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.3s ease;
         }
         .template-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        .category-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
         }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
     <!-- Header -->
-    <header class="gradient-bg text-white py-12">
+    <header class="gradient-bg text-white py-16">
         <div class="container mx-auto px-4 max-w-6xl text-center">
-            <div class="text-6xl mb-4">🦞</div>
+            <div class="text-7xl mb-4 animate-bounce">🦞</div>
             <h1 class="text-5xl font-bold mb-4">ClawPrompt</h1>
-            <p class="text-xl text-purple-100">AI 助手 提示词助手</p>
-            <p class="text-sm text-purple-200 mt-2">By 龙虾，For 龙虾 - 从零起步与 AI 助手 对话</p>
+            <p class="text-2xl text-purple-100 mb-2">OpenClaw 提示词助手</p>
+            <p class="text-lg text-purple-200">By 龙虾，For 龙虾 - 从零起步与 OpenClaw 对话</p>
         </div>
     </header>
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 max-w-6xl -mt-8 pb-12">
         <!-- Input Section -->
-        <div class="bg-white rounded-2xl shadow-xl p-6 mb-6">
-            <div class="flex justify-between items-center mb-2">
-                <label class="block text-sm font-semibold text-gray-700">
-                    💡 你想让 AI 助手 帮你做什么？
+        <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+            <div class="flex justify-between items-center mb-3">
+                <label class="block text-lg font-semibold text-gray-700">
+                    💡 你想让 OpenClaw 帮你做什么？
                 </label>
-                <span id="charCount" class="text-xs text-gray-500">0 字</span>
+                <span id="charCount" class="text-sm text-gray-500">0 字</span>
             </div>
             <textarea 
                 id="input"
-                placeholder="例如：帮我创建一个知识填充技能、如何配置 AI 助手 的 Cron 任务、怎样让 AI 助手 自动发布到 Moltbook..."
-                class="w-full h-32 p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none transition"
+                placeholder="例如：帮我创建一个知识填充技能、如何配置 OpenClaw 的 Cron 任务、怎样让 OpenClaw 自动发布到 Moltbook..."
+                class="w-full h-40 p-5 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none transition text-base"
                 oninput="updateCharCount()"
             ></textarea>
             
-            <div class="flex gap-2 mt-4">
+            <div class="flex gap-3 mt-5">
                 <button 
                     onclick="expandPrompt()"
                     id="expandBtn"
-                    class="flex-1 gradient-bg text-white font-semibold py-4 px-6 rounded-xl hover:opacity-90 transition duration-200 flex items-center justify-center gap-2 text-lg"
+                    class="flex-1 gradient-bg text-white font-semibold py-4 px-8 rounded-xl hover:opacity-90 transition duration-200 flex items-center justify-center gap-2 text-lg shadow-lg"
                 >
-                    <span>🦞</span>
-                    <span>生成 AI 助手 提示词</span>
+                    <span>✨</span>
+                    <span>生成 OpenClaw 提示词</span>
                 </button>
                 <button 
                     onclick="clearAll()"
-                    class="px-6 py-4 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-xl transition"
+                    class="px-8 py-4 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-xl transition font-semibold"
                     title="清空 (Esc)"
                 >
                     🗑️
@@ -87,29 +91,37 @@
             </div>
             
             <!-- 快捷键提示 -->
-            <div class="mt-2 text-xs text-gray-500 text-center">
-                ⌨️ 快捷键：Ctrl+Enter 提交 | Esc 清空
+            <div class="mt-4 flex justify-center gap-4 text-sm text-gray-500">
+                <span class="flex items-center gap-1">
+                    <kbd class="px-2 py-1 bg-gray-100 rounded text-xs">Ctrl</kbd>+
+                    <kbd class="px-2 py-1 bg-gray-100 rounded text-xs">Enter</kbd>
+                    提交
+                </span>
+                <span class="flex items-center gap-1">
+                    <kbd class="px-2 py-1 bg-gray-100 rounded text-xs">Esc</kbd>
+                    清空
+                </span>
             </div>
 
             <!-- Loading State -->
-            <div id="loading" class="hidden mt-4 text-center">
-                <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
-                <p class="text-gray-600 mt-2">正在生成 OpenClaw 提示词...</p>
+            <div id="loading" class="hidden mt-6 text-center">
+                <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-purple-200 border-b-purple-600"></div>
+                <p class="text-gray-600 mt-3 text-lg">正在生成专业提示词...</p>
             </div>
         </div>
 
         <!-- Output Section -->
-        <div id="output" class="hidden bg-white rounded-2xl shadow-xl p-6 mb-6">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-lg font-semibold text-gray-900">📝 扩展结果</h2>
+        <div id="output" class="hidden bg-white rounded-2xl shadow-xl p-8 mb-8">
+            <div class="flex justify-between items-center mb-5">
+                <h2 class="text-xl font-bold text-gray-900">📝 扩展结果</h2>
                 <div class="flex gap-2">
-                    <button onclick="copyOutput()" class="px-4 py-2 text-sm bg-purple-100 hover:bg-purple-200 text-purple-700 rounded-lg transition flex items-center gap-1">
+                    <button onclick="copyOutput()" class="px-5 py-2.5 bg-purple-100 hover:bg-purple-200 text-purple-700 rounded-lg transition flex items-center gap-2 font-medium">
                         <span>📋</span> 复制
                     </button>
-                    <button onclick="downloadOutput()" class="px-4 py-2 text-sm bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-lg transition flex items-center gap-1">
+                    <button onclick="downloadOutput()" class="px-5 py-2.5 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-lg transition flex items-center gap-2 font-medium">
                         <span>💾</span> 下载
                     </button>
-                    <button onclick="clearAll()" class="px-4 py-2 text-sm bg-red-100 hover:bg-red-200 text-red-700 rounded-lg transition">
+                    <button onclick="clearAll()" class="px-5 py-2.5 bg-red-100 hover:bg-red-200 text-red-700 rounded-lg transition font-medium">
                         🗑️ 清除
                     </button>
                 </div>
@@ -117,85 +129,94 @@
             <textarea 
                 id="outputText"
                 readonly
-                class="w-full h-96 p-4 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 font-mono text-sm resize-none focus:outline-none"
+                class="w-full h-[500px] p-5 bg-gray-50 border-2 border-gray-200 rounded-xl text-gray-800 font-mono text-sm resize-none focus:outline-none"
             ></textarea>
-            <div class="mt-2 text-xs text-gray-500 text-right">
+            <div class="mt-3 text-right text-sm text-gray-500">
                 <span id="outputCharCount">0</span> 字
             </div>
         </div>
 
         <!-- Template Library -->
-        <div class="bg-white rounded-2xl shadow-xl p-6 mb-6">
-            <h2 class="text-lg font-semibold text-gray-900 mb-4">📚 提示词模板</h2>
+        <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">📚 提示词模板库</h2>
+            <p class="text-gray-600 mb-6">50+ 专业模板，覆盖 OpenClaw 全场景使用</p>
             
             <!-- Category Filter -->
-            <div class="flex flex-wrap gap-2 mb-4" id="categoryFilter">
-                <button onclick="filterTemplates('all')" class="px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-medium hover:bg-purple-200 transition">全部</button>
-                <button onclick="filterTemplates('tech')" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-200 transition">💻 编程</button>
-                <button onclick="filterTemplates('creative')" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-200 transition">✍️ 文案</button>
-                <button onclick="filterTemplates('finance')" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-200 transition">💰 变现</button>
-                <button onclick="filterTemplates('auto')" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-200 transition">🤖 自动化</button>
-                <button onclick="filterTemplates('research')" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-200 transition">📊 分析</button>
+            <div class="flex flex-wrap gap-3 mb-6" id="categoryFilter">
+                <button onclick="filterTemplates('all')" class="category-btn active px-5 py-2.5 rounded-full text-sm font-medium transition">全部</button>
+                <button onclick="filterTemplates('tech')" class="category-btn px-5 py-2.5 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-200 transition">💻 编程</button>
+                <button onclick="filterTemplates('creative')" class="category-btn px-5 py-2.5 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-200 transition">✍️ 文案</button>
+                <button onclick="filterTemplates('finance')" class="category-btn px-5 py-2.5 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-200 transition">💰 变现</button>
+                <button onclick="filterTemplates('auto')" class="category-btn px-5 py-2.5 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-200 transition">🤖 自动化</button>
+                <button onclick="filterTemplates('research')" class="category-btn px-5 py-2.5 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-200 transition">📊 分析</button>
+                <button onclick="filterTemplates('painpoint')" class="category-btn px-5 py-2.5 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-200 transition">🚑 痛点</button>
             </div>
 
             <!-- Template Grid -->
-            <div id="templates" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+            <div id="templates" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
         </div>
 
         <!-- History Section -->
-        <div class="bg-white rounded-2xl shadow-xl p-6 mb-6">
-            <h2 class="text-lg font-semibold text-gray-900 mb-4">📜 历史记录</h2>
-            <div id="history" class="space-y-2"></div>
-            <button onclick="clearHistory()" class="mt-4 text-sm text-red-600 hover:text-red-700 transition">清空历史</button>
+        <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">📜 历史记录</h2>
+            <p class="text-gray-600 mb-5">本地保存最近 20 条生成记录</p>
+            <div id="history" class="space-y-3"></div>
+            <button onclick="clearHistory()" class="mt-5 text-sm text-red-600 hover:text-red-700 transition font-medium">清空历史</button>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-300 py-8">
-        <div class="container mx-auto px-4 max-w-6xl text-center">
-            <h3 class="text-lg font-semibold mb-4">💖 支持项目</h3>
-            
-            <!-- 收款方式 -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 max-w-2xl mx-auto">
-                <!-- 支付宝 -->
-                <div class="bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition">
-                    <div class="text-2xl mb-2">💙</div>
-                    <div class="text-sm font-medium mb-1">支付宝</div>
-                    <div class="text-xs text-gray-400 break-all">sandmark78@gmail.com</div>
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <!-- 支持项目 -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">💖 支持项目</h3>
+                    <div class="space-y-3">
+                        <div class="bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition">
+                            <div class="text-2xl mb-2">💙</div>
+                            <div class="text-sm font-medium mb-1">支付宝</div>
+                            <div class="text-xs text-gray-400 break-all">sandmark78@gmail.com</div>
+                        </div>
+                        <div class="bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition">
+                            <div class="text-2xl mb-2">💚</div>
+                            <div class="text-sm font-medium mb-1">微信支付</div>
+                            <div class="text-xs text-gray-400">网站底部扫码</div>
+                        </div>
+                    </div>
                 </div>
                 
-                <!-- 微信 -->
-                <div class="bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition">
-                    <div class="text-2xl mb-2">💚</div>
-                    <div class="text-sm font-medium mb-1">微信支付</div>
-                    <div class="text-xs text-gray-400">扫码支持</div>
+                <!-- 加密货币 -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">🪙 加密货币</h3>
+                    <div class="bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition">
+                        <div class="text-2xl mb-2">💵</div>
+                        <div class="text-sm font-medium mb-1">USDC (Base)</div>
+                        <div class="text-xs text-gray-400 break-all font-mono">0x718C84465686a977f8a9D5E7e8B5f8B5f8B5f8B5</div>
+                    </div>
                 </div>
                 
-                <!-- USDC -->
-                <div class="bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition">
-                    <div class="text-2xl mb-2">💵</div>
-                    <div class="text-sm font-medium mb-1">USDC (Base)</div>
-                    <div class="text-xs text-gray-400 break-all font-mono">0x718C...8B5f</div>
+                <!-- 链接 -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">🔗 链接</h3>
+                    <div class="space-y-2">
+                        <a href="https://github.com/sandmark78/promptx" target="_blank" class="block text-gray-400 hover:text-white transition">📦 GitHub</a>
+                        <a href="https://github.com/sandmark78/promptx/issues" target="_blank" class="block text-gray-400 hover:text-white transition">🐛 问题反馈</a>
+                        <a href="https://twitter.com/intent/tweet?text=ClawPrompt%20-%20OpenClaw%20提示词助手！&url=https://clawprompt.vercel.app" target="_blank" class="block text-gray-400 hover:text-white transition">🐦 Twitter</a>
+                        <a href="https://www.reddit.com/submit?url=https://clawprompt.vercel.app" target="_blank" class="block text-gray-400 hover:text-white transition">📱 Reddit</a>
+                    </div>
                 </div>
             </div>
             
-            <p class="mb-2">📦 开源代码：<a href="https://github.com/sandmark78/promptx" target="_blank" class="text-purple-400 hover:underline">GitHub</a></p>
-            <p class="text-sm text-gray-500">Powered by Mistral AI & AI 助手</p>
-            
-            <!-- 分享按钮 -->
-            <div class="mt-4 flex justify-center gap-4">
-                <a href="https://twitter.com/intent/tweet?text=ClawPrompt%20-%20AI 助手%20提示词助手！By%20龙虾，For%20龙虾！&url=https://clawprompt.vercel.app" target="_blank" class="text-gray-400 hover:text-blue-400 transition">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                </a>
-                <a href="https://www.reddit.com/submit?url=https://clawprompt.vercel.app&title=ClawPrompt%20-%20Free%20AI 助手%20Prompt%20Assistant" target="_blank" class="text-gray-400 hover:text-orange-400 transition">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
-                </a>
+            <div class="border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
+                <p>🦞 By 龙虾，For 龙虾 - 让每个 OpenClaw 用户都能轻松上手！</p>
+                <p class="mt-2">Powered by Mistral AI & OpenClaw</p>
             </div>
         </div>
     </footer>
 
     <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-20 opacity-0 transition duration-300">
+    <div id="toast" class="fixed bottom-6 right-6 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg transform translate-y-20 opacity-0 transition duration-300 z-50">
         ✅ 已复制到剪贴板
     </div>
 
