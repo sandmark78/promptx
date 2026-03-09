@@ -18,10 +18,22 @@ export default async function handler(req, res) {
     const XAI_MODEL = 'grok-beta';
 
     if (!XAI_API_KEY) {
-        return res.status(500).json({ error: 'API Key 未配置 - 请在 Vercel 配置 GROQ_API_KEY' });
+        console.error('❌ API Key 未配置');
+        return res.status(500).json({ 
+            error: 'API Key 未配置',
+            hint: '请在 Vercel 配置 GROQ_API_KEY 环境变量'
+        });
     }
 
+    console.log('🔍 API 调用开始:', {
+        model: XAI_MODEL,
+        hasApiKey: !!XAI_API_KEY,
+        apiKeyLength: XAI_API_KEY?.length || 0
+    });
+
     try {
+        console.log('📡 调用 xAI API:', XAI_MODEL);
+        
         const response = await fetch('https://api.x.ai/v1/chat/completions', {
             method: 'POST',
             headers: {
@@ -37,19 +49,25 @@ export default async function handler(req, res) {
             })
         });
 
+        console.log('📡 API 响应状态:', response.status);
+
         const data = await response.json();
 
         if (!response.ok) {
-            throw new Error(data.message || 'API 调用失败');
+            console.error('❌ API 错误:', data);
+            throw new Error(data.message || `HTTP ${response.status}`);
         }
+
+        console.log('✅ API 调用成功');
 
         res.status(200).json({
             result: data.choices[0].message.content
         });
     } catch (error) {
-        console.error('API Error:', error);
+        console.error('💥 API 异常:', error.message);
         res.status(500).json({
-            error: error.message || '服务器错误'
+            error: error.message || '服务器错误',
+            details: error.toString()
         });
     }
 }
