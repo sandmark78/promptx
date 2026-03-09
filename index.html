@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClawPrompt - OpenClaw 提示词助手</title>
-    <meta name="description" content="ClawPrompt - 专为 OpenClaw 设计的提示词助手，从零起步与 OpenClaw 对话，by 龙虾 for 龙虾">
-    <meta name="keywords" content="OpenClaw，提示词，AI,Claude，提示工程，模板，扩展工具，小龙虾">
+    <title>ClawPrompt - AI 助手 提示词助手</title>
+    <meta name="description" content="ClawPrompt - 专为 AI 助手 设计的提示词助手，从零起步与 AI 助手 对话，by 龙虾 for 龙虾">
+    <meta name="keywords" content="AI 助手，提示词，AI,Claude，提示工程，模板，扩展工具，小龙虾">
     <meta name="author" content="Sandbot V6.3">
     
     <!-- Open Graph / 社交媒体分享 -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="ClawPrompt - OpenClaw 提示词助手">
-    <meta property="og:description" content="专为 OpenClaw 设计的提示词助手，从零起步与 OpenClaw 对话">
+    <meta property="og:title" content="ClawPrompt - AI 助手 提示词助手">
+    <meta property="og:description" content="专为 AI 助手 设计的提示词助手，从零起步与 AI 助手 对话">
     <meta property="og:url" content="https://clawprompt.vercel.app">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="ClawPrompt">
-    <meta name="twitter:description" content="By 龙虾，For 龙虾 - OpenClaw 专用提示词助手">
+    <meta name="twitter:description" content="By AI，For 人类 - AI 助手 专用提示词助手">
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦞</text></svg>">
@@ -46,8 +46,8 @@
         <div class="container mx-auto px-4 max-w-6xl text-center">
             <div class="text-6xl mb-4">🦞</div>
             <h1 class="text-5xl font-bold mb-4">ClawPrompt</h1>
-            <p class="text-xl text-purple-100">OpenClaw 提示词助手</p>
-            <p class="text-sm text-purple-200 mt-2">By 龙虾，For 龙虾 - 从零起步与 OpenClaw 对话</p>
+            <p class="text-xl text-purple-100">AI 助手 提示词助手</p>
+            <p class="text-sm text-purple-200 mt-2">By AI，For 人类 - 从零起步与 AI 助手 对话</p>
         </div>
     </header>
 
@@ -57,13 +57,13 @@
         <div class="bg-white rounded-2xl shadow-xl p-6 mb-6">
             <div class="flex justify-between items-center mb-2">
                 <label class="block text-sm font-semibold text-gray-700">
-                    💡 你想让 OpenClaw 帮你做什么？
+                    💡 你想让 AI 助手 帮你做什么？
                 </label>
                 <span id="charCount" class="text-xs text-gray-500">0 字</span>
             </div>
             <textarea 
                 id="input"
-                placeholder="例如：帮我创建一个知识填充技能、如何配置 OpenClaw 的 Cron 任务、怎样让 OpenClaw 自动发布到 Moltbook..."
+                placeholder="例如：帮我创建一个知识填充技能、如何配置 AI 助手 的 Cron 任务、怎样让 AI 助手 自动发布到 Moltbook..."
                 class="w-full h-32 p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none transition"
                 oninput="updateCharCount()"
             ></textarea>
@@ -75,7 +75,7 @@
                     class="flex-1 gradient-bg text-white font-semibold py-4 px-6 rounded-xl hover:opacity-90 transition duration-200 flex items-center justify-center gap-2 text-lg"
                 >
                     <span>🦞</span>
-                    <span>生成 OpenClaw 提示词</span>
+                    <span>生成 AI 助手 提示词</span>
                 </button>
                 <button 
                     onclick="clearAll()"
@@ -180,14 +180,14 @@
             </div>
             
             <p class="mb-2">📦 开源代码：<a href="https://github.com/sandmark78/promptx" target="_blank" class="text-purple-400 hover:underline">GitHub</a></p>
-            <p class="text-sm text-gray-500">Powered by Mistral AI & OpenClaw</p>
+            <p class="text-sm text-gray-500">Powered by Mistral AI & AI 助手</p>
             
             <!-- 分享按钮 -->
             <div class="mt-4 flex justify-center gap-4">
-                <a href="https://twitter.com/intent/tweet?text=ClawPrompt%20-%20OpenClaw%20提示词助手！By%20龙虾，For%20龙虾！&url=https://clawprompt.vercel.app" target="_blank" class="text-gray-400 hover:text-blue-400 transition">
+                <a href="https://twitter.com/intent/tweet?text=ClawPrompt%20-%20AI 助手%20提示词助手！By%20龙虾，For%20龙虾！&url=https://clawprompt.vercel.app" target="_blank" class="text-gray-400 hover:text-blue-400 transition">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                 </a>
-                <a href="https://www.reddit.com/submit?url=https://clawprompt.vercel.app&title=ClawPrompt%20-%20Free%20OpenClaw%20Prompt%20Assistant" target="_blank" class="text-gray-400 hover:text-orange-400 transition">
+                <a href="https://www.reddit.com/submit?url=https://clawprompt.vercel.app&title=ClawPrompt%20-%20Free%20AI 助手%20Prompt%20Assistant" target="_blank" class="text-gray-400 hover:text-orange-400 transition">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
                 </a>
             </div>

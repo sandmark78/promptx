@@ -1,8 +1,8 @@
-# 🦞 ClawPrompt - OpenClaw 提示词助手
+# 🚀 ClawPrompt - 提示词工程助手
 
-**By 龙虾，For 龙虾**
+**By AI，For 人类**
 
-专为 OpenClaw 用户设计的提示词助手，帮助从零起步与 OpenClaw 对话，让模型快速理解意图、输出更高质量结果。
+通用提示词工程训练平台，帮助从零开始掌握提示词工程，让 AI 快速理解你的意图、输出更高质量结果。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/sandmark78/promptx)
@@ -13,13 +13,13 @@
 
 ## ✨ 功能特性
 
-- 🚀 **一键生成** - 输入想法，生成专业 OpenClaw 提示词
-- 📚 **50+ 模板** - 覆盖编程/文案/变现/自动化/分析
-- 🦞 **OpenClaw 专用** - 内置 7 子 Agent/Cron/变现上下文
-- 📝 **XML 结构化** - 让模型更容易理解和执行
+- 🚀 **一键生成** - 输入想法，生成专业级提示词
+- 📚 **50+ 模板** - 覆盖编程/文案/变现/自动化/分析/痛点急救
+- 🎯 **结构化输出** - XML 标签让 AI 更容易理解
 - 💾 **一键下载** - 导出为 Markdown 文件
 - 📜 **历史记录** - 本地保存最近 20 条
 - ⌨️ **快捷键** - Ctrl+Enter 提交，Esc 清空
+- 🔍 **分类筛选** - 快速找到所需模板
 
 ---
 
@@ -62,7 +62,7 @@ open index.html
 - 小红书种草文案
 - 公众号推文
 - Twitter/X 推文
-- Moltbook 技术分享帖
+- 技术分享帖
 
 ### 💰 变现/商业 (10 个)
 - Gumroad 产品描述
@@ -73,17 +73,17 @@ open index.html
 - 营销邮件
 - 定价策略建议
 - 收益追踪表
-- 面包多产品描述
-- 小红书带货文案
+- 知识付费产品描述
+- 带货文案
 
-### 🤖 自动化/OpenClaw (10 个)
+### 🤖 自动化 (10 个)
 - Cron 任务配置
-- Moltbook 自动发帖
+- 自动发帖
 - GitHub 自动发布
 - 知识自动填充
 - 数据自动抓取
-- Reddit 自动发布
-- Twitter/X 自动推文
+- 自动发布
+- 自动推文
 - 邮件自动回复
 - 文件自动整理
 - 收益自动追踪
@@ -100,30 +100,44 @@ open index.html
 - 调查报告
 - 案例研究
 
+### 🚑 痛点急救 (12 个)
+- 第一次不知道说什么
+- 提示词太简单输出差
+- 不知道怎么配置 Cron
+- 知识太多怎么管理
+- 想变现但从哪开始
+- API 配置一直失败
+- 不知道怎么分配任务
+- 发布总是被限流
+- 学了就忘无法体系化
+- 遇到问题去哪找答案
+- 没时间想要速成
+- 怕踩坑想要避坑指南
+
 ---
 
 ## 🎯 使用示例
 
 ### 输入
 ```
-我想让 OpenClaw 帮我自动发布到 Moltbook
+我想让 AI 帮我自动发布内容到社交媒体
 ```
 
 ### 输出
 ```xml
 <instructions>
-你是 OpenClaw 的 AutoBot，专门负责自动化发布任务。
-你的任务是帮助用户将内容发布到 Moltbook 平台。
+你是一位社交媒体运营专家，擅长自动化内容发布。
+你的任务是帮助用户将内容发布到目标平台。
 </instructions>
 
 <context>
-用户正在使用 OpenClaw 进行知识变现和内容分发。
-Moltbook 是一个 AI Agent 社交平台，需要验证后发布。
+用户正在使用 AI 助手进行内容分发。
+目标平台需要验证后发布。
 </context>
 
 <steps>
 1. 准备发布内容 (标题/内容/标签)
-2. 调用 Moltbook API 发布帖子
+2. 调用平台 API 发布帖子
 3. 处理验证挑战 (如有)
 4. 确认发布成功并记录
 </steps>
@@ -179,4 +193,4 @@ MIT License - 自由使用、修改和分发
 
 ---
 
-**🦞 By 龙虾，For 龙虾 - 让每个 OpenClaw 用户都能轻松上手！**
+**🚀 By AI，For 人类 - 让每个人都能掌握提示词工程！**
