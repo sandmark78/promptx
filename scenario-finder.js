@@ -283,8 +283,35 @@ function showRecommendations() {
     `;
 }
 
-// 重新开始
-function restart() {
+// 生成推荐结果并跳转到优化器
+function generatePromptAndRedirect() {
+    // 生成简单提示词
+    const simplePrompt = generateSimplePrompt();
+    
+    console.log('📝 生成的简单提示词:', simplePrompt);
+    
+    // 存储到 localStorage (供 index.html 读取)
+    localStorage.setItem('scenarioPrompt', JSON.stringify({
+        prompt: simplePrompt,
+        occupation: userData.occupation,
+        painPoints: userData.painPoints,
+        scenarios: userData.scenarios,
+        timestamp: Date.now()
+    }));
+    
+    // 跳转到提示词优化器
+    console.log('🚀 跳转到提示词优化器...');
+    window.location.href = 'index.html?mode=assistant&auto=true';
+}
+
+// 生成简单提示词
+function generateSimplePrompt() {
+    const occupation = userData.occupation;
+    const painPoints = userData.painPoints.join(', ');
+    const scenarios = userData.scenarios.join(', ');
+    
+    return `我是一名${occupation}，日常遇到的痛点有：${painPoints}。主要使用场景包括：${scenarios}。请为我设计一个专属的 AI 助手，帮助我解决这些问题，提高工作效率。`;
+}
     userData.occupation = '';
     userData.painPoints = [];
     userData.scenarios = [];
