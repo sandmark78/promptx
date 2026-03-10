@@ -401,19 +401,19 @@ function generatePromptAndRedirect() {
     window.location.href = 'index.html?mode=assistant&auto=true';
 }
 
-// 生成简单提示词（去除"自定义："前缀）
+// 生成简单提示词（完全去除"自定义"相关文字）
 function generateSimplePrompt() {
     const occupation = userData.occupation;
     
-    // 去除痛点中的"自定义："前缀
+    // 去除痛点中的"自定义"相关文字
     const cleanPainPoints = userData.painPoints.map(p => {
-        return p.replace(/^自定义：/, '').trim();
-    }).join(', ');
+        return p.replace(/^自定义：?/, '').trim();
+    }).filter(p => p.length > 0).join(', ');
     
-    // 去除场景中的"自定义："前缀
+    // 去除场景中的"自定义"相关文字
     const cleanScenarios = userData.scenarios.map(s => {
-        return s.replace(/^自定义：/, '').trim();
-    }).join(', ');
+        return s.replace(/^自定义：?/, '').trim();
+    }).filter(s => s.length > 0).join(', ');
     
     return `我是一名${occupation}，日常遇到的痛点有：${cleanPainPoints}。主要使用场景包括：${cleanScenarios}。请为我设计一个专属的 AI 助手，帮助我解决这些问题，提高工作效率。`;
 }
