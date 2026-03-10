@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenClaw 场景推荐器 - 发现 AI 能帮你做什么</title>
+    <meta name="description" content="输入你的痛点和日常场景，AI 为你推荐最适合的 OpenClaw 使用方案">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .step-card { transition: all 0.3s ease; }
+        .step-card.active { border-color: #667eea; box-shadow: 0 10px 30px rgba(102,126,234,0.3); }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <header class="gradient-bg text-white py-16">
+        <div class="container mx-auto px-4 max-w-4xl text-center">
+            <div class="text-7xl mb-4">🦞</div>
+            <h1 class="text-5xl font-bold mb-4">OpenClaw 场景推荐器</h1>
+            <p class="text-xl text-purple-100">不知道 AI 能帮你做什么？让我来帮你发现！</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 max-w-4xl -mt-8 pb-12">
+        <!-- 进度条 -->
+        <div class="bg-white rounded-2xl shadow-xl p-6 mb-8">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-sm text-gray-600">进度</span>
+                <span id="progressText" class="text-sm font-semibold text-purple-600">第 1 步 / 共 4 步</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-3">
+                <div id="progressBar" class="gradient-bg h-3 rounded-full transition-all duration-500" style="width: 25%"></div>
+            </div>
+        </div>
+
+        <!-- 步骤 1: 职业/身份 -->
+        <div id="step1" class="step-card active bg-white rounded-2xl shadow-xl p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">📋 第一步：你的职业/身份是？</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+                <button onclick="selectOption('occupation', '开发者/程序员')" class="p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 hover:bg-purple-50 transition text-center">
+                    <div class="text-3xl mb-2">💻</div>
+                    <div class="text-sm font-medium">开发者/程序员</div>
+                </button>
+                <button onclick="selectOption('occupation', '内容创作者')" class="p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 hover:bg-purple-50 transition text-center">
+                    <div class="text-3xl mb-2">✍️</div>
+                    <div class="text-sm font-medium">内容创作者</div>
+                </button>
+                <button onclick="selectOption('occupation', '学生/研究者')" class="p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 hover:bg-purple-50 transition text-center">
+                    <div class="text-3xl mb-2">📚</div>
+                    <div class="text-sm font-medium">学生/研究者</div>
+                </button>
+                <button onclick="selectOption('occupation', '创业者/老板')" class="p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 hover:bg-purple-50 transition text-center">
+                    <div class="text-3xl mb-2">🚀</div>
+                    <div class="text-sm font-medium">创业者/老板</div>
+                </button>
+                <button onclick="selectOption('occupation', '运营/市场')" class="p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 hover:bg-purple-50 transition text-center">
+                    <div class="text-3xl mb-2">📈</div>
+                    <div class="text-sm font-medium">运营/市场</div>
+                </button>
+                <button onclick="selectOption('occupation', '其他')" class="p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 hover:bg-purple-50 transition text-center">
+                    <div class="text-3xl mb-2">🎯</div>
+                    <div class="text-sm font-medium">其他</div>
+                </button>
+            </div>
+            <div class="text-center">
+                <p class="text-gray-500 mb-4">或者手动输入：</p>
+                <input type="text" id="occupationInput" placeholder="例如：产品经理、设计师、教师..." class="w-full md:w-1/2 p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 mb-4">
+                <button onclick="nextStep(1)" class="gradient-bg text-white font-semibold py-3 px-8 rounded-xl hover:opacity-90 transition">下一步 →</button>
+            </div>
+        </div>
+
+        <!-- 步骤 2: 日常痛点 -->
+        <div id="step2" class="step-card bg-white rounded-2xl shadow-xl p-8 mb-8 hidden">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">😫 第二步：你日常遇到哪些痛点？(可多选)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 cursor-pointer">
+                    <input type="checkbox" value="重复性工作太多" class="w-5 h-5 text-purple-600 rounded pain-point">
+                    <span class="ml-3">🔄 重复性工作太多</span>
+                </label>
+                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 cursor-pointer">
+                    <input type="checkbox" value="信息太多整理不过来" class="w-5 h-5 text-purple-600 rounded pain-point">
+                    <span class="ml-3">📚 信息太多整理不过来</span>
+                </label>
+                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 cursor-pointer">
+                    <input type="checkbox" value="写东西没灵感" class="w-5 h-5 text-purple-600 rounded pain-point">
+                    <span class="ml-3">✍️ 写东西没灵感</span>
+                </label>
+                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 cursor-pointer">
+                    <input type="checkbox" value="数据分析太耗时" class="w-5 h-5 text-purple-600 rounded pain-point">
+                    <span class="ml-3">📊 数据分析太耗时</span>
+                </label>
+                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 cursor-pointer">
+                    <input type="checkbox" value="多平台发布太麻烦" class="w-5 h-5 text-purple-600 rounded pain-point">
+                    <span class="ml-3">📱 多平台发布太麻烦</span>
+                </label>
+                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 cursor-pointer">
+                    <input type="checkbox" value="知识学了就忘" class="w-5 h-5 text-purple-600 rounded pain-point">
+                    <span class="ml-3">🧠 知识学了就忘</span>
+                </label>
+                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 cursor-pointer">
+                    <input type="checkbox" value "没时间学习新工具" class="w-5 h-5 text-purple-600 rounded pain-point">
+                    <span class="ml-3">⏰ 没时间学习新工具</span>
+                </label>
+                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 cursor-pointer">
+                    <input type="checkbox" value="其他" class="w-5 h-5 text-purple-600 rounded pain-point">
+                    <span class="ml-3">🎯 其他</span>
+                </label>
+            </div>
+            <div class="flex justify-between">
+                <button onclick="prevStep(2)" class="text-gray-600 font-semibold py-3 px-6 rounded-xl hover:bg-gray-100 transition">← 上一步</button>
+                <button onclick="nextStep(2)" class="gradient-bg text-white font-semibold py-3 px-8 rounded-xl hover:opacity-90 transition">下一步 →</button>
+            </div>
+        </div>
+
+        <!-- 步骤 3: 工作/生活场景 -->
+        <div id="step3" class="step-card bg-white rounded-2xl shadow-xl p-8 mb-8 hidden">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">🏢 第三步：你主要的使用场景是？(可多选)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 cursor-pointer">
+                    <input type="checkbox" value="写代码/开发" class="w-5 h-5 text-purple-600 rounded scenario">
+                    <span class="ml-3">💻 写代码/开发</span>
+                </label>
+                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 cursor-pointer">
+                    <input type="checkbox" value="写文章/内容" class="w-5 h-5 text-purple-600 rounded scenario">
+                    <span class="ml-3">✍️ 写文章/内容</span>
+                </label>
+                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 cursor-pointer">
+                    <input type="checkbox" value="学习/研究" class="w-5 h-5 text-purple-600 rounded scenario">
+                    <span class="ml-3">📚 学习/研究</span>
+                </label>
+                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 cursor-pointer">
+                    <input type="checkbox" value="社交媒体运营" class="w-5 h-5 text-purple-600 rounded scenario">
+                    <span class="ml-3">📱 社交媒体运营</span>
+                </label>
+                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 cursor-pointer">
+                    <input type="checkbox" value="数据分析/报告" class="w-5 h-5 text-purple-600 rounded scenario">
+                    <span class="ml-3">📊 数据分析/报告</span>
+                </label>
+                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 cursor-pointer">
+                    <input type="checkbox" value="知识管理/整理" class="w-5 h-5 text-purple-600 rounded scenario">
+                    <span class="ml-3">🗂️ 知识管理/整理</span>
+                </label>
+                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 cursor-pointer">
+                    <input type="checkbox" value="自动化任务" class="w-5 h-5 text-purple-600 rounded scenario">
+                    <span class="ml-3">⚙️ 自动化任务</span>
+                </label>
+                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 cursor-pointer">
+                    <input type="checkbox" value="其他" class="w-5 h-5 text-purple-600 rounded scenario">
+                    <span class="ml-3">🎯 其他</span>
+                </label>
+            </div>
+            <div class="flex justify-between">
+                <button onclick="prevStep(3)" class="text-gray-600 font-semibold py-3 px-6 rounded-xl hover:bg-gray-100 transition">← 上一步</button>
+                <button onclick="generateRecommendations()" class="gradient-bg text-white font-semibold py-3 px-8 rounded-xl hover:opacity-90 transition">生成推荐 →</button>
+            </div>
+        </div>
+
+        <!-- 步骤 4: 推荐结果 -->
+        <div id="step4" class="step-card bg-white rounded-2xl shadow-xl p-8 mb-8 hidden">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">🎯 为你定制的 OpenClaw 使用方案</h2>
+            
+            <div id="loading" class="text-center py-12">
+                <div class="inline-block animate-spin rounded-full h-16 w-16 border-4 border-purple-200 border-b-purple-600 mb-4"></div>
+                <p class="text-gray-600 text-lg">正在分析你的需求...</p>
+            </div>
+            
+            <div id="recommendations" class="hidden">
+                <!-- 推荐内容将动态生成 -->
+            </div>
+            
+            <div class="mt-8 text-center">
+                <a href="index.html" class="inline-block gradient-bg text-white font-semibold py-3 px-8 rounded-xl hover:opacity-90 transition">立即体验 →</a>
+                <button onclick="restart()" class="ml-4 text-gray-600 font-semibold py-3 px-6 rounded-xl hover:bg-gray-100 transition">重新测试</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-900 text-gray-300 py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>🦞 By 龙虾，For 龙虾 - 让每个人都能找到适合自己的 AI 助手用法</p>
+        </div>
+    </footer>
+
+    <script src="scenario-finder.js"></script>
+</body>
+</html>
