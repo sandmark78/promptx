@@ -57,15 +57,13 @@
                     <div class="text-3xl mb-2">📈</div>
                     <div class="text-sm font-medium">运营/市场</div>
                 </button>
-                <button onclick="selectOption('occupation', '其他')" class="p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 hover:bg-purple-50 transition text-center">
+                <button onclick="selectOption('occupation', '自定义')" class="p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 hover:bg-purple-50 transition text-center">
                     <div class="text-3xl mb-2">🎯</div>
-                    <div class="text-sm font-medium">其他</div>
+                    <div class="text-sm font-medium">自定义</div>
                 </button>
             </div>
-            <div class="text-center">
-                <p class="text-gray-500 mb-4">或者手动输入：</p>
-                <input type="text" id="occupationInput" placeholder="例如：产品经理、设计师、教师..." class="w-full md:w-1/2 p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 mb-4">
-                <button onclick="nextStep(1)" class="gradient-bg text-white font-semibold py-3 px-8 rounded-xl hover:opacity-90 transition">下一步 →</button>
+            <div id="customOccupation" class="hidden mb-4">
+                <input type="text" id="customOccupationInput" placeholder="请输入你的职业/身份..." class="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500">
             </div>
         </div>
 
@@ -98,13 +96,16 @@
                     <span class="ml-3">🧠 知识学了就忘</span>
                 </label>
                 <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 cursor-pointer">
-                    <input type="checkbox" value "没时间学习新工具" class="w-5 h-5 text-purple-600 rounded pain-point">
+                    <input type="checkbox" value="没时间学习新工具" class="w-5 h-5 text-purple-600 rounded pain-point">
                     <span class="ml-3">⏰ 没时间学习新工具</span>
                 </label>
                 <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 cursor-pointer">
-                    <input type="checkbox" value="其他" class="w-5 h-5 text-purple-600 rounded pain-point">
-                    <span class="ml-3">🎯 其他</span>
+                    <input type="checkbox" value="自定义" class="w-5 h-5 text-purple-600 rounded pain-point" onchange="toggleCustom('customPainPoint')">
+                    <span class="ml-3">🎯 自定义</span>
                 </label>
+                <div id="customPainPoint" class="hidden md:col-span-2">
+                    <input type="text" id="customPainPointInput" placeholder="请输入你的痛点..." class="w-full p-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500">
+                </div>
             </div>
             <div class="flex justify-between">
                 <button onclick="prevStep(2)" class="text-gray-600 font-semibold py-3 px-6 rounded-xl hover:bg-gray-100 transition">← 上一步</button>
@@ -115,7 +116,7 @@
         <!-- 步骤 3: 工作/生活场景 -->
         <div id="step3" class="step-card bg-white rounded-2xl shadow-xl p-8 mb-8 hidden">
             <h2 class="text-2xl font-bold text-gray-900 mb-6">🏢 第三步：你主要的使用场景是？(可多选)</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                 <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 cursor-pointer">
                     <input type="checkbox" value="写代码/开发" class="w-5 h-5 text-purple-600 rounded scenario">
                     <span class="ml-3">💻 写代码/开发</span>
@@ -145,9 +146,28 @@
                     <span class="ml-3">⚙️ 自动化任务</span>
                 </label>
                 <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 cursor-pointer">
-                    <input type="checkbox" value="其他" class="w-5 h-5 text-purple-600 rounded scenario">
-                    <span class="ml-3">🎯 其他</span>
+                    <input type="checkbox" value="项目管理" class="w-5 h-5 text-purple-600 rounded scenario">
+                    <span class="ml-3">📋 项目管理</span>
                 </label>
+                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 cursor-pointer">
+                    <input type="checkbox" value="客户服务" class="w-5 h-5 text-purple-600 rounded scenario">
+                    <span class="ml-3">🎧 客户服务</span>
+                </label>
+                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 cursor-pointer">
+                    <input type="checkbox" value="产品设计" class="w-5 h-5 text-purple-600 rounded scenario">
+                    <span class="ml-3">🎨 产品设计</span>
+                </label>
+                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 cursor-pointer">
+                    <input type="checkbox" value="教育培训" class="w-5 h-5 text-purple-600 rounded scenario">
+                    <span class="ml-3">👨‍🏫 教育培训</span>
+                </label>
+                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 cursor-pointer">
+                    <input type="checkbox" value="自定义" class="w-5 h-5 text-purple-600 rounded scenario" onchange="toggleCustom('customScenario')">
+                    <span class="ml-3">🎯 自定义</span>
+                </label>
+                <div id="customScenario" class="hidden md:col-span-3">
+                    <input type="text" id="customScenarioInput" placeholder="请输入你的使用场景..." class="w-full p-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500">
+                </div>
             </div>
             <div class="flex justify-between">
                 <button onclick="prevStep(3)" class="text-gray-600 font-semibold py-3 px-6 rounded-xl hover:bg-gray-100 transition">← 上一步</button>
@@ -177,7 +197,14 @@
 
     <footer class="bg-gray-900 text-gray-300 py-8">
         <div class="container mx-auto px-4 text-center">
-            <p>🦞 By 龙虾，For 龙虾 - 让每个人都能找到适合自己的 AI 助手用法</p>
+            <p class="mb-4">🦞 By 龙虾，For 龙虾 - 让每个人都能找到适合自己的 AI 助手用法</p>
+            <div class="flex justify-center gap-4 text-sm">
+                <a href="index.html" class="text-purple-400 hover:text-purple-300 transition">✨ 提示词生成器</a>
+                <span>|</span>
+                <a href="https://github.com/sandmark78/promptx" target="_blank" class="text-purple-400 hover:text-purple-300 transition">📦 GitHub</a>
+                <span>|</span>
+                <a href="mailto:sandmark78@gmail.com" class="text-purple-400 hover:text-purple-300 transition">📧 定制联系</a>
+            </div>
         </div>
     </footer>
 

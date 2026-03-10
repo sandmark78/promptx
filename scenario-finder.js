@@ -73,7 +73,15 @@ const recommendationTemplates = {
 function selectOption(type, value) {
     if (type === 'occupation') {
         userData.occupation = value;
-        document.getElementById('occupationInput').value = value;
+        
+        // 显示/隐藏自定义输入
+        const customDiv = document.getElementById('customOccupation');
+        if (value === '自定义') {
+            customDiv.classList.remove('hidden');
+            document.getElementById('customOccupationInput').focus();
+        } else {
+            customDiv.classList.add('hidden');
+        }
     }
     
     // 高亮选中
@@ -82,19 +90,48 @@ function selectOption(type, value) {
     event.target.closest('button').classList.add('border-purple-500', 'bg-purple-50');
 }
 
+// 切换自定义输入框
+function toggleCustom(elementId) {
+    const customDiv = document.getElementById(elementId);
+    if (customDiv) {
+        customDiv.classList.toggle('hidden');
+        const input = customDiv.querySelector('input');
+        if (input && !customDiv.classList.contains('hidden')) {
+            input.focus();
+        }
+    }
+}
+
 // 下一步
 function nextStep(currentStep) {
     // 验证
     if (currentStep === 1) {
-        const occupationInput = document.getElementById('occupationInput').value.trim();
-        if (!occupationInput) {
+        const occupationValue = document.getElementById('customOccupationInput').value.trim();
+        const customOccupation = document.getElementById('customOccupation');
+        
+        if (userData.occupation === '自定义' && !occupationValue) {
+            alert('请输入你的职业/身份');
+            customOccupation.classList.add('border-red-500');
+            return;
+        }
+        
+        if (userData.occupation === '自定义' && occupationValue) {
+            userData.occupation = occupationValue;
+        } else if (!userData.occupation) {
             alert('请先选择或输入你的职业/身份');
             return;
         }
-        userData.occupation = occupationInput;
     } else if (currentStep === 2) {
         const painPoints = document.querySelectorAll('.pain-point:checked');
+        const customPainPoint = document.getElementById('customPainPointInput');
+        
         userData.painPoints = Array.from(painPoints).map(cb => cb.value);
+        
+        // 添加自定义痛点
+        if (document.getElementById('customPainPoint').classList.contains('hidden') === false && customPainPoint.value.trim()) {
+            userData.painPoints.push('自定义：' + customPainPoint.value.trim());
+        }
+        
         if (userData.painPoints.length === 0) {
             alert('请至少选择一个痛点');
             return;
@@ -137,7 +174,14 @@ function updateProgress(step) {
 function generateRecommendations() {
     // 收集场景
     const scenarios = document.querySelectorAll('.scenario:checked');
+    const customScenario = document.getElementById('customScenarioInput');
+    
     userData.scenarios = Array.from(scenarios).map(cb => cb.value);
+    
+    // 添加自定义场景
+    if (document.getElementById('customScenario').classList.contains('hidden') === false && customScenario.value.trim()) {
+        userData.scenarios.push('自定义：' + customScenario.value.trim());
+    }
     
     // 显示加载
     document.getElementById('step3').classList.add('hidden');
@@ -252,7 +296,12 @@ function restart() {
     document.getElementById('recommendations').classList.add('hidden');
     
     // 重置表单
-    document.getElementById('occupationInput').value = '';
+    document.getElementById('customOccupationInput').value = '';
+    document.getElementById('customOccupation').classList.add('hidden');
+    document.getElementById('customPainPointInput').value = '';
+    document.getElementById('customPainPoint').classList.add('hidden');
+    document.getElementById('customScenarioInput').value = '';
+    document.getElementById('customScenario').classList.add('hidden');
     document.querySelectorAll('.pain-point, .scenario').forEach(cb => cb.checked = false);
     
     updateProgress(1);
