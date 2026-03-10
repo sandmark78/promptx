@@ -243,7 +243,7 @@
     <!-- JavaScript 文件 - 确保顺序正确 -->
     <script src="templates.js"></script>
     <script src="app.js"></script>
-<!-- 自动从场景推荐器导入的脚本 -->
+<!-- 自动从场景推荐器导入的脚本 (增强调试版) -->
 <script>
 window.addEventListener("DOMContentLoaded", function() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -251,7 +251,9 @@ window.addEventListener("DOMContentLoaded", function() {
     const auto = urlParams.get("auto");
     
     if (mode === "assistant" && auto === "true") {
-        console.log("🦞 从场景推荐器跳转，自动填充...");
+        console.log("🦞 页面加载完成，检查场景推荐器...");
+    const urlParams = new URLSearchParams(window.location.search);
+    console.log("🔍 URL 参数:", urlParams.toString());;
         const scenarioData = JSON.parse(localStorage.getItem("scenarioPrompt") || "{}");
         if (scenarioData.prompt && scenarioData.timestamp && (Date.now() - scenarioData.timestamp < 300000)) {
             const input = document.getElementById("input");

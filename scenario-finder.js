@@ -291,7 +291,7 @@ function generateRecommendations() {
 
 // 显示推荐结果
 function showRecommendations() {
-    const occupation = userData.occupation || '职场人士';
+    const occupation = userData.occupation || "职场人士";
     const painPoints = userData.painPoints;
     const scenarios = userData.scenarios;
     
@@ -403,10 +403,10 @@ function generatePromptAndRedirect() {
 
 // 生成简单提示词（去除"自定义："前缀）
 function generateSimplePrompt() {
-    const occupation = userData.occupation || '职场人士';
+    const occupation = userData.occupation || "职场人士";
     
     // 去除痛点中的"自定义："前缀
-    const cleanPainPoints = userData.painPoints && userData.painPoints.length > 0 ? userData.painPoints.map(p => {
+    const cleanPainPoints = (userData.painPoints && userData.painPoints.length > 0) ? userData.painPoints.map(p => {
         return p.replace(/^自定义：/, '').trim();
     }).join(', ') : '工作效率需要提升';
     
