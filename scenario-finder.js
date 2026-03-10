@@ -401,13 +401,17 @@ function generatePromptAndRedirect() {
     window.location.href = 'index.html?mode=assistant&auto=true';
 }
 
-// 生成简单提示词
+// 生成简单提示词（去除"自定义："前缀）
 function generateSimplePrompt() {
     const occupation = userData.occupation;
-    const painPoints = userData.painPoints.join(', ');
-    const scenarios = userData.scenarios.join(', ');
     
-    return `我是一名${occupation}，日常遇到的痛点有：${painPoints}。主要使用场景包括：${scenarios}。请为我设计一个专属的 AI 助手，帮助我解决这些问题，提高工作效率。`;
+    // 去除痛点中的"自定义："前缀
+    const cleanPainPoints = userData.painPoints.map(p => p.replace(/^自定义：/, '')).join(', ');
+    
+    // 去除场景中的"自定义："前缀
+    const cleanScenarios = userData.scenarios.map(s => s.replace(/^自定义：/, '')).join(', ');
+    
+    return `我是一名${occupation}，日常遇到的痛点有：${cleanPainPoints}。主要使用场景包括：${cleanScenarios}。请为我设计一个专属的 AI 助手，帮助我解决这些问题，提高工作效率。`;
 }
 
 // 重新开始
