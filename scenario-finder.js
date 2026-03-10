@@ -403,19 +403,26 @@ function generatePromptAndRedirect() {
 
 // 生成简单提示词（去除"自定义："前缀）
 function generateSimplePrompt() {
-    const occupation = userData.occupation || "职场人士";
+    console.log('📝 generateSimplePrompt 被调用');
+    console.log('📊 userData:', userData);
     
-    // 去除痛点中的"自定义："前缀
-    const cleanPainPoints = (userData.painPoints && userData.painPoints.length > 0) ? userData.painPoints.map(p => {
-        return p.replace(/^自定义：/, '').trim();
-    }).join(', ') : '工作效率需要提升';
+    const occupation = userData.occupation || '职场人士';
+    console.log('👤 occupation:', occupation);
     
-    // 去除场景中的"自定义："前缀
-    const cleanScenarios = userData.scenarios.map(s => {
-        return s.replace(/^自定义：/, '').trim();
-    }).join(', ') : '工作效率需要提升';
+    const cleanPainPoints = (userData.painPoints && userData.painPoints.length > 0) 
+        ? userData.painPoints.map(p => p.replace(/^自定义：/, '').trim()).join(', ')
+        : '工作效率需要提升';
+    console.log('💢 painPoints:', cleanPainPoints);
     
-    return `我是一名${occupation}，日常遇到的痛点有：${cleanPainPoints}。主要使用场景包括：${cleanScenarios}。请为我设计一个专属的 AI 助手，帮助我解决这些问题，提高工作效率。`;
+    const cleanScenarios = (userData.scenarios && userData.scenarios.length > 0)
+        ? userData.scenarios.map(s => s.replace(/^自定义：/, '').trim()).join(', ')
+        : '日常工作';
+    console.log('🎬 scenarios:', cleanScenarios);
+    
+    const prompt = `我是一名${occupation}，日常遇到的痛点有：${cleanPainPoints}。主要使用场景包括：${cleanScenarios}。请为我设计一个专属的 AI 助手，帮助我解决这些问题，提高工作效率。`;
+    console.log('✅ 生成的提示词:', prompt);
+    
+    return prompt;
 }
 
 // 重新开始
