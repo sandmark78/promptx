@@ -69,83 +69,142 @@ const recommendationTemplates = {
     }
 };
 
-// 选择选项
-function selectOption(type, value) {
-    if (type === 'occupation') {
-        userData.occupation = value;
-        
-        // 显示/隐藏自定义输入
-        const customDiv = document.getElementById('customOccupation');
-        if (value === '自定义') {
+// 选择职业选项
+function selectOption(value) {
+    console.log('🦞 选择职业:', value);
+    userData.occupation = value;
+    
+    // 显示/隐藏自定义输入框
+    const customDiv = document.getElementById('customOccupation');
+    if (value === '自定义') {
+        if (customDiv) {
             customDiv.classList.remove('hidden');
-            document.getElementById('customOccupationInput').focus();
-        } else {
+            setTimeout(() => {
+                const input = document.getElementById('customOccupationInput');
+                if (input) input.focus();
+            }, 100);
+        }
+    } else {
+        if (customDiv) {
             customDiv.classList.add('hidden');
         }
     }
     
-    // 高亮选中
-    const buttons = event.target.closest('button').parentElement.querySelectorAll('button');
-    buttons.forEach(btn => btn.classList.remove('border-purple-500', 'bg-purple-50'));
-    event.target.closest('button').classList.add('border-purple-500', 'bg-purple-50');
+    // 高亮选中的按钮
+    const clickedBtn = event.currentTarget;
+    const allBtns = clickedBtn.parentElement.querySelectorAll('button');
+    allBtns.forEach(btn => {
+        btn.classList.remove('border-purple-500', 'bg-purple-50');
+    });
+    clickedBtn.classList.add('border-purple-500', 'bg-purple-50');
 }
 
-// 切换自定义输入框
+// 切换自定义输入框显示
 function toggleCustom(elementId) {
+    console.log('🔧 切换自定义:', elementId);
     const customDiv = document.getElementById(elementId);
     if (customDiv) {
-        customDiv.classList.toggle('hidden');
-        const input = customDiv.querySelector('input');
-        if (input && !customDiv.classList.contains('hidden')) {
-            input.focus();
+        const isHidden = customDiv.classList.contains('hidden');
+        console.log('当前状态:', isHidden ? '隐藏' : '显示');
+        
+        if (isHidden) {
+            customDiv.classList.remove('hidden');
+            setTimeout(() => {
+                const input = customDiv.querySelector('input');
+                if (input) {
+                    input.focus();
+                    console.log('聚焦输入框');
+                }
+            }, 100);
+        } else {
+            customDiv.classList.add('hidden');
         }
+    } else {
+        console.error('❌ 找不到元素:', elementId);
     }
 }
 
 // 下一步
 function nextStep(currentStep) {
-    // 验证
+    console.log('🚀 下一步：步骤', currentStep);
+    
+    // 验证步骤 1
     if (currentStep === 1) {
-        const occupationValue = document.getElementById('customOccupationInput').value.trim();
-        const customOccupation = document.getElementById('customOccupation');
+        const customOccupationDiv = document.getElementById('customOccupation');
+        const customOccupationInput = document.getElementById('customOccupationInput');
+        const isCustomHidden = customOccupationDiv ? customOccupationDiv.classList.contains('hidden') : true;
+        const customValue = customOccupationInput ? customOccupationInput.value.trim() : '';
         
-        if (userData.occupation === '自定义' && !occupationValue) {
+        console.log('验证步骤 1:', {
+            occupation: userData.occupation,
+            isCustomHidden: isCustomHidden,
+            customValue: customValue
+        });
+        
+        // 如果选择了自定义但没有输入值
+        if (userData.occupation === '自定义' && isCustomHidden === false && !customValue) {
             alert('请输入你的职业/身份');
-            customOccupation.classList.add('border-red-500');
+            customOccupationInput.focus();
             return;
         }
         
-        if (userData.occupation === '自定义' && occupationValue) {
-            userData.occupation = occupationValue;
-        } else if (!userData.occupation) {
+        // 如果没有选择任何职业
+        if (!userData.occupation) {
             alert('请先选择或输入你的职业/身份');
             return;
         }
-    } else if (currentStep === 2) {
-        const painPoints = document.querySelectorAll('.pain-point:checked');
-        const customPainPoint = document.getElementById('customPainPointInput');
         
-        userData.painPoints = Array.from(painPoints).map(cb => cb.value);
+        // 如果选择了自定义，使用输入的值
+        if (userData.occupation === '自定义' && customValue) {
+            userData.occupation = customValue;
+        }
+    }
+    // 验证步骤 2
+    else if (currentStep === 2) {
+        const painPoints = document.querySelectorAll('.pain-point:checked');
+        const customPainPointDiv = document.getElementById('customPainPoint');
+        const customPainPointInput = document.getElementById('customPainPointInput');
+        const isCustomHidden = customPainPointDiv ? customPainPointDiv.classList.contains('hidden') : true;
+        const customValue = customPainPointInput ? customPainPointInput.value.trim() : '';
+        
+        let painPointValues = Array.from(painPoints).map(cb => cb.value);
         
         // 添加自定义痛点
-        if (document.getElementById('customPainPoint').classList.contains('hidden') === false && customPainPoint.value.trim()) {
-            userData.painPoints.push('自定义：' + customPainPoint.value.trim());
+        if (isCustomHidden === false && customValue) {
+            painPointValues.push('自定义：' + customValue);
         }
         
-        if (userData.painPoints.length === 0) {
+        console.log('验证步骤 2:', {
+            selectedCount: painPoints.length,
+            isCustomHidden: isCustomHidden,
+            customValue: customValue,
+            totalPainPoints: painPointValues.length
+        });
+        
+        if (painPointValues.length === 0) {
             alert('请至少选择一个痛点');
             return;
         }
+        
+        userData.painPoints = painPointValues;
     }
     
     // 隐藏当前步骤
-    document.getElementById('step' + currentStep).classList.add('hidden');
-    document.getElementById('step' + currentStep).classList.remove('active');
+    const currentEl = document.getElementById('step' + currentStep);
+    if (currentEl) {
+        currentEl.classList.add('hidden');
+        currentEl.classList.remove('active');
+        console.log('隐藏步骤', currentStep);
+    }
     
     // 显示下一步
     const nextStepNum = currentStep + 1;
-    document.getElementById('step' + nextStepNum).classList.remove('hidden');
-    document.getElementById('step' + nextStepNum).classList.add('active');
+    const nextEl = document.getElementById('step' + nextStepNum);
+    if (nextEl) {
+        nextEl.classList.remove('hidden');
+        nextEl.classList.add('active');
+        console.log('显示步骤', nextStepNum);
+    }
     
     // 更新进度
     updateProgress(nextStepNum);
@@ -153,45 +212,79 @@ function nextStep(currentStep) {
 
 // 上一步
 function prevStep(currentStep) {
-    document.getElementById('step' + currentStep).classList.add('hidden');
-    document.getElementById('step' + currentStep).classList.remove('active');
+    console.log('🔙 上一步：步骤', currentStep);
+    
+    const currentEl = document.getElementById('step' + currentStep);
+    if (currentEl) {
+        currentEl.classList.add('hidden');
+        currentEl.classList.remove('active');
+    }
     
     const prevStepNum = currentStep - 1;
-    document.getElementById('step' + prevStepNum).classList.remove('hidden');
-    document.getElementById('step' + prevStepNum).classList.add('active');
+    const prevEl = document.getElementById('step' + prevStepNum);
+    if (prevEl) {
+        prevEl.classList.remove('hidden');
+        prevEl.classList.add('active');
+    }
     
     updateProgress(prevStepNum);
 }
 
-// 更新进度
+// 更新进度条
 function updateProgress(step) {
     const progress = (step / 4) * 100;
-    document.getElementById('progressBar').style.width = progress + '%';
-    document.getElementById('progressText').textContent = '第 ' + step + ' 步 / 共 4 步';
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    
+    if (progressBar) {
+        progressBar.style.width = progress + '%';
+    }
+    if (progressText) {
+        progressText.textContent = '第 ' + step + ' 步 / 共 4 步';
+    }
+    
+    console.log('📊 进度:', progress + '%');
 }
 
 // 生成推荐
 function generateRecommendations() {
+    console.log('🎯 生成推荐...');
+    
     // 收集场景
     const scenarios = document.querySelectorAll('.scenario:checked');
-    const customScenario = document.getElementById('customScenarioInput');
+    const customScenarioDiv = document.getElementById('customScenario');
+    const customScenarioInput = document.getElementById('customScenarioInput');
+    const isCustomHidden = customScenarioDiv ? customScenarioDiv.classList.contains('hidden') : true;
+    const customValue = customScenarioInput ? customScenarioInput.value.trim() : '';
     
-    userData.scenarios = Array.from(scenarios).map(cb => cb.value);
+    let scenarioValues = Array.from(scenarios).map(cb => cb.value);
     
     // 添加自定义场景
-    if (document.getElementById('customScenario').classList.contains('hidden') === false && customScenario.value.trim()) {
-        userData.scenarios.push('自定义：' + customScenario.value.trim());
+    if (isCustomHidden === false && customValue) {
+        scenarioValues.push('自定义：' + customValue);
     }
     
-    // 显示加载
-    document.getElementById('step3').classList.add('hidden');
-    document.getElementById('step4').classList.remove('hidden');
+    userData.scenarios = scenarioValues;
+    
+    console.log('📊 用户数据:', userData);
+    
+    // 显示加载动画
+    const step3 = document.getElementById('step3');
+    const step4 = document.getElementById('step4');
+    const loading = document.getElementById('loading');
+    const recommendations = document.getElementById('recommendations');
+    
+    if (step3) step3.classList.add('hidden');
+    if (step4) step4.classList.remove('hidden');
+    if (loading) loading.classList.remove('hidden');
+    if (recommendations) recommendations.classList.add('hidden');
+    
     updateProgress(4);
     
     // 模拟 AI 分析
     setTimeout(() => {
-        document.getElementById('loading').classList.add('hidden');
-        document.getElementById('recommendations').classList.remove('hidden');
+        if (loading) loading.classList.add('hidden');
+        if (recommendations) recommendations.classList.remove('hidden');
         showRecommendations();
     }, 2000);
 }
@@ -201,6 +294,8 @@ function showRecommendations() {
     const occupation = userData.occupation;
     const painPoints = userData.painPoints;
     const scenarios = userData.scenarios;
+    
+    console.log('显示推荐，职业:', occupation);
     
     // 找到最匹配的模板
     let template = recommendationTemplates[occupation];
@@ -222,6 +317,11 @@ function showRecommendations() {
     
     // 生成推荐内容
     const container = document.getElementById('recommendations');
+    if (!container) {
+        console.error('❌ 找不到 recommendations 容器');
+        return;
+    }
+    
     container.innerHTML = `
         <div class="text-center mb-8">
             <div class="text-6xl mb-4">${template.icon}</div>
@@ -270,27 +370,32 @@ function showRecommendations() {
         </div>
         
         <div class="mt-8 p-6 bg-blue-50 rounded-2xl">
-            <h4 class="text-xl font-bold text-gray-900 mb-4">🚀 立即开始</h4>
-            <p class="text-gray-700 mb-4">点击下方按钮，直接使用为你定制的功能！</p>
+            <h4 class="text-xl font-bold text-gray-900 mb-4">🚀 下一步</h4>
+            <p class="text-gray-700 mb-4">点击下方按钮，自动生成你的专属助手提示词，并跳转到提示词优化器进行专业优化！</p>
             <div class="flex flex-wrap gap-3 justify-center">
                 ${template.features.map(f => `
-                    <a href="index.html" class="bg-white border-2 border-purple-200 text-purple-700 px-4 py-2 rounded-lg hover:border-purple-500 transition text-sm font-medium">
+                    <div class="bg-white border-2 border-purple-200 text-purple-700 px-4 py-2 rounded-lg text-sm font-medium">
                         ${f.icon} ${f.name}
-                    </a>
+                    </div>
                 `).join('')}
             </div>
+        </div>
+        
+        <div class="mt-8 text-center">
+            <button onclick="generatePromptAndRedirect()" class="inline-block gradient-bg text-white font-semibold py-4 px-8 rounded-xl hover:opacity-90 transition text-lg">✨ 生成助手提示词 →</button>
+            <button onclick="restart()" class="ml-4 text-gray-600 font-semibold py-3 px-6 rounded-xl hover:bg-gray-100 transition">重新测试</button>
         </div>
     `;
 }
 
-// 生成推荐结果并跳转到优化器
+// 生成简单提示词并跳转
 function generatePromptAndRedirect() {
-    // 生成简单提示词
+    console.log('🚀 生成提示词并跳转...');
+    
     const simplePrompt = generateSimplePrompt();
+    console.log('📝 生成的提示词:', simplePrompt);
     
-    console.log('📝 生成的简单提示词:', simplePrompt);
-    
-    // 存储到 localStorage (供 index.html 读取)
+    // 存储到 localStorage
     localStorage.setItem('scenarioPrompt', JSON.stringify({
         prompt: simplePrompt,
         occupation: userData.occupation,
@@ -299,8 +404,7 @@ function generatePromptAndRedirect() {
         timestamp: Date.now()
     }));
     
-    // 跳转到提示词优化器
-    console.log('🚀 跳转到提示词优化器...');
+    // 跳转到优化器
     window.location.href = 'index.html?mode=assistant&auto=true';
 }
 
@@ -312,27 +416,57 @@ function generateSimplePrompt() {
     
     return `我是一名${occupation}，日常遇到的痛点有：${painPoints}。主要使用场景包括：${scenarios}。请为我设计一个专属的 AI 助手，帮助我解决这些问题，提高工作效率。`;
 }
+
+// 重新开始
+function restart() {
+    console.log('🔄 重新开始...');
+    
     userData.occupation = '';
     userData.painPoints = [];
     userData.scenarios = [];
     
-    document.getElementById('step4').classList.add('hidden');
-    document.getElementById('step1').classList.remove('hidden');
-    document.getElementById('step1').classList.add('active');
-    document.getElementById('loading').classList.remove('hidden');
-    document.getElementById('recommendations').classList.add('hidden');
+    // 隐藏步骤 4
+    const step4 = document.getElementById('step4');
+    const step1 = document.getElementById('step1');
+    const loading = document.getElementById('loading');
+    const recommendations = document.getElementById('recommendations');
+    
+    if (step4) step4.classList.add('hidden');
+    if (step1) {
+        step1.classList.remove('hidden');
+        step1.classList.add('active');
+    }
+    if (loading) loading.classList.remove('hidden');
+    if (recommendations) recommendations.classList.add('hidden');
     
     // 重置表单
-    document.getElementById('customOccupationInput').value = '';
-    document.getElementById('customOccupation').classList.add('hidden');
-    document.getElementById('customPainPointInput').value = '';
-    document.getElementById('customPainPoint').classList.add('hidden');
-    document.getElementById('customScenarioInput').value = '';
-    document.getElementById('customScenario').classList.add('hidden');
-    document.querySelectorAll('.pain-point, .scenario').forEach(cb => cb.checked = false);
+    const customOccupationInput = document.getElementById('customOccupationInput');
+    const customOccupation = document.getElementById('customOccupation');
+    const customPainPointInput = document.getElementById('customPainPointInput');
+    const customPainPoint = document.getElementById('customPainPoint');
+    const customScenarioInput = document.getElementById('customScenarioInput');
+    const customScenario = document.getElementById('customScenario');
+    
+    if (customOccupationInput) customOccupationInput.value = '';
+    if (customOccupation) customOccupation.classList.add('hidden');
+    if (customPainPointInput) customPainPointInput.value = '';
+    if (customPainPoint) customPainPoint.classList.add('hidden');
+    if (customScenarioInput) customScenarioInput.value = '';
+    if (customScenario) customScenario.classList.add('hidden');
+    
+    // 重置所有复选框
+    document.querySelectorAll('.pain-point, .scenario').forEach(cb => {
+        cb.checked = false;
+    });
+    
+    // 重置按钮样式
+    document.querySelectorAll('#step1 button').forEach(btn => {
+        btn.classList.remove('border-purple-500', 'bg-purple-50');
+    });
     
     updateProgress(1);
 }
 
 // 初始化
 console.log('🦞 OpenClaw 场景推荐器启动...');
+console.log('✅ 脚本加载完成');
