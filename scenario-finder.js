@@ -406,10 +406,14 @@ function generateSimplePrompt() {
     const occupation = userData.occupation;
     
     // 去除痛点中的"自定义："前缀
-    const cleanPainPoints = userData.painPoints.map(p => p.replace(/^自定义：/, '')).join(', ');
+    const cleanPainPoints = userData.painPoints.map(p => {
+        return p.replace(/^自定义：/, '').trim();
+    }).join(', ');
     
     // 去除场景中的"自定义："前缀
-    const cleanScenarios = userData.scenarios.map(s => s.replace(/^自定义：/, '')).join(', ');
+    const cleanScenarios = userData.scenarios.map(s => {
+        return s.replace(/^自定义：/, '').trim();
+    }).join(', ');
     
     return `我是一名${occupation}，日常遇到的痛点有：${cleanPainPoints}。主要使用场景包括：${cleanScenarios}。请为我设计一个专属的 AI 助手，帮助我解决这些问题，提高工作效率。`;
 }
