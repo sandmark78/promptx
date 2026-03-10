@@ -291,7 +291,7 @@ function generateRecommendations() {
 
 // 显示推荐结果
 function showRecommendations() {
-    const occupation = userData.occupation;
+    const occupation = userData.occupation || '职场人士';
     const painPoints = userData.painPoints;
     const scenarios = userData.scenarios;
     
@@ -403,17 +403,17 @@ function generatePromptAndRedirect() {
 
 // 生成简单提示词（去除"自定义："前缀）
 function generateSimplePrompt() {
-    const occupation = userData.occupation;
+    const occupation = userData.occupation || '职场人士';
     
     // 去除痛点中的"自定义："前缀
-    const cleanPainPoints = userData.painPoints.map(p => {
+    const cleanPainPoints = userData.painPoints && userData.painPoints.length > 0 ? userData.painPoints.map(p => {
         return p.replace(/^自定义：/, '').trim();
-    }).join(', ');
+    }).join(', ') : '工作效率需要提升';
     
     // 去除场景中的"自定义："前缀
     const cleanScenarios = userData.scenarios.map(s => {
         return s.replace(/^自定义：/, '').trim();
-    }).join(', ');
+    }).join(', ') : '工作效率需要提升';
     
     return `我是一名${occupation}，日常遇到的痛点有：${cleanPainPoints}。主要使用场景包括：${cleanScenarios}。请为我设计一个专属的 AI 助手，帮助我解决这些问题，提高工作效率。`;
 }
