@@ -154,11 +154,17 @@ function generateRecommendations() {
 
 // 显示推荐结果
 function showRecommendations() {
-    const occupation = userData.occupation;
-    const painPoints = userData.painPoints;
-    const scenarios = userData.scenarios;
+    console.log('🎯 显示推荐结果...');
+    console.log('📊 用户数据:', userData);
     
+    const occupation = userData.occupation || '职场人士';
+    const painPoints = userData.painPoints || [];
+    const scenarios = userData.scenarios || [];
+    
+    // 找到匹配的模板
     let template = recommendationTemplates[occupation];
+    console.log('📋 匹配的模板:', template ? template.title : '未找到，使用默认');
+    
     if (!template) {
         template = {
             title: '🎯 通用高效方案',
@@ -175,9 +181,15 @@ function showRecommendations() {
     }
     
     const container = document.getElementById('recommendations');
-    if (!container) return;
+    console.log('📦 找到容器:', container ? '是' : '否');
     
-    container.innerHTML = `
+    if (!container) {
+        console.error('❌ 找不到 recommendations 容器');
+        return;
+    }
+    
+    // 生成 HTML
+    const html = `
         <div class="text-center mb-8">
             <div class="text-6xl mb-4">${template.icon}</div>
             <h3 class="text-3xl font-bold text-gray-900 mb-2">${template.title}</h3>
@@ -187,7 +199,7 @@ function showRecommendations() {
         <div class="bg-purple-50 rounded-2xl p-6 mb-8">
             <h4 class="text-xl font-bold text-gray-900 mb-4">🎯 你的痛点，我们懂</h4>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                ${painPoints.map(p => `<div class="flex items-center"><span class="text-red-500 mr-2">😫</span><span>${p}</span></div>`).join('')}
+                ${painPoints.length > 0 ? painPoints.map(p => `<div class="flex items-center"><span class="text-red-500 mr-2">😫</span><span>${p}</span></div>`).join('') : '<p class="text-gray-500">暂无痛点</p>'}
             </div>
         </div>
         
@@ -219,30 +231,44 @@ function showRecommendations() {
             <button onclick="restart()" class="text-gray-600 font-semibold py-3 px-6 rounded-xl hover:bg-gray-100 transition">🔄 重新测试</button>
         </div>
     `;
+    
+    console.log('📝 生成 HTML 长度:', html.length);
+    container.innerHTML = html;
+    console.log('✅ 推荐结果已显示');
 }
 
 // 生成简单提示词
 function generateSimplePrompt() {
-    const occupation = userData.occupation;
-    const cleanPainPoints = userData.painPoints.join(', ');
-    const cleanScenarios = userData.scenarios.join(', ');
+    const occupation = userData.occupation || '职场人士';
+    const cleanPainPoints = userData.painPoints.length > 0 ? userData.painPoints.join(', ') : '工作效率需要提升';
+    const cleanScenarios = userData.scenarios.length > 0 ? userData.scenarios.join(', ') : '日常工作';
     return `我是一名${occupation}，日常遇到的痛点有：${cleanPainPoints}。主要使用场景包括：${cleanScenarios}。请为我设计一个专属的 AI 助手，帮助我解决这些问题，提高工作效率。`;
 }
 
 // 生成提示词并跳转
 function generatePromptAndRedirect() {
+    console.log('🚀 生成提示词并跳转...');
+    console.log('📊 用户数据:', userData);
+    
     const simplePrompt = generateSimplePrompt();
     console.log('📝 生成的提示词:', simplePrompt);
     
-    localStorage.setItem('scenarioPrompt', JSON.stringify({
+    // 存储到 localStorage
+    const dataToStore = {
         prompt: simplePrompt,
         occupation: userData.occupation,
         painPoints: userData.painPoints,
         scenarios: userData.scenarios,
         timestamp: Date.now()
-    }));
+    };
     
-    window.location.href = 'index.html?mode=assistant&auto=true';
+    console.log('💾 存储数据:', dataToStore);
+    localStorage.setItem('scenarioPrompt', JSON.stringify(dataToStore));
+    
+    // 跳转到优化器
+    const targetUrl = 'index.html?mode=assistant&auto=true';
+    console.log('🔗 跳转到:', targetUrl);
+    window.location.href = targetUrl;
 }
 
 // 重新开始
