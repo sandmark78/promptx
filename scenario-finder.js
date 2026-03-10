@@ -372,18 +372,11 @@ function showRecommendations() {
         <div class="mt-8 p-6 bg-blue-50 rounded-2xl">
             <h4 class="text-xl font-bold text-gray-900 mb-4">🚀 下一步</h4>
             <p class="text-gray-700 mb-4">点击下方按钮，自动生成你的专属助手提示词，并跳转到提示词优化器进行专业优化！</p>
-            <div class="flex flex-wrap gap-3 justify-center">
-                ${template.features.map(f => `
-                    <div class="bg-white border-2 border-purple-200 text-purple-700 px-4 py-2 rounded-lg text-sm font-medium">
-                        ${f.icon} ${f.name}
-                    </div>
-                `).join('')}
-            </div>
+            <button onclick="generatePromptAndRedirect()" class="gradient-bg text-white font-semibold py-4 px-8 rounded-xl hover:opacity-90 transition text-lg">✨ 生成助手提示词 →</button>
         </div>
         
-        <div class="mt-8 text-center">
-            <button onclick="generatePromptAndRedirect()" class="inline-block gradient-bg text-white font-semibold py-4 px-8 rounded-xl hover:opacity-90 transition text-lg">✨ 生成助手提示词 →</button>
-            <button onclick="restart()" class="ml-4 text-gray-600 font-semibold py-3 px-6 rounded-xl hover:bg-gray-100 transition">重新测试</button>
+        <div class="mt-6 text-center">
+            <button onclick="restart()" class="text-gray-600 font-semibold py-3 px-6 rounded-xl hover:bg-gray-100 transition">🔄 重新测试</button>
         </div>
     `;
 }

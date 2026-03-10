@@ -102,13 +102,6 @@
                     <input type="checkbox" value="没时间学习新工具" class="w-5 h-5 text-purple-600 rounded pain-point">
                     <span class="ml-3">⏰ 没时间学习新工具</span>
                 </label>
-                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 cursor-pointer">
-                    <input type="checkbox" value="自定义" class="w-5 h-5 text-purple-600 rounded pain-point" onchange="toggleCustom('customPainPoint')">
-                    <span class="ml-3">🎯 自定义</span>
-                </label>
-                <div id="customPainPoint" class="hidden md:col-span-2">
-                    <input type="text" id="customPainPointInput" placeholder="请输入你的痛点..." class="w-full p-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500">
-                </div>
             </div>
             <div class="flex justify-between">
                 <button onclick="prevStep(2)" class="text-gray-600 font-semibold py-3 px-6 rounded-xl hover:bg-gray-100 transition">← 上一步</button>
@@ -164,13 +157,6 @@
                     <input type="checkbox" value="教育培训" class="w-5 h-5 text-purple-600 rounded scenario">
                     <span class="ml-3">👨‍🏫 教育培训</span>
                 </label>
-                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 cursor-pointer">
-                    <input type="checkbox" value="自定义" class="w-5 h-5 text-purple-600 rounded scenario" onchange="toggleCustom('customScenario')">
-                    <span class="ml-3">🎯 自定义</span>
-                </label>
-                <div id="customScenario" class="hidden md:col-span-3">
-                    <input type="text" id="customScenarioInput" placeholder="请输入你的使用场景..." class="w-full p-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500">
-                </div>
             </div>
             <div class="flex justify-between">
                 <button onclick="prevStep(3)" class="text-gray-600 font-semibold py-3 px-6 rounded-xl hover:bg-gray-100 transition">← 上一步</button>
