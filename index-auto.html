@@ -1,0 +1,43 @@
+<!-- 自动从场景推荐器导入的脚本 - 插入到 </body> 之前 -->
+<script>
+// 检查是否从场景推荐器跳转而来
+window.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const mode = urlParams.get('mode');
+    const auto = urlParams.get('auto');
+    
+    if (mode === 'assistant' && auto === 'true') {
+        console.log('🦞 从场景推荐器跳转，自动填充...');
+        
+        // 读取场景推荐器生成的数据
+        const scenarioData = JSON.parse(localStorage.getItem('scenarioPrompt') || '{}');
+        
+        if (scenarioData.prompt && scenarioData.timestamp && (Date.now() - scenarioData.timestamp < 300000)) {
+            // 5 分钟内的数据有效
+            const input = document.getElementById('input');
+            if (input) {
+                input.value = scenarioData.prompt;
+                if (typeof updateCharCount === 'function') {
+                    updateCharCount();
+                }
+                
+                // 显示提示
+                if (typeof showToast === 'function') {
+                    showToast('✅ 已从场景推荐器导入需求');
+                }
+                
+                // 延迟 1 秒后自动点击生成
+                setTimeout(() => {
+                    console.log('🚀 自动生成助手提示词...');
+                    if (typeof expandPrompt === 'function') {
+                        expandPrompt();
+                    }
+                }, 1000);
+            }
+        }
+        
+        // 清除存储的数据
+        localStorage.removeItem('scenarioPrompt');
+    }
+});
+</script>

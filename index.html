@@ -243,5 +243,31 @@
     <!-- JavaScript 文件 - 确保顺序正确 -->
     <script src="templates.js"></script>
     <script src="app.js"></script>
+<!-- 自动从场景推荐器导入的脚本 -->
+<script>
+window.addEventListener("DOMContentLoaded", function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const mode = urlParams.get("mode");
+    const auto = urlParams.get("auto");
+    
+    if (mode === "assistant" && auto === "true") {
+        console.log("🦞 从场景推荐器跳转，自动填充...");
+        const scenarioData = JSON.parse(localStorage.getItem("scenarioPrompt") || "{}");
+        if (scenarioData.prompt && scenarioData.timestamp && (Date.now() - scenarioData.timestamp < 300000)) {
+            const input = document.getElementById("input");
+            if (input) {
+                input.value = scenarioData.prompt;
+                if (typeof updateCharCount === "function") updateCharCount();
+                if (typeof showToast === "function") showToast("✅ 已从场景推荐器导入需求");
+                setTimeout(() => {
+                    console.log("🚀 自动生成助手提示词...");
+                    if (typeof expandPrompt === "function") expandPrompt();
+                }, 1000);
+            }
+        }
+        localStorage.removeItem("scenarioPrompt");
+    }
+});
+</script>
 </body>
 </html>
