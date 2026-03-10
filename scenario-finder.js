@@ -69,9 +69,9 @@ const recommendationTemplates = {
     }
 };
 
-// 选择职业选项
-function selectOption(value) {
-    console.log('🦞 选择职业:', value);
+// 选择职业选项 (接受两个参数：type, value)
+function selectOption(type, value) {
+    console.log('🦞 选择职业:', type, value);
     userData.occupation = value;
     
     // 显示/隐藏自定义输入框
